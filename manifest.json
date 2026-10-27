@@ -1,0 +1,10 @@
+{
+    "display_name": "🍑 绛の小手机 (语音通话)",
+    "loading_order": 100,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "author": "哈基米 (For 绛绛)",
+    "version": "1.0.0",
+    "homePage": ""
+}
