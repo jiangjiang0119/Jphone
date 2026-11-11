@@ -1962,7 +1962,7 @@ window.updateNapFromAI = function (payload) {
             if (existing) Object.assign(existing, order, { _wvKey: key });
             else orders.unshift({ ...order, _wvKey: key });
         });
-        nd.orders = orders.slice(0, 15);
+        nd.orders = orders.slice(0, 5);
     }
     saveSettingsDebounced();
     renderNapApp();
@@ -2103,7 +2103,7 @@ $(document).on("click", "#nap_save_custom_color", () => {
             return records.slice(0, 15);
         };
         bd.normal = mergeRecords(payload.normal, bd.normal, "browser-normal", ["title", "desc", "date"]);
-        bd.secret = mergeRecords(payload.secret, bd.secret, "browser-secret", ["type", "date", "query", "answer", "count"]);
+        bd.secret = mergeRecords(payload.secret, bd.secret, "browser-secret", ["type", "date", "query", "answer", "count"]).slice(0, 10);
         saveSettingsDebounced();
         renderBrowserApp();
     };
