@@ -2422,14 +2422,10 @@ const WV_P_XHS = String.raw`【小红书生成指令】
 
         const gds = wvScan(text, "记仇本");
         gds.forEach(({ f }) => {
-            const why = f[3] || "", cut = why.search(/[。！？]/);
-            const headline = cut >= 0 ? why.slice(0, cut + 1).trim() : why.trim();
-            const detail = cut >= 0 ? why.slice(cut + 1).trim() : "";
             window.addGrudgeFromAI?.({
                 title: f[0], type: f[1], level: f[2],
-                complaint: headline ? `“${headline}”` : `“${f[0] || "违约记录"}”`,
-                body: detail,
-                judgment: f[4], remedy: f[5], quote: f[6]
+                complaint: f[3], body: f[4],
+                judgment: f[5], remedy: f[6], quote: f[7]
             });
         });
         if (gds.length) res.push(`记仇本 +${gds.length}`);
