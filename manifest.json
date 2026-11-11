@@ -1,0 +1,8 @@
+{"display_name": "绛の小手机",
+    "loading_order": 10,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "style.css",
+    "author": "绛绛",
+    "version": "1.0.0"}

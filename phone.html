@@ -1,0 +1,1347 @@
+<div id="j_phone_overlay" class="j-phone-hidden" style="position:fixed !important; top:0 !important; left:0 !important; right:0 !important; bottom:0 !important; width:100vw !important; height:100dvh !important; max-width:none !important; max-height:none !important; transform:none !important; z-index:99999 !important; pointer-events:auto;">
+  
+  <!-- 📱 iPhone 17 Pro Max 边框 -->
+  <div class="jp-shell" id="jp_shell_box">
+    <div class="jp-screen-inner" id="jp_screen_inner">
+
+      <!-- ==================== 🍎 状态栏（已去掉✕，整体右移对齐） ==================== -->
+      <div class="jp-statusbar">
+        <div class="jp-status-time-box"><span id="jp_top_clock">08:40</span></div>
+        <div class="jp-island"><div class="jp-island-lens"></div></div>
+        <div class="jp-status-icons-box">
+          <svg class="jp-icon-svg" width="16" height="11" viewBox="0 0 17 12" fill="currentColor">
+            <rect x="0" y="5.8" width="3" height="2.4" rx="0.5"/><rect x="4.4" y="4" width="3" height="4.2" rx="0.5"/><rect x="8.8" y="2.1" width="3" height="6.1" rx="0.5"/><rect x="13.2" y="0" width="3" height="8.2" rx="0.5"/><rect x="0" y="9.8" width="3" height="2.2" rx="0.5"/><rect x="4.4" y="9.8" width="3" height="2.2" rx="0.5"/><rect x="8.8" y="9.8" width="3" height="2.2" rx="0.5"/><rect x="13.2" y="9.8" width="3" height="2.2" rx="0.5" fill="#C7C7CC" opacity="0.6"/>
+          </svg>
+          <svg class="jp-icon-svg" width="17" height="12" viewBox="0 0 18 13" fill="currentColor">
+            <path d="M 0 3.84 A 12.2 12.2 0 0 1 18 3.84 L 16.13 5.58 A 9.6 9.6 0 0 0 1.87 5.58 Z"/><path d="M 3.06 6.65 A 8 8 0 0 1 14.94 6.65 L 13.01 8.39 A 5.4 5.4 0 0 0 4.99 8.39 Z"/><path d="M 9 12 L 6.33 9.59 A 3.6 3.6 0 0 1 11.67 9.59 Z"/>
+          </svg>
+          <div class="jp-battery-box"><div class="jp-battery-body"></div><div class="jp-battery-tip"></div></div>
+        </div>
+      </div>
+
+      <!-- ==================== 主桌面（全透发光白圈液态玻璃 + 自由拖拽） ==================== -->
+      <div id="jp_p_home" class="jp-page active">
+        <div class="jp-swiper" id="jp_desktop_swiper">
+         <!-- 第 1 页：全新对称高定看板（纯净无图白底） -->
+          <div class="jp-slide" style="padding: 2px 14px 4px; display:flex; flex-direction:column; justify-content:flex-start;">
+            
+            <!-- 0. 头部时钟（整体下移，呼吸感更足） -->
+            <div class="desk-clock-box">
+              <div class="desk-big-time" id="jp_big_clock">23:51</div>
+              <div class="desk-sub-date" id="jp_date_text">11月6日 星期五 · 宜与阿宴贴贴 ✨</div>
+            </div>
+
+            <!-- 第一排：🌸 极淡粉线双框（相框 + 双行纪念日） -->
+            <div class="row-two-squares">
+              <!-- 🔲 左：正方形拍立得（默认纯净透明空白，右上角45度标签） -->
+              <div class="glass-card-base theme-faint-pink square-box" style="position:relative;">
+                <div class="polaroid-tag-45">✦ MEMORY</div>
+                <div class="jp-photo-frame" id="jp_polaroid_img" style="width:100%; flex:1; border-radius:12px; background-color:rgba(255,255,255,0.14); background-size:cover !important; background-position:center !important; background-repeat:no-repeat !important; border:0.8px dashed rgba(255,255,255,0.5); display:flex; flex-direction:column; align-items:center; justify-content:center; color:rgba(255,255,255,0.7); font-size:10.5px;">
+                  <span>🖼️ 专属相框</span>
+                  <span style="font-size:8.5px; opacity:0.75; margin-top:2px;">(可在设置中上传)</span>
+                </div>
+                <div style="width:100%; display:flex; justify-content:space-between; align-items:center; padding:3px 2px 0;">
+                  <span class="font-serif-italic" style="font-size:11px; color:#fff; text-shadow:0 1px 3px rgba(0,0,0,0.4);">Dorian & Vera</span>
+                  <span style="font-size:8.5px; color:#fff; background:rgba(255,255,255,0.22); padding:1px 5px; border-radius:6px; border:0.5px solid rgba(255,255,255,0.5);">甜度100%</span>
+                </div>
+              </div>
+
+              <!-- 🔲 右：双人耳机贴贴 + 双行花体相遇与盖章纪念日（默认空白头像圈） -->
+              <div class="glass-card-base theme-faint-pink square-box" style="justify-content:space-between; padding:8px 8px;">
+                <div style="position:relative; width:100%; height:40px; display:flex; justify-content:center; align-items:center;">
+                  <svg style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;" viewBox="0 0 140 40" fill="none">
+                    <path d="M 44 18 Q 30 18 32 36" stroke="rgba(255,255,255,0.85)" stroke-width="1.2" stroke-linecap="round"/>
+                    <path d="M 96 18 Q 110 18 108 36" stroke="rgba(255,255,255,0.85)" stroke-width="1.2" stroke-linecap="round"/>
+                  </svg>
+                  <!-- 两人头像框（与拍立得同款直显结构） -->
+                  <div class="blank-avatar-ring" id="jp_anniv_avatar_ayan" style="margin-right:-8px; z-index:2; background-size:cover; background-position:center;"></div>
+                  <div class="blank-avatar-ring" id="jp_anniv_avatar_jiang" style="z-index:1; background-size:cover; background-position:center;"></div>
+                </div>
+
+                <div style="text-align:center; width:100%;">
+                  <div class="font-serif-italic" style="font-size:11px; color:#fff; text-shadow:0 1px 3px rgba(0,0,0,0.4); line-height:1.3;">
+                    When We Met · <span id="jp_anniv_meet">Day 657</span>
+                  </div>
+                  <div class="font-serif-italic" style="font-size:11px; color:#fff; text-shadow:0 1px 3px rgba(0,0,0,0.4); line-height:1.3; margin-top:1px;">
+                    💍 Signed & Sealed · <span id="jp_anniv_marry">Day 636</span>
+                  </div>
+                </div>
+
+                <div style="width:100%; background:rgba(255,255,255,0.88); border-radius:9px; padding:3px 6px; display:flex; align-items:center; justify-content:space-between; color:#3A4B5A;">
+                  <span style="font-size:8px; font-weight:700;">ENJOY IT ♡</span>
+                  <div style="display:flex; gap:5px; font-size:8px; opacity:0.85;"><span>◀◀</span><span>▶</span><span>▶▶</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 第二排：🧀 极淡金线大横框（双胶囊100%等宽） -->
+            <div class="glass-card-base theme-faint-gold skew-banner-card">
+              <div class="skew-pill pill-top">
+                <div style="display:flex; align-items:center; gap:8px; min-width:0;">
+                  <div class="blank-pill-avatar" id="jp_pill_avatar_ayan" style="background-size:cover; background-position:center;"></div>
+                  <div id="jp_pill_text_ayan" style="font-size:11.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; letter-spacing:0.3px;">
+                    “世界是一场盛大的谎言，你是唯一的真实。”
+                  </div>
+                </div>
+              </div>
+
+              <div class="skew-pill pill-bottom">
+                <div class="font-serif-italic" id="jp_pill_live_time" style="font-size:11.5px; letter-spacing:0.4px;">
+                  It's 23:51:38 Now, Good Night ✨
+                </div>
+                <div class="blank-pill-avatar" id="jp_pill_avatar_jiang" style="background-size:cover; background-position:center;"></div>
+              </div>
+            </div>
+
+            <!-- 第三排：💎 极淡蓝紫线双框（网易云正方形 + 花体英文留白砖） -->
+            <div class="row-two-squares">
+              <!-- 🔲 左：网易云大正方形音乐卡（已去掉 display:none，直接同步网易云App头像！） -->
+              <div class="glass-card-base theme-faint-blue square-box" id="jp_ncm_widget_card" style="justify-content:space-between; cursor:pointer;">
+                <div class="mini-disc-spin" id="jp_ncm_w_disc" style="margin-top:2px;">
+                  <img class="sync-ncm-avatar" src="" style="width:38px; height:38px; border-radius:50%; object-fit:cover;">
+                </div>
+      <div style="width:100%; overflow:hidden; white-space:nowrap; text-align:center; padding:0 4px;">
+        <span class="sync-ncm-title" style="font-size:10.5px; font-weight:600; color:#fff; text-shadow:0 1px 3px rgba(0,0,0,0.4);">
+          Camille's Night - Berk Kaynaş
+        </span>
+      </div>
+      <div class="ncm-mini-btns" style="width:100%; display:flex; justify-content:space-around; align-items:center; padding:0 6px 2px;">
+        <div class="ncm-icon-tap jp-ncm-like-btn">
+          <svg class="sync-like-svg" width="16" height="16" viewBox="0 0 24 24" fill="#FE3A3B" stroke="#FE3A3B" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div class="ncm-icon-tap jp-ncm-play-btn sync-mini-play" style="width:24px; height:24px; border-radius:50%; background:rgba(255,255,255,0.95); display:flex; align-items:center; justify-content:center;">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="#2A3B50"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+        </div>
+        <div class="ncm-icon-tap jp-ncm-next-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔲 右：法式花体英文语录留白砖 -->
+    <div class="glass-card-base theme-faint-blue square-box" style="justify-content:center; text-align:center; padding:14px 10px; gap:6px;">
+      <div class="font-cursive" style="font-size:26px; color:#fff; text-shadow:0 1px 4px rgba(0,0,0,0.3); line-height:1;">
+        Super happy
+      </div>
+      <div style="font-size:13px; color:rgba(255,255,255,0.92);">♡</div>
+      <div class="font-serif-italic" style="font-size:10.5px; color:rgba(255,255,255,0.9); line-height:1.35; text-shadow:0 1px 3px rgba(0,0,0,0.35);">
+        Not in other people's comments.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+          <!-- 第 2 页：可自由挪动大图标页 -->
+          <div class="jp-slide">
+            <div class="jp-grid" id="jp_app_grid">
+              <!-- 🎵 新增：网易云音乐桌面大图标 -->
+              <div class="jp-icon-btn" data-app="jp_p_ncm">
+                <div class="jp-icon-box" id="jp_ico_ncm">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/><path d="M12 9.5V5.5l3.5 1.5"/></svg>
+                </div>
+                <span class="jp-icon-name">网易云音乐</span>
+              </div>
+              <div class="jp-icon-btn" data-app="jp_p_moments">
+                <div class="jp-icon-box" id="jp_ico_moments">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/></svg>
+                </div>
+                <span class="jp-icon-name">朋友圈</span>
+              </div>
+
+              <div class="jp-icon-btn" data-app="jp_p_xhs">
+                <div class="jp-icon-box" id="jp_ico_xhs">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M12 15.5C12 15.5 8.5 13 8.5 10.8C8.5 9.6 9.4 8.8 10.5 8.8C11.2 8.8 11.7 9.2 12 9.7C12.3 9.2 12.8 8.8 13.5 8.8C14.6 8.8 15.5 9.6 15.5 10.8C15.5 13 12 15.5 12 15.5Z" fill="#FFFFFF" stroke="none"/></svg>
+                </div>
+                <span class="jp-icon-name">小红书</span>
+              </div>
+
+              <div class="jp-icon-btn" data-app="jp_p_weibo">
+                <div class="jp-icon-box" id="jp_ico_weibo">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8"><circle cx="12" cy="12" r="4.5"/><ellipse cx="12" cy="12" rx="10" ry="3.8" transform="rotate(-18 12 12)"/></svg>
+                </div>
+                <span class="jp-icon-name">微博</span>
+              </div>
+
+              <div class="jp-icon-btn" data-app="jp_p_forum">
+                <div class="jp-icon-box" id="jp_ico_forum">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8"><rect x="3" y="5" width="13" height="9.5" rx="3"/><rect x="8" y="10" width="13" height="9.5" rx="3"/></svg>
+                </div>
+                <span class="jp-icon-name">暗光岛论坛</span>
+              </div>
+
+              <div class="jp-icon-btn" data-app="jp_p_wallet">
+                <div class="jp-icon-box" id="jp_ico_wallet">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 9.5H21"/><circle cx="16.5" cy="14" r="1.5" fill="#FFFFFF"/></svg>
+                </div>
+                                <span class="jp-icon-name">钱包</span>
+              </div>
+                <!-- 📓 新增：池衿宴的记仇本图标 -->
+              <div class="jp-icon-btn" data-app="jp_p_grudge">
+                <div class="jp-icon-box" id="jp_ico_grudge">
+                  <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M12 7v5l3 2"/></svg>
+                </div>
+                <span class="jp-icon-name">记仇本</span>
+              </div>
+              <!-- 🛍️ 新增：NET-A-PORTER 私人百货图标 -->
+              <div class="jp-icon-btn" data-app="jp_p_nap">
+                <div class="jp-icon-box" id="jp_ico_nap">
+                  <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                </div>
+                <span class="jp-icon-name">NET-A-PORTER</span>
+              </div>
+                            <!-- 🌐 新增：ORBIS 私人浏览器图标 -->
+              <div class="jp-icon-btn" data-app="jp_p_browser">
+                <div class="jp-icon-box" id="jp_ico_browser">
+                  <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8"/><path d="M11.5 3a17 17 0 0 0 0 18M12.5 3a17 17 0 0 1 0 18"/></svg>
+                </div>
+                <span class="jp-icon-name">浏览器</span>
+              </div>
+              <div class="jp-icon-btn" data-app="jp_p_set">
+                <div class="jp-icon-box" id="jp_ico_set">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8"><circle cx="12" cy="12" r="3.5"/><path d="M12 3V5M12 19V21M3 12H5M19 12H21M5.6 5.6L7 7M17 17L18.4 18.4M18.4 5.6L17 7M7 17L5.6 18.4" stroke-linecap="round"/></svg>
+                </div>
+                <span class="jp-icon-name">设置</span>
+              </div>
+            </div>
+          </div>
+
+
+<!-- 第 3 页：织章 · WEAVE 专属单图标 -->
+          <div class="jp-slide" style="padding: 10px 14px;">
+            <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:10px 8px; padding-top:4px;">
+              <div class="jp-icon-btn" data-app="jp_p_weave">
+                <div class="jp-icon-box" id="jp_ico_weave">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5"/>
+                    <path d="M2 12l10 5 10-5"/>
+                  </svg>
+                </div>
+                <span class="jp-icon-name">织章•Weave</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 🔍 经典 iOS 灵动搜索胶囊 -->
+        <div class="jp-search-pill" id="jp_home_search_pill">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span>搜索</span>
+        </div>
+
+        <div class="jp-dots" id="jp_page_dots"><div class="jp-dot main"></div><div class="jp-dot"></div><div class="jp-dot"></div></div>
+
+        <!-- 💊 弹出式折叠控制胶囊 -->
+        <div id="jp_ctrl_capsule" class="jp-ctrl-capsule jp-capsule-hidden">
+          <div id="jp_btn_minimize" class="jp-capsule-item"><span class="jp-cap-icon">➖</span><span>缩小成悬浮球</span></div>
+          <div class="jp-capsule-divider"></div>
+          <div id="jp_btn_close_all" class="jp-capsule-item jp-cap-danger"><span class="jp-cap-icon">❌</span><span>关闭小手机</span></div>
+        </div>
+
+        <!-- 底部全透发光白圈 Dock 栏 -->
+        <div class="jp-dock">
+          <div class="jp-icon-btn" data-app="jp_p_moments"><div class="jp-icon-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8"><path d="M12 20C12 20 5 15.5 5 10.2C5 7.8 7 6 9.3 6C10.7 6 11.6 6.7 12 7.5C12.4 6.7 13.3 6 14.7 6C17 6 19 7.8 19 10.2C19 15.5 12 20 12 20Z"/></svg></div></div>
+          <div class="jp-icon-btn" data-app="jp_p_xhs"><div class="jp-icon-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8"><path d="M12 3L14.5 9.5L21 12L14.5 14.5L12 21L9.5 14.5L3 12L9.5 9.5L12 3Z"/></svg></div></div>
+          <div class="jp-icon-btn" data-app="jp_p_set"><div class="jp-icon-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="7" stroke-dasharray="2 2"/></svg></div></div>
+          <div class="jp-icon-btn" id="jp_dock_ctrl_btn" style="position:relative;">
+            <div class="jp-icon-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg></div>
+            <span style="position:absolute; bottom:-6px; background:rgba(255,255,255,0.85); color:#1E293B; font-size:8px; padding:0 4px; border-radius:4px; line-height:1.3; font-weight:700; white-space:nowrap;">开关</span>
+          </div>
+        </div>
+      </div>
+      
+
+      <!-- ==================== ⚙️ 设置中心 ==================== -->
+      <div id="jp_p_set" class="jp-page">
+        <div class="jp-header"><span class="jp-btn-back">‹ 桌面</span><span>⚙️ 小手机控制台</span><span id="jp_check_ctx_btn" class="jp-btn-gen">👀 检查</span></div>
+        <div class="jp-subtabs">
+          <div class="jp-subtab active" data-sub="jp_sub_api">🔌 API</div>
+          <div class="jp-subtab" data-sub="jp_sub_wi">📚 世界书</div>
+          <div class="jp-subtab" data-sub="jp_sub_preset">📝 预设</div>
+          <div class="jp-subtab" data-sub="jp_sub_theme">🖼️ 美化</div>
+        </div>
+        <div class="jp-body">
+          <!-- API 分栏 -->
+          <div id="jp_sub_api" class="jp-subpane active">
+            <div class="jp-set-card">
+              <div class="jp-set-title">💍 绑定与记忆</div>
+              <div class="jp-field-row">
+                <select id="jp_char_select" class="jp-input" style="flex:1;"></select>
+                <span id="jp_refresh_chars" class="jp-up-btn">🔄</span>
+              </div>
+              <label class="jp-chk-row"><input type="checkbox" id="jp_read_char" checked> 读取设定</label>
+              <label class="jp-chk-row"><input type="checkbox" id="jp_read_user" checked> 读取用户</label>
+              <label class="jp-chk-row"><input type="checkbox" id="jp_read_chat" checked> 读取聊天记录</label>
+            </div>
+            <div class="jp-set-card">
+              <div class="jp-set-title">⚡ API 连接</div>
+              <select id="jp_api_mode" class="jp-input"><option value="st">跟随主 API</option><option value="custom">自定义 API</option></select>
+              <div id="jp_custom_api_box" style="display:none; margin-top:8px;">
+                <input type="text" id="jp_api_url" class="jp-input" placeholder="API 地址">
+                <input type="password" id="jp_api_key" class="jp-input" placeholder="API Key" style="margin-top:4px;">
+                <div style="display:flex; gap:4px; margin-top:4px;"><select id="jp_api_model" class="jp-input"></select><span id="jp_fetch_models" class="jp-up-btn">拉取</span></div>
+              </div>
+              <div style="margin-top:8px; text-align:right;"><span id="jp_save_api_btn" class="jp-btn-gen">💾 保存</span></div>
+            </div>
+          </div>
+          <!-- 世界书分栏 -->
+          <div id="jp_sub_wi" class="jp-subpane">
+            <div class="jp-set-card">
+              <div class="jp-set-title">📚 世界书</div>
+              <div class="jp-field-row"><select id="jp_wi_book_select" class="jp-input"></select><span id="jp_load_wi_books" class="jp-up-btn">载入</span></div>
+              <div id="jp_wi_count_tip" style="font-size:11px; margin:8px 0; color:#7B9651;"></div>
+              <div id="jp_wi_entries_box" class="jp-wi-list">请先载入世界书</div>
+            </div>
+          </div>
+          <!-- 预设分栏 -->
+          <div id="jp_sub_preset" class="jp-subpane">
+            <div class="jp-set-card">
+              <textarea id="jp_preset_textarea" class="jp-textarea" rows="8"></textarea>
+              <div style="display:flex; justify-content:space-between; margin-top:8px;"><span id="jp_reset_preset_btn" class="jp-up-btn">恢复</span><span id="jp_save_preset_btn" class="jp-btn-gen">保存</span></div>
+            </div>
+          </div>
+
+          <!-- 🖼️ 美化分栏 (全套图标自定义上传已100%补回！) -->
+          <div id="jp_sub_theme" class="jp-subpane">
+            <!-- 调色板 -->
+            <div class="jp-set-card">
+              <div class="jp-set-title">🎨 界面文字与状态栏颜色</div>
+              <div style="display:flex; gap:6px; margin-bottom:10px;">
+                <span class="jp-quick-color-btn" data-status="#000000" data-app="#4A5D29" style="background:#000; color:#fff;">经典黑</span>
+                <span class="jp-quick-color-btn" data-status="#FFFFFF" data-app="#FFFFFF" style="background:#333; color:#fff;">极简白</span>
+                <span class="jp-quick-color-btn" data-status="#556B2F" data-app="#4A5D29" style="background:#556B2F; color:#fff;">青柠绿</span>
+              </div>
+              <div class="jp-upload-row"><span>状态栏颜色</span><input type="color" id="jp_status_color_picker"><input type="text" id="jp_status_color_hex" class="jp-input" style="width:70px;"></div>
+              <div class="jp-upload-row"><span>软件名文字</span><input type="color" id="jp_appname_color_picker"><input type="text" id="jp_appname_color_hex" class="jp-input" style="width:70px;"></div>
+            </div>
+
+            <!-- 壁纸与相框 -->
+            <div class="jp-set-card">
+              <div class="jp-set-title">🖼️ 全局壁纸 & 拍立得照片</div>
+              <div class="jp-upload-row"><span>手机全屏壁纸</span><label class="jp-up-btn">📂 选图上传<input type="file" accept="image/*" class="jp-file-in" data-key="wallpaper" data-target="jp_screen_inner" style="display:none"></label></div>
+              <div class="jp-upload-row"><span>第1页拍立得照片</span><label class="jp-up-btn">📂 选图上传<input type="file" accept="image/*" class="jp-file-in" data-key="polaroid" data-target="jp_polaroid_img" data-clear="1" style="display:none"></label></div>
+            </div>
+            <!-- 👤 第一页 4 个圆形头像设置（附带保存同步按钮） -->
+            <div class="jp-set-card">
+              <div class="jp-set-title">👤 第一页 4 个圆形头像设置</div>
+              <div class="jp-upload-row">
+                <span>👦 阿宴头像（纪念日左圆）</span>
+                <label class="jp-up-btn">📂 选图上传<input type="file" accept="image/*" class="jp-file-in" data-key="avatar_ayan_anniv" data-target="jp_anniv_avatar_ayan" style="display:none"></label>
+              </div>
+              <div class="jp-upload-row">
+                <span>👧 绛绛头像（纪念日右圆）</span>
+                <label class="jp-up-btn">📂 选图上传<input type="file" accept="image/*" class="jp-file-in" data-key="avatar_jiang_anniv" data-target="jp_anniv_avatar_jiang" style="display:none"></label>
+              </div>
+              <div class="jp-upload-row">
+                <span>💬 阿宴头像（上层情话胶囊）</span>
+                <label class="jp-up-btn">📂 选图上传<input type="file" accept="image/*" class="jp-file-in" data-key="avatar_ayan_pill" data-target="jp_pill_avatar_ayan" style="display:none"></label>
+              </div>
+              <div class="jp-upload-row">
+                <span>✨ 绛绛头像（下层时间胶囊）</span>
+                <label class="jp-up-btn">📂 选图上传<input type="file" accept="image/*" class="jp-file-in" data-key="avatar_jiang_pill" data-target="jp_pill_avatar_jiang" style="display:none"></label>
+              </div>
+              <div style="margin-top:10px; text-align:right;">
+                <span id="jp_save_theme_avatars_btn" class="jp-btn-gen" style="display:inline-block; padding:5px 12px;">💾 保存并同步到第一页</span>
+              </div>
+            </div>
+            <!-- ✍️ 第一页文字内容与字体颜色自定义 -->
+            <div class="jp-set-card">
+              <div class="jp-set-title">✍️ 第一页卡片文字内容与颜色</div>
+              <div class="jp-upload-row">
+                <span>🎨 第一页卡片文字颜色</span>
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <input type="color" id="jp_w_color_picker" value="#FFFFFF" style="width:24px; height:24px; border:none; background:transparent;">
+                  <input type="text" id="jp_w_color_hex" class="jp-input" style="width:72px;" value="#FFFFFF">
+                </div>
+              </div>
+              <div class="jp-field-col" style="margin-top:6px;">
+                <span>📸 拍立得左下角署名 & 右下角小标：</span>
+                <div style="display:flex; gap:6px;">
+                  <input type="text" id="jp_in_pola_name" class="jp-input" placeholder="Dorian & Vera" style="flex:1;">
+                  <input type="text" id="jp_in_pola_tag" class="jp-input" placeholder="甜度100%" style="width:85px;">
+                </div>
+              </div>
+              <div class="jp-field-col">
+                <span>💌 上层胶囊（阿宴情话）：</span>
+                <input type="text" id="jp_in_pill_text" class="jp-input" placeholder="“世界是一场盛大的谎言，你是唯一的真实。”">
+              </div>
+              <div class="jp-field-col">
+                <span>✨ 右下角玻璃砖（花体主标题 & 副标题）：</span>
+                <input type="text" id="jp_in_quote_big" class="jp-input" placeholder="Super happy" style="margin-bottom:4px;">
+                <input type="text" id="jp_in_quote_small" class="jp-input" placeholder="Not in other people's comments.">
+              </div>
+              <div style="margin-top:8px; text-align:right;">
+                <span id="jp_save_widget_texts_btn" class="jp-btn-gen" style="display:inline-block; padding:5px 12px;">💾 保存文字与颜色</span>
+              </div>
+            </div>
+            
+
+            <!-- 🎀 自定义每个软件的图标图 (找回啦！) -->
+            <div class="jp-set-card">
+              <div class="jp-set-title">🎀 自定义每个软件的图标图</div>
+              <div class="jp-upload-row">
+                <span>🟢 朋友圈 图标</span>
+                <label class="jp-up-btn">📂 换图标<input type="file" accept="image/*" class="jp-file-in" data-key="ico_moments" data-target="jp_ico_moments" data-clear="1" style="display:none"></label>
+              </div>
+              <div class="jp-upload-row">
+                <span>📕 小红书 图标</span>
+                <label class="jp-up-btn">📂 换图标<input type="file" accept="image/*" class="jp-file-in" data-key="ico_xhs" data-target="jp_ico_xhs" data-clear="1" style="display:none"></label>
+              </div>
+              <div class="jp-upload-row">
+                <span>👁️ 微博 图标</span>
+                <label class="jp-up-btn">📂 换图标<input type="file" accept="image/*" class="jp-file-in" data-key="ico_weibo" data-target="jp_ico_weibo" data-clear="1" style="display:none"></label>
+              </div>
+              <div class="jp-upload-row">
+                <span>💬 匿名论坛 图标</span>
+                <label class="jp-up-btn">📂 换图标<input type="file" accept="image/*" class="jp-file-in" data-key="ico_forum" data-target="jp_ico_forum" data-clear="1" style="display:none"></label>
+              </div>
+              <div class="jp-upload-row">
+                <span>⚙️ 设置 图标</span>
+                <label class="jp-up-btn">📂 换图标<input type="file" accept="image/*" class="jp-file-in" data-key="ico_set" data-target="jp_ico_set" data-clear="1" style="display:none"></label>
+              </div>
+            </div>
+
+            <div style="margin-top:10px; text-align:right;"><span id="jp_reset_all_img" style="color:#8AA85B; font-size:11px; cursor:pointer;">🔄 恢复默认全部美化</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== 📕 小红书全新页面 ==================== -->
+      <div id="jp_p_xhs" class="jp-page" style="background: #111; color: #fff; position: relative;">
+        <!-- 主页 -->
+        <div id="xhs_profile_page" style="position: absolute; inset: 0; display: flex; flex-direction: column; background: #111; color: #fff; transition: transform 0.3s ease;">
+          <div id="xhs_bg_img" style="position: absolute; top: 0; left: 0; right: 0; height: 320px; background: linear-gradient(to bottom, #2a2a2a, #0a0a0a); z-index: 0;"></div>
+          
+          <div style="position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; padding: 45px 16px 10px;">
+            <svg class="jp-btn-back" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" style="cursor:pointer;"><path d="M15 18l-6-6 6-6"/></svg>
+            <svg onclick="document.getElementById('xhs_profile_edit_modal').style.display='flex'" style="cursor:pointer;" width="24" height="24" viewBox="0 0 24 24" fill="#fff"><circle cx="5" cy="12" r="2.5"/><circle cx="12" cy="12" r="2.5"/><circle cx="19" cy="12" r="2.5"/></svg>
+          </div>
+
+          <div style="position: relative; z-index: 1; padding: 0 16px;">
+            <div style="display: flex; gap: 16px; align-items: center;">
+              <div style="width: 76px; height: 76px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); overflow: hidden;">
+                <img id="xhs_avatar_img" src="https://api.dicebear.com/7.x/initials/svg?seed=CJY&backgroundColor=333333" style="width:100%; height:100%; object-fit:cover;">
+              </div>
+              <div style="flex: 1;">
+                <div id="xhs_display_name" style="font-size: 18px; font-weight: 600; margin-bottom: 4px;">池衿宴</div>
+                <div style="font-size: 11px; color: rgba(255,255,255,0.7); margin-bottom: 2px;">
+                  小红书号：<span id="xhs_display_id">cjy250119</span>
+                  <svg style="vertical-align:middle; margin-left:2px;" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                </div>
+                <div style="font-size: 11px; color: rgba(255,255,255,0.7);">IP属地：<span id="xhs_display_ip">广东</span></div>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 16px; margin: 16px 0; font-size: 13px;">
+              <div><span style="font-weight: 600;">1</span> <span style="color:rgba(255,255,255,0.7);">关注</span></div>
+              <div><span style="font-weight: 600;">520.1万</span> <span style="color:rgba(255,255,255,0.7);">粉丝</span></div>
+              <div><span style="font-weight: 600;">1854万</span> <span style="color:rgba(255,255,255,0.7);">获赞与收藏</span></div>
+            </div>
+            
+            <div id="xhs_desc_text" style="font-size: 12px; line-height: 1.5; margin-bottom: 12px; white-space: pre-wrap;">世界是一场盛大的谎言
+你是唯一的真实
+
+                 ——池衿宴</div>
+            <div style="display: inline-block; padding: 2px 6px; background: rgba(255,255,255,0.15); border-radius: 10px; font-size: 10px; color: #6db6ff; margin-bottom: 16px;">♂ 28岁</div>
+            <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+              <div style="flex: 1; height: 26px; border-radius: 6px; background: rgba(255,255,255,0.15); display: flex; justify-content: center; align-items: center; font-size: 11px; font-weight: 600;">互相关注 ⋁</div>
+              <div style="flex: 1; height: 26px; border-radius: 6px; background: rgba(255,255,255,0.15); display: flex; justify-content: center; align-items: center; font-size: 11px; font-weight: 600;">发私信</div>
+              <div style="width: 32px; height: 26px; border-radius: 6px; background: rgba(255,255,255,0.15); display: flex; justify-content: center; align-items: center;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <div style="position: relative; z-index: 1; flex: 1; background: #fff; border-radius: 16px 16px 0 0; color: #333; display: flex; flex-direction: column;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px;">
+              <div style="font-size: 14px; font-weight: 600; color: #333; position: relative;">笔记<div style="position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); width: 12px; height: 3px; background: #ff2442; border-radius: 2px;"></div></div>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            </div>
+            <div id="xhs_notes_grid" style="flex: 1; background: #f5f5f5; padding: 4px; display: flex; gap: 4px; overflow-y: auto; position: relative;">
+              <div id="xhs_col_left" style="flex: 1; display: flex; flex-direction: column; gap: 4px;"></div>
+              <div id="xhs_col_right" style="flex: 1; display: flex; flex-direction: column; gap: 4px;"></div>
+              <div id="xhs_empty_tip" style="position:absolute; top:40px; width:100%; text-align:center; font-size:12px; color:#ccc;">老公还没发笔记呢~</div>
+            </div>
+          </div>
+
+          <!-- 资料编辑面板 -->
+          <div id="xhs_profile_edit_modal" style="display:none; position:absolute; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(4px); z-index:50; flex-direction:column; justify-content:flex-end;">
+            <div style="background:#fff; border-radius:16px 16px 0 0; padding:20px; display:flex; flex-direction:column; gap:12px; color:#333;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                <span style="font-size:15px; font-weight:600;">编辑主页资料</span>
+                <svg onclick="document.getElementById('xhs_profile_edit_modal').style.display='none'" style="cursor:pointer;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              </div>
+              <div style="display:flex; gap:10px;">
+                <label style="flex:1; background:#f5f5f5; padding:8px; border-radius:8px; text-align:center; font-size:12px; cursor:pointer;">🖼️ 换主页背景<input type="file" accept="image/*" class="xhs-file-in" data-target="xhs_bg_img" style="display:none"></label>
+                <label style="flex:1; background:#f5f5f5; padding:8px; border-radius:8px; text-align:center; font-size:12px; cursor:pointer;">👤 换头像<input type="file" accept="image/*" class="xhs-file-in" data-target="xhs_avatar_img" style="display:none"></label>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:8px; font-size:12px;">
+                <div style="display:flex; align-items:center; gap:8px;"><span style="width:50px; color:#666;">名字</span><input type="text" id="xhs_edit_name" value="池衿宴" style="flex:1; padding:6px 8px; border:1px solid #eee; border-radius:6px; outline:none; background:#fafafa;"></div>
+                <div style="display:flex; align-items:center; gap:8px;"><span style="width:50px; color:#666;">小红书号</span><input type="text" id="xhs_edit_id" value="cjy250119" style="flex:1; padding:6px 8px; border:1px solid #eee; border-radius:6px; outline:none; background:#fafafa;"></div>
+                <div style="display:flex; align-items:center; gap:8px;"><span style="width:50px; color:#666;">IP属地</span><input type="text" id="xhs_edit_ip" value="广东" style="flex:1; padding:6px 8px; border:1px solid #eee; border-radius:6px; outline:none; background:#fafafa;"></div>
+                <div style="display:flex; align-items:flex-start; gap:8px;"><span style="width:50px; color:#666; margin-top:6px;">简介</span><textarea id="xhs_edit_bio" rows="3" style="flex:1; padding:6px 8px; border:1px solid #eee; border-radius:6px; outline:none; background:#fafafa; resize:none;">世界是一场盛大的谎言
+你是唯一的真实
+
+                 ——池衿宴</textarea></div>
+              </div>
+              <div style="background:#ff2442; color:#fff; text-align:center; padding:10px; border-radius:20px; font-size:13px; font-weight:600; margin-top:8px; cursor:pointer;" id="xhs_save_profile_btn">保存修改</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 笔记详情页 -->
+        <div id="xhs_detail_page" style="position: absolute; inset: 0; background: #fff; z-index: 10; display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.25s ease;">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 45px 12px 10px; border-bottom: 1px solid #f0f0f0;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <svg onclick="document.getElementById('xhs_detail_page').style.transform='translateX(100%)'" style="cursor:pointer;" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <div style="width: 28px; height: 28px; border-radius: 50%; overflow:hidden;"><img id="xhs_detail_avatar" src="https://api.dicebear.com/7.x/initials/svg?seed=CJY&backgroundColor=333333" style="width:100%; height:100%;"></div>
+                <span style="font-size: 13px; font-weight: 600; color: #333;">池衿宴</span>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+              <svg id="xhs_edit_btn" style="cursor:pointer;" width="22" height="22" viewBox="0 0 24 24" fill="#333"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+            </div>
+          </div>
+          <div id="xhs_detail_scroll" style="flex: 1; overflow-y: auto;"></div>
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px 20px; border-top: 1px solid #f0f0f0; gap: 12px;">
+            <div style="flex: 1; height: 34px; background: #f5f5f5; border-radius: 17px; display: flex; align-items: center; padding: 0 6px 0 14px; gap: 6px;">
+              <input type="text" id="xhs_comment_input" placeholder="说点什么..." style="flex:1; min-width:0; border:none; background:transparent; outline:none; font-size:12.5px; color:#222; -webkit-user-select:text !important; user-select:text !important; pointer-events:auto !important;">
+              <button id="xhs_comment_send" style="border:none; background:#ff2442; color:#fff; font-size:11px; font-weight:600; padding:4px 10px; border-radius:13px; cursor:pointer;">发送</button>
+            </div>
+            <div style="display: flex; gap: 14px; color: #333; flex-shrink: 0;">
+              <div onclick="this.style.color='#ff2442'" style="cursor: pointer;"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+              <div onclick="this.style.color='#ffb000'" style="cursor: pointer;"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+            </div>
+          </div>
+          <!-- 📕 详情页三点操作菜单抽屉 -->
+        <div id="xhs_more_menu_modal" style="display:none; position:absolute; inset:0; background:rgba(0,0,0,0.45); z-index:60; flex-direction:column; justify-content:flex-end;">
+          <div style="background:#fff; border-radius:16px 16px 0 0; padding:16px; display:flex; flex-direction:column; gap:8px; color:#333;">
+            <div id="xhs_action_pin" style="padding:12px; font-size:13px; font-weight:600; text-align:center; border-bottom:1px solid #f0f0f0; cursor:pointer;">📌 设为置顶 / 取消置顶</div>
+            <div id="xhs_action_edit" style="padding:12px; font-size:13px; font-weight:600; text-align:center; border-bottom:1px solid #f0f0f0; cursor:pointer;">✍️ 编辑笔记内容</div>
+            <div id="xhs_action_delete" style="padding:12px; font-size:13px; font-weight:600; color:#ff2442; text-align:center; cursor:pointer;">🗑️ 删除此篇笔记</div>
+            <div id="xhs_action_cancel" style="padding:12px; font-size:13px; color:#888; text-align:center; margin-top:4px; background:#f7f7f7; border-radius:10px; cursor:pointer;">取消</div>
+          </div>
+        </div>
+
+        <!-- 📕 笔记内容手动编辑弹窗 -->
+        <div id="xhs_note_edit_modal" style="display:none; position:absolute; inset:0; background:rgba(0,0,0,0.5); backdrop-filter:blur(3px); z-index:70; flex-direction:column; justify-content:flex-end;">
+          <div style="background:#fff; border-radius:16px 16px 0 0; padding:18px; display:flex; flex-direction:column; gap:10px; color:#333; max-height:85%;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:14px; font-weight:600;">编辑笔记内容</span>
+              <span id="xhs_close_note_edit" style="font-size:16px; color:#888; cursor:pointer; padding:0 4px;">✕</span>
+            </div>
+            <input type="text" id="xhs_in_note_title" placeholder="笔记标题" style="padding:8px 10px; border:1px solid #eee; border-radius:8px; font-size:12px; outline:none; background:#fafafa;">
+            <textarea id="xhs_in_note_content" rows="6" placeholder="正文内容……" style="padding:8px 10px; border:1px solid #eee; border-radius:8px; font-size:12px; outline:none; background:#fafafa; resize:none; line-height:1.6;"></textarea>
+            <input type="text" id="xhs_in_note_tags" placeholder="#标签（多个用空格隔开）" style="padding:8px 10px; border:1px solid #eee; border-radius:8px; font-size:11px; outline:none; background:#fafafa;">
+            <div id="xhs_save_note_edit_btn" style="background:#ff2442; color:#fff; text-align:center; padding:10px; border-radius:20px; font-size:13px; font-weight:600; cursor:pointer;">保存笔记</div>
+          </div>
+         </div>
+        </div>
+      </div>
+
+      <!-- 其它空白房间 -->
+      <div id="jp_p_moments" class="jp-page"><div class="jp-header"><span class="jp-btn-back">‹ 桌面</span><span>朋友圈</span></div><div class="jp-body"><div class="jp-empty">🟢 朋友圈房间</div></div></div>
+      <div id="jp_p_weibo" class="jp-page"><div class="jp-header"><span class="jp-btn-back">‹ 桌面</span><span>微博</span></div><div class="jp-body"><div class="jp-empty">👁️ 微博房间</div></div></div>
+      <div id="jp_p_forum" class="jp-page"><div class="jp-header"><span class="jp-btn-back">‹ 桌面</span><span>论坛</span></div><div class="jp-body"><div class="jp-empty">💬 论坛房间</div></div></div>
+<!-- ==================== 💳 私人钱包正式页面 ==================== -->
+      <div id="jp_p_wallet" class="jp-page">
+        <!-- 顶部区 + 银行卡 -->
+        <div style="padding: 40px 18px 12px; flex-shrink: 0; position: relative; z-index: 2;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <svg class="jp-btn-back" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1C1C1E" stroke-width="2" stroke-linecap="round" style="cursor:pointer; background:transparent; padding:0;"><path d="M15 18l-6-6 6-6"/></svg>
+            <!-- 秘密机关1：点击 WALLET 打开暗格设置 -->
+            <span id="jp_wallet_secret_btn1" class="w-thin-text" style="transform-origin: center; font-size: 13.5px; font-weight: 500; color: #1C1C1E; letter-spacing: 2px; cursor: pointer;">WALLET</span>
+            <div style="width: 20px;"></div>
+          </div>
+
+          <!-- 💳 专属银行卡 -->
+          <div id="jp_wallet_card_bg" style="
+            width: 100%; height: 162px;
+            background: url('https://s41.ax1x.com/2026/11/04/pnRlTHS.jpg') center center / 100% 100% no-repeat;
+            border-radius: 16px; padding: 16px 18px 13px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            border: 0.5px solid rgba(255, 255, 255, 0.7);
+            display: flex; flex-direction: column; justify-content: space-between;
+            position: relative; overflow: hidden; color: #1C1C1E;
+          ">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="w-thin-text" style="font-size: 11px; color: #2C2C2E; font-weight: 500; white-space: nowrap;">私人流动资产 (CNY)</span>
+              <!-- 秘密机关2：点击右上角卡号也能打开暗格设置 -->
+              <span id="jp_wallet_secret_btn2" class="w-tall-num" style="font-size: 9.5px; color: #7A581B; letter-spacing: 1.5px; cursor: pointer; white-space: nowrap;">CENTURION · 0119</span>
+            </div>
+
+            <!-- 秘密机关3：点击金额数字切换 金色/黑色/白色 -->
+            <div id="jp_wallet_balance_box" style="margin: auto 0; cursor: pointer;">
+              <div id="jp_wallet_balance" class="w-tall-num" style="font-size: 25px; color: #8B5E12; white-space: nowrap;">
+                ¥ 193,579,800.00
+              </div>
+            </div>
+
+            <!-- 底行（已加 white-space:nowrap，保证“限”字绝不掉下来！） -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 0.5px solid rgba(0,0,0,0.08); font-size: 10px; gap: 6px;">
+              <div style="display: flex; gap: 10px; color: #2C2C2E; white-space: nowrap;">
+                <span>入账 <span id="jp_wallet_in" class="w-tall-num" style="color:#8B5E12; margin-left:2px;">+0.00</span></span>
+                <span>支出 <span id="jp_wallet_out" class="w-tall-num" style="color:#1C1C1E; margin-left:2px;">-0.00</span></span>
+              </div>
+              <span class="w-thin-text" style="transform-origin: right center; color: #7A581B; font-size: 10px; font-weight: 500; white-space: nowrap; flex-shrink: 0;">副卡：绛绛 · 无上限</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 🧾 20% 微透薄纱消费记录区（初始为空白，等待老公生成） -->
+        <div style="
+          flex: 1; min-height: 0;
+          background: rgba(255, 255, 255, 0.08);
+          backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+          border-top: 0.5px solid rgba(255, 255, 255, 0.4);
+          border-radius: 22px 22px 0 0;
+          padding: 12px 16px 14px;
+          display: flex; flex-direction: column; overflow: hidden;
+          position: relative; z-index: 2;
+        ">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding: 0 2px; flex-shrink: 0;">
+            <span class="w-thin-text" style="font-size: 12.5px; font-weight: 500; color: #1C1C1E;">近期账单明细</span>
+            <span class="w-thin-text" style="transform-origin: right center; font-size: 10px; color: #555;">近 10 笔收支</span>
+          </div>
+          <div id="jp_wallet_bill_list" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; padding-bottom: 12px;">
+            <div style="text-align:center; padding:45px 0; color:rgba(28,28,30,0.45); font-size:11.5px;">暂无近期账单明细 · 等待生成刷新 ✨</div>
+          </div>
+        </div>
+
+        <!-- 🕵️‍♀️ 隐藏式钱包暗格弹窗 -->
+        <div id="jp_wallet_secret_modal" style="display:none; position:absolute; inset:0; background:rgba(0,0,0,0.45); backdrop-filter:blur(4px); z-index:50; flex-direction:column; justify-content:flex-end;">
+          <div style="background:rgba(255,255,255,0.96); border-radius:20px 20px 0 0; padding:18px 18px 24px; display:flex; flex-direction:column; gap:12px; color:#222;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:14px; font-weight:600;">💳 钱包自定义暗格</span>
+              <span id="jp_wallet_close_modal" style="font-size:16px; color:#888; cursor:pointer; padding:0 4px;">✕</span>
+            </div>
+            <div style="display:flex; gap:10px;">
+              <label style="flex:1; background:#F2F3F5; padding:10px; border-radius:10px; text-align:center; font-size:12px; cursor:pointer; font-weight:500;">
+                🖼️ 换钱包大背景
+                <input type="file" accept="image/*" class="wallet-file-in" data-type="bg" style="display:none;">
+              </label>
+              <label style="flex:1; background:#F2F3F5; padding:10px; border-radius:10px; text-align:center; font-size:12px; cursor:pointer; font-weight:500;">
+                💳 换银行卡卡面
+                <input type="file" accept="image/*" class="wallet-file-in" data-type="card" style="display:none;">
+              </label>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px; font-size:12px;">
+              <span style="color:#555; white-space:nowrap;">预设本金 (¥)：</span>
+              <input type="number" id="jp_wallet_edit_cap" value="193579800" style="flex:1; padding:7px 10px; border:1px solid #ddd; border-radius:8px; outline:none; font-size:12px; background:#fff; color:#111;">
+            </div>
+            <div id="jp_wallet_save_secret" style="background:#1C1C1E; color:#F5E6C8; text-align:center; padding:10px; border-radius:14px; font-size:13px; font-weight:500; cursor:pointer;">
+              保存并永久锁定
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ==================== 🎵 网易云音乐独立小房子（左右滑动三页面） ==================== -->
+      <div id="jp_p_ncm" class="jp-page">
+        <div class="ncm-swiper" id="jp_ncm_swiper">
+
+          <!-- ████████ 第 1 页：大黑胶唱片页 ████████ -->
+          <div class="ncm-slide" style="background:#0B0B0C; color:#fff; justify-content:space-between;">
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:42px 18px 4px;">
+              <svg class="jp-btn-back" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+              <span style="font-size:12.5px; color:rgba(255,255,255,0.85);">我喜欢的音乐</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3.2-6.9"/><polyline points="21 3 21 8 16 8"/><path d="M11 13c1.5-2.5 4-3.5 7-3"/></svg>
+            </div>
+
+            <!-- 1:1微距复刻唱针 + 黑胶大转盘 -->
+            <div class="jp-ncm-go-slide" data-slide="1" style="flex:1; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer;">
+              <svg id="jp_vinyl_needle" style="position:absolute; top:2px; left:47%; z-index:8; transform-origin:18px 18px; transition:transform 0.38s cubic-bezier(0.4, 0, 0.2, 1); filter:drop-shadow(0 3px 6px rgba(0,0,0,0.6));" width="96" height="132" viewBox="0 0 96 132" fill="none">
+                <circle cx="18" cy="18" r="13.5" fill="rgba(255,255,255,0.12)"/>
+                <circle cx="18" cy="18" r="7.5" fill="#FFFFFF"/>
+                <circle cx="18" cy="18" r="2.6" fill="#CCCCCC"/>
+                <path d="M 19.2 24 L 26.8 60 Q 28.2 66.5 33 71.2 L 49.5 87.5" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                <g transform="translate(49.5, 87.5) rotate(-44)">
+                  <rect x="-2.1" y="-1" width="4.2" height="6.5" fill="#FFFFFF"/>
+                  <rect x="-0.65" y="0" width="1.3" height="4.8" rx="0.6" fill="#1A1A1A"/>
+                  <rect x="-3.5" y="5" width="7" height="11.5" rx="1.2" fill="#FFFFFF"/>
+                  <rect x="-5.3" y="15.5" width="10.6" height="9.8" rx="2" fill="#FFFFFF"/>
+                  <line x1="-1.9" y1="17.8" x2="-1.9" y2="23" stroke="#C2C2C2" stroke-width="1.3" stroke-linecap="round"/>
+                  <line x1="1.9" y1="17.8" x2="1.9" y2="23" stroke="#C2C2C2" stroke-width="1.3" stroke-linecap="round"/>
+                </g>
+              </svg>
+
+              <div class="ncm-mini-disc" id="jp_v_big_disc" style="width:226px; height:226px; margin-top:20px; border:7px solid rgba(255,255,255,0.05); background:repeating-radial-gradient(circle, #111 0px, #111 3px, #1a1a1a 4px, #111 5px);">
+                <img class="sync-ncm-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop" style="width:142px; height:142px; border-radius:50%; object-fit:cover; border:2px solid #080808;">
+              </div>
+
+              <div style="margin-top:22px; background:rgba(255,255,255,0.07); padding:4px 12px; border-radius:14px; font-size:10px; color:rgba(255,255,255,0.75); display:flex; align-items:center; gap:6px;">
+                <svg width="11" height="14" viewBox="0 0 16 22" fill="none" stroke="#E5B678" stroke-width="1.5" stroke-linecap="round"><path d="M7 18c-2.5 0-4-1.5-4-3.5S5 11 8 11s4.5 2 4.5 4.2c0 2.5-2.2 4.3-5.5 4.3M8 20.5V2.5c0-1 1.5-1.5 2.5 0s0 4-2.5 6.5"/></svg>
+                <span>参与音效测评领专属称号</span><span style="color:#E5B678;">立即参与 ›</span>
+              </div>
+            </div>
+
+            <div style="padding:0 22px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <div class="sync-ncm-onlyname" style="font-size:16px; font-weight:700;">Camille's Night</div>
+                <div style="font-size:11.5px; color:rgba(255,255,255,0.55); margin-top:3px; display:flex; align-items:center; gap:6px;">
+                  <span class="sync-ncm-artist">Berk Kaynaş</span>
+                  <span style="background:rgba(255,255,255,0.12); padding:1px 6px; border-radius:8px; font-size:9px;">关注</span>
+                </div>
+              </div>
+              <div style="display:flex; align-items:center; gap:20px;">
+                <div class="ncm-icon-tap jp-ncm-like-btn" style="position:relative;">
+                  <svg class="sync-like-svg" width="22" height="22" viewBox="0 0 24 24" fill="#FE3A3B" stroke="#FE3A3B" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                  <span style="position:absolute; top:-5px; right:-15px; font-size:8.5px; color:#FE3A3B; font-weight:700;">1w+</span>
+                </div>
+                <div style="position:relative;">
+                  <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.7" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="14.5" x2="13" y2="14.5"/></svg>
+                  <span style="position:absolute; top:-5px; right:-13px; font-size:8.5px; color:rgba(255,255,255,0.75);">470</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ncm-player-bottom">
+              <div class="ncm-prog-row">
+                <div class="ncm-prog-bar"><div class="ncm-prog-fill"><div class="ncm-prog-dot"></div></div></div>
+                <div class="ncm-prog-times"><span class="jp-ncm-cur">00:02</span><span>无损音质</span><span class="jp-ncm-dur">03:33</span></div>
+              </div>
+              <div class="ncm-main-ctrls">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.7" stroke-linecap="round"><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"/><path d="M18 4l1 2l2 1l-2 1l-1 2l-1-2l-2-1l2-1z" fill="rgba(255,255,255,0.75)" stroke="none"/></svg>
+                <div class="ncm-icon-tap jp-ncm-prev-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+                <div class="ncm-icon-tap jp-ncm-play-btn sync-big-play"><svg width="32" height="32" viewBox="0 0 24 24" fill="#fff"><polygon points="6 4 20 12 6 20 6 4"/></svg></div>
+                <div class="ncm-icon-tap jp-ncm-next-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+                <div class="ncm-icon-tap jp-ncm-go-slide" data-slide="2"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.8" stroke-linecap="round"><polygon points="3 5 8 8 3 11 3 5" fill="rgba(255,255,255,0.75)"/><line x1="11" y1="7" x2="21" y2="7"/><line x1="3" y1="13.5" x2="21" y2="13.5"/><line x1="3" y1="19" x2="21" y2="19"/></svg></div>
+              </div>
+              <div class="ncm-sub-ctrls">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><rect x="6" y="3" width="12" height="18" rx="2.5"/><circle cx="12" cy="17.5" r="1" fill="#fff"/></svg>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><path d="M9 18h6M10 21h4M15.5 14.5c1.2-1.1 2-2.7 2-4.5a5.5 5.5 0 1 0-11 0c0 1.8.8 3.4 2 4.5.7.6 1 1.5 1 2.5h5c0-1 .3-1.9 1-2.5z"/></svg>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16"/><circle cx="12" cy="8" r="0.8" fill="#fff"/></svg>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v7M9 12.5l3 3 3-3"/><path d="M8.5 16.5h7"/></svg>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="#fff"><circle cx="6" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="18" cy="12" r="1.4"/></svg>
+              </div>
+            </div>
+          </div>
+  <!-- ████████ 第 2 页：歌词界面 ████████ -->
+          <div class="ncm-slide" style="background:#262422; color:#fff; justify-content:space-between;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; padding:40px 18px 6px;">
+              <svg class="jp-btn-back" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2" stroke-linecap="round" style="margin-top:4px;"><path d="M6 9l6 6 6-6"/></svg>
+              <div style="text-align:center;">
+                <div class="sync-ncm-onlyname" style="font-size:13.5px; font-weight:600;">Camille's Night</div>
+                <div style="font-size:10.5px; color:rgba(255,255,255,0.5); margin-top:2px;">
+                  <span class="sync-ncm-artist">Berk Kaynaş</span>
+                  <span style="background:rgba(255,255,255,0.1); padding:1px 5px; border-radius:6px; font-size:8.5px; margin-left:3px;">关注</span>
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:4px; background:rgba(255,255,255,0.08); padding:2px 8px; border-radius:10px; font-size:9.5px; color:rgba(255,255,255,0.65); margin-top:5px;">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16"/><circle cx="12" cy="8" r="1" fill="currentColor"/></svg><span>歌曲百科</span>
+                </div>
+              </div>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="margin-top:4px;"><path d="M21 12a9 9 0 1 1-3.2-6.9"/><polyline points="21 3 21 8 16 8"/><path d="M11 13c1.5-2.5 4-3.5 7-3"/></svg>
+            </div>
+
+            <div class="jp-ncm-go-slide" data-slide="0" style="flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:0 24px; gap:18px; cursor:pointer;">
+              <div>
+                <div style="font-size:14.5px; font-weight:600; color:#fff;">Honey stop to yell like an animal (Animal)</div>
+                <div style="font-size:11.5px; color:rgba(255,255,255,0.65); margin-top:3px;">亲爱的，不要像动物一样嘶吼</div>
+              </div>
+              <div style="opacity:0.42;"><div style="font-size:13.5px;">Story, you and me, it's so criminal (Criminal)</div><div style="font-size:11px; margin-top:3px;">故事，你和我的，太罪恶了</div></div>
+              <div style="opacity:0.42;"><div style="font-size:13.5px;">Switch your volume to the minimal (Minimal)</div><div style="font-size:11px; margin-top:3px;">试图把你的声音屏蔽</div></div>
+              <div style="opacity:0.3;"><div style="font-size:13.5px;">I believe your shit, like it's subliminal</div><div style="font-size:11px; margin-top:3px;">我下意识的相信你的鬼话</div></div>
+            </div>
+<div style="padding:0 24px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+              <div style="display:flex; gap:10px; align-items:center; color:rgba(255,255,255,0.6); font-size:10px;">
+                <span style="border:1px solid rgba(255,255,255,0.35); padding:1px 6px; border-radius:8px;">译</span>
+                <span style="border:1px solid rgba(255,255,255,0.35); width:20px; height:20px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="18" cy="12" r="1.6"/></svg>
+                </span>
+              </div>
+              <div style="display:flex; gap:18px; align-items:center;">
+                <div class="ncm-icon-tap jp-ncm-like-btn"><svg class="sync-like-svg" width="21" height="21" viewBox="0 0 24 24" fill="#FE3A3B" stroke="#FE3A3B" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.6" stroke-linecap="round"><circle cx="16.5" cy="7.5" r="4"/><path d="M13.5 10.5L6 18l-2-2 7.5-7.5"/><path d="M4 20l2-2"/></svg>
+              </div>
+            </div>
+
+            <div class="ncm-player-bottom">
+              <div class="ncm-prog-row">
+                <div class="ncm-prog-bar"><div class="ncm-prog-fill"><div class="ncm-prog-dot"></div></div></div>
+                <div class="ncm-prog-times"><span class="jp-ncm-cur">00:06</span><span>极高音质</span><span class="jp-ncm-dur">03:19</span></div>
+              </div>
+              <div class="ncm-main-ctrls">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.7" stroke-linecap="round"><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"/><path d="M18 4l1 2l2 1l-2 1l-1 2l-1-2l-2-1l2-1z" fill="rgba(255,255,255,0.75)" stroke="none"/></svg>
+                <div class="ncm-icon-tap jp-ncm-prev-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+                <div class="ncm-icon-tap jp-ncm-play-btn sync-big-play"><svg width="32" height="32" viewBox="0 0 24 24" fill="#fff"><polygon points="6 4 20 12 6 20 6 4"/></svg></div>
+                <div class="ncm-icon-tap jp-ncm-next-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+                <div class="ncm-icon-tap jp-ncm-go-slide" data-slide="2"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.8" stroke-linecap="round"><polygon points="3 5 8 8 3 11 3 5" fill="rgba(255,255,255,0.75)"/><line x1="11" y1="7" x2="21" y2="7"/><line x1="3" y1="13.5" x2="21" y2="13.5"/><line x1="3" y1="19" x2="21" y2="19"/></svg></div>
+              </div>
+ <div class="ncm-sub-ctrls">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><rect x="6" y="3" width="12" height="18" rx="2.5"/><circle cx="12" cy="17.5" r="1" fill="#fff"/></svg>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><path d="M9 18h6M10 21h4M15.5 14.5c1.2-1.1 2-2.7 2-4.5a5.5 5.5 0 1 0-11 0c0 1.8.8 3.4 2 4.5.7.6 1 1.5 1 2.5h5c0-1 .3-1.9 1-2.5z"/></svg>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16"/><circle cx="12" cy="8" r="0.8" fill="#fff"/></svg>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v7M9 12.5l3 3 3-3"/><path d="M8.5 16.5h7"/></svg>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="#fff"><circle cx="6" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="18" cy="12" r="1.4"/></svg>
+              </div>
+            </div>
+          </div>
+<!-- ████████ 第 3 页：池衿宴个人主页 ████████ -->
+          <div class="ncm-slide" style="background:#fff;">
+            <div id="jp_ncm_profile_bg" style="
+              position: relative; height: 295px; flex-shrink: 0;
+              background: linear-gradient(to bottom, rgba(40,42,48,0.2) 0%, rgba(55,55,60,0.85) 100%), url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600&auto=format&fit=crop') center center / cover no-repeat;
+              color: #fff; display: flex; flex-direction: column; align-items: center; padding-top: 40px;
+            ">
+              <div style="width:100%; display:flex; justify-content:space-between; align-items:center; padding:0 16px; margin-bottom:10px;">
+                <svg class="jp-btn-back" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                <div style="display:flex; align-items:center; gap:14px;">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="20" y1="20" x2="16" y2="16"/></svg>
+                  <svg id="jp_ncm_open_bg_modal" width="20" height="20" viewBox="0 0 24 24" fill="#fff" style="cursor:pointer;"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+                </div>
+              </div>
+
+              <div style="width: 68px; height: 68px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.9); overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.25);">
+                <img class="sync-ncm-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop" style="width:100%; height:100%; object-fit:cover;">
+              </div>
+
+              <div style="display:flex; align-items:center; gap:6px; margin-top:8px;">
+                <span style="font-size: 16.5px; font-weight: 700;">池衿宴</span>
+                <span style="background:#2B2625; color:#F3C9BA; font-size:9px; padding:1.5px 6px; border-radius:8px; display:inline-flex; align-items:center; gap:3px; font-weight:600; border:0.5px solid rgba(255,255,255,0.2);">
+                  <span style="width:6px; height:6px; border-radius:50%; background:#E04E39; display:inline-block;"></span>VIP·陆
+                </span>
+              </div>
+
+              <div style="font-size: 10px; color: rgba(255,255,255,0.72); margin-top: 4px;"><span style="color:#6db6ff;">♂</span> · 13枚徽章 · 村龄8年</div>
+
+              <div style="display:flex; gap:16px; font-size:11.5px; margin-top:8px;">
+                <div><b>1</b> <span style="opacity:0.75; font-size:10.5px;">关注</span></div>
+                <div><b>520.1万</b> <span style="opacity:0.75; font-size:10.5px;">粉丝</span></div>
+                <div><b>Lv.9</b></div>
+                <div style="position:relative;"><b>532</b> <span style="opacity:0.75; font-size:10.5px;">小时</span><span style="position:absolute; top:-9px; right:-14px; background:#fff; color:#FF3A3A; font-size:7.5px; padding:0 3px; border-radius:5px; font-weight:700;">月报</span></div>
+              </div>
+ <div style="width:100%; padding:0 14px; display:flex; gap:6px; margin-top:12px;">
+                <div style="flex:1; height:30px; background:rgba(255,255,255,0.16); backdrop-filter:blur(6px); border-radius:7px; display:flex; align-items:center; justify-content:center; gap:4px; font-size:11px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>最近</div>
+                <div style="flex:1; height:30px; background:rgba(255,255,255,0.16); backdrop-filter:blur(6px); border-radius:7px; display:flex; align-items:center; justify-content:center; gap:4px; font-size:11px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v6M9 11.5l3 3 3-3"/></svg>本地</div>
+                <div style="flex:1; height:30px; background:rgba(255,255,255,0.16); backdrop-filter:blur(6px); border-radius:7px; display:flex; align-items:center; justify-content:center; gap:4px; font-size:11px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="12 2 2 9 12 22 22 9 12 2"/></svg>会员</div>
+                <div class="jp-ncm-go-slide" data-slide="1" style="flex:1; height:30px; background:rgba(255,255,255,0.16); backdrop-filter:blur(6px); border-radius:7px; display:flex; align-items:center; justify-content:center; gap:4px; font-size:11px; cursor:pointer;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg>歌词</div>
+                <div style="width:30px; height:30px; background:rgba(255,255,255,0.16); backdrop-filter:blur(6px); border-radius:7px; display:flex; align-items:center; justify-content:center;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#fff"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+              </div>
+            </div>
+
+            <div style="flex:1; background:#fff; border-radius:16px 16px 0 0; margin-top:-12px; position:relative; z-index:2; display:flex; flex-direction:column; overflow:hidden; color:#333;">
+              <div style="display:flex; justify-content:space-around; align-items:center; padding:11px 20px 8px; border-bottom:0.5px solid #f2f2f2; font-size:13.5px; color:#888;">
+                <span style="color:#111; font-weight:700; position:relative;">音乐<span style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); width:18px; height:2.5px; background:#FF3A3A; border-radius:2px;"></span></span><span>播客</span><span>笔记</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 16px 6px; font-size:11px; color:#888;">
+                <div style="display:flex; gap:16px; align-items:center;">
+                  <span style="color:#222; font-weight:600; display:inline-flex; align-items:center; gap:3px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>近期</span>
+                  <span>创建⁸</span><span>收藏¹</span>
+                </div>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="#aaa"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+              </div>
+
+              <div style="flex:1; overflow-y:auto; padding:4px 16px 16px; display:flex; flex-direction:column; gap:12px;">
+                <div id="jp_ncm_open_like_drawer" style="display:flex; align-items:center; gap:11px; cursor:pointer;">
+                  <div style="width:46px; height:46px; border-radius:8px; position:relative; overflow:hidden; flex-shrink:0;">
+                    <img class="sync-ncm-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.8);">
+                    <svg style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);" width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                  </div>
+   <div style="flex:1;">
+                    <div style="font-size:13.5px; font-weight:600; color:#111;">我喜欢的音乐</div>
+                    <div style="font-size:10.5px; color:#888; margin-top:2px;"><span id="jp_ncm_song_count">3</span>首 · 520次播放（点击导入/切歌）</div>
+                  </div>
+                  <div style="border:1px solid #e2e2e2; padding:3px 8px; border-radius:14px; font-size:10px; color:#333; font-weight:500; display:inline-flex; align-items:center; gap:3px;">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>心动模式
+                  </div>
+                </div>
+          <div style="display:flex; align-items:center; gap:11px;">
+            <div style="width:46px; height:46px; border-radius:8px; background:linear-gradient(135deg,#3a2d28,#1e1715); display:flex; align-items:flex-end; justify-content:center; gap:3px; padding-bottom:10px; flex-shrink:0;">
+              <span style="width:4px; height:12px; background:#fff; border-radius:1px;"></span><span style="width:4px; height:20px; background:#fff; border-radius:1px;"></span><span style="width:4px; height:15px; background:#fff; border-radius:1px;"></span>
+            </div>
+            <div style="flex:1;"><div style="font-size:13.5px; font-weight:600; color:#111;">听歌排行</div><div style="font-size:10.5px; color:#888; margin-top:2px;">累计听歌 4653首</div></div>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#ccc"><path d="M16 3l5 5-7 7-4 1-3 3-2-2 3-3 1-4 7-7z"/></svg>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:11px;">
+            <div style="width:46px; height:46px; border-radius:8px; background:#222; display:flex; align-items:center; justify-content:center; color:#fff; font-size:10px; font-weight:700; flex-shrink:0;">DEEP</div>
+            <div style="flex:1;"><div style="font-size:13.5px; font-weight:600; color:#111;">妹妹池衿悠</div><div style="font-size:10.5px; color:#888; margin-top:2px;">歌单 · 2首 · 池衿宴</div></div>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#ccc"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- 弹窗A：导入歌曲与歌单列表 -->
+      <div id="jp_ncm_like_drawer" style="display:none; position:absolute; inset:0; background:rgba(0,0,0,0.5); z-index:40; flex-direction:column; justify-content:flex-end;">
+        <div style="background:#fff; border-radius:20px 20px 0 0; padding:16px 16px 24px; max-height:80%; display:flex; flex-direction:column; gap:10px; color:#222;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:14px; font-weight:700;">我喜欢的音乐（导入与歌单）</span>
+            <span id="jp_ncm_close_like" style="font-size:16px; color:#999; cursor:pointer; padding:0 4px;">✕</span>
+          </div>
+          <div style="background:#f7f8fa; padding:10px; border-radius:12px; display:flex; flex-direction:column; gap:6px;">
+            <input type="text" id="jp_in_song_title" placeholder="歌名 - 歌手（留空可由链接自动识别）" style="padding:7px 10px; border:1px solid #e5e5e5; border-radius:8px; font-size:11.5px; outline:none; background:#fff; color:#111;">
+            <input type="text" id="jp_in_song_url" placeholder="粘贴网易云分享链接 / 汽水链接 / mp3直链" style="padding:7px 10px; border:1px solid #e5e5e5; border-radius:8px; font-size:11.5px; outline:none; background:#fff; color:#111;">
+            <div id="jp_ncm_add_song_btn" style="background:#FF3A3A; color:#fff; text-align:center; padding:7px; border-radius:8px; font-size:12px; font-weight:600; cursor:pointer;">+ 解析导入并永久保存</div>
+          </div>
+          <div id="jp_ncm_track_list" style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:6px; max-height:220px;"></div>
+        </div>
+      </div>
+
+      <!-- 弹窗B：更换头像（同步三端）与主页背景 -->
+      <div id="jp_ncm_bg_modal" style="display:none; position:absolute; inset:0; background:rgba(0,0,0,0.5); z-index:45; flex-direction:column; justify-content:flex-end;">
+        <div style="background:#fff; border-radius:20px 20px 0 0; padding:18px 18px 26px; display:flex; flex-direction:column; gap:12px; color:#222;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:14px; font-weight:700;">更换网易云头像与主页背景</span>
+            <span id="jp_ncm_close_bg" style="font-size:16px; color:#999; cursor:pointer; padding:0 4px;">✕</span>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <label style="flex:1; background:#f2f3f5; padding:10px; border-radius:10px; text-align:center; font-size:12px; font-weight:600; cursor:pointer;">
+              换头像(同步音乐卡)
+              <input type="file" accept="image/*" class="ncm-file-in" data-type="avatar" style="display:none;">
+            </label>
+            <label style="flex:1; background:#f2f3f5; padding:10px; border-radius:10px; text-align:center; font-size:12px; font-weight:600; cursor:pointer;">
+              换主页背景图
+              <input type="file" accept="image/*" class="ncm-file-in" data-type="bg" style="display:none;">
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- 底部三页面滑动小圆点 -->
+  <div class="ncm-page-dots" id="jp_ncm_dots">
+    <div class="ncm-pdot active"></div>
+    <div class="ncm-pdot"></div>
+    <div class="ncm-pdot"></div>
+  </div>
+</div>
+
+
+
+<!-- ==================== 📓 池衿宴的记仇本（三红点前奏 + 私藏账本） ==================== -->
+      <div id="jp_p_grudge" class="jp-page">
+        
+        <!-- ████████ 第一层：三个印泥红闪烁光点前奏页 ████████ -->
+        <div id="grudge_v_radar" class="g-layer">
+          <div class="g-grid-bg"></div>
+          <div style="position:relative; z-index:10; padding:44px 18px 0; display:flex; justify-content:space-between; align-items:flex-start;">
+            <div>
+              <div class="g-sub-tag" style="display:flex; align-items:center; gap:5px;">
+                <span class="jp-btn-back" style="color:#5B87DE; font-size:16px; margin-right:4px;">‹</span>
+                DORIAN · OBSERVATION
+              </div>
+              <div class="g-muted" style="margin-top:2px;">PRIVATE MONITOR · 0119</div>
+            </div>
+            <span class="g-open-ledger-btn" style="font-size:11px; color:#5B87DE; font-weight:600; cursor:pointer; background:#fff; padding:4px 10px; border-radius:8px; border:1px solid #b8d2f7;">直接翻阅账本 →</span>
+          </div>
+
+          <!-- 三个印泥红闪烁小红点 -->
+          <div class="g-dot-marker" style="top:32%; left:48%;" data-hint="阿宴盯上了你的嘴唇，并默默在账本上记了一笔……">
+            <div class="g-dot-ripple"></div>
+            <svg class="g-dot-ring" width="42" height="42" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="none" stroke="rgba(198,85,78,0.35)" stroke-width="1" stroke-dasharray="4 5"/><path d="M20 0v6M20 34v6M0 20h6M34 20h6" stroke="rgba(198,85,78,0.65)" stroke-width="1.3"/></svg>
+            <div class="g-dot-core"></div>
+          </div>
+          <div class="g-dot-marker" style="top:54%; left:30%;" data-hint="阿宴回想起你今天推开他的手腕，在小本本上记了一笔……">
+            <div class="g-dot-ripple" style="animation-delay:0.5s;"></div>
+            <svg class="g-dot-ring" width="42" height="42" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="none" stroke="rgba(198,85,78,0.35)" stroke-width="1" stroke-dasharray="4 5"/><path d="M20 0v6M20 34v6M0 20h6M34 20h6" stroke="rgba(198,85,78,0.65)" stroke-width="1.3"/></svg>
+            <div class="g-dot-core"></div>
+          </div>
+          <div class="g-dot-marker" style="top:46%; left:68%;" data-hint="阿宴觉得你今天看他的时间太少，又在小本本上记了一笔……">
+            <div class="g-dot-ripple" style="animation-delay:1s;"></div>
+            <svg class="g-dot-ring" width="42" height="42" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="none" stroke="rgba(198,85,78,0.35)" stroke-width="1" stroke-dasharray="4 5"/><path d="M20 0v6M20 34v6M0 20h6M34 20h6" stroke="rgba(198,85,78,0.65)" stroke-width="1.3"/></svg>
+            <div class="g-dot-core"></div>
+          </div>
+
+          <!-- 点击小红点浮现的显眼文字卡片 -->
+          <div id="g_radar_card" class="g-radar-card">
+            <div style="display:flex; align-items:center; gap:6px; margin-bottom:6px;">
+              <span style="width:7px; height:7px; border-radius:50%; background:#c6554e; display:inline-block;"></span>
+              <span class="g-sub-tag" style="color:#c6554e;">NEW GRUDGE DETECTED</span>
+            </div>
+            <div id="g_radar_text" style="font-family:'Noto Serif SC',serif; font-size:15px; font-weight:600; color:#1E2836; line-height:1.5; margin-bottom:12px;">
+              “阿宴又在小本本上记了你一笔……”
+            </div>
+            <button class="g-btn g-primary g-open-ledger-btn" style="width:100%; padding:10px;">翻开私藏账本查看详情 →</button>
+          </div>
+        </div>
+          <!-- ████████ 第二层：私藏账本主界面（初始列表为空白待生成） ████████ -->
+  <div id="grudge_v_main" class="g-layer g-hidden" style="padding:42px 14px 20px; overflow-y:auto;">
+    <div class="g-card-wrap">
+      <div class="g-between" style="padding-bottom:6px;">
+        <div>
+          <div class="g-sub-tag">DORIAN · PRIVATE RECKONING</div>
+          <div class="g-muted">CONFIDENTIAL · 0119</div>
+        </div>
+        <span id="g_back_to_radar" style="font-size:11px; color:#5B87DE; font-weight:600; cursor:pointer;">‹ 返回雷达</span>
+      </div>
+
+      <!-- 账本列表视图 -->
+      <div id="g_sub_home">
+        <h1 class="g-h1">私藏账本</h1>
+        <div class="g-between">
+          <span class="g-muted">池衿宴的专属债务备忘</span>
+          <span class="g-sub-tag" id="g_folio_no">FOLIO / 000</span>
+        </div>
+
+        <div class="g-panel">
+          <div class="g-between">
+            <span class="g-sub-tag" style="color:#5B87DE;">CURRENT DEBT STATUS</span>
+            <span class="g-claim-tag pending">● 连本带利清算中</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:6px;">
+            <div>
+              <div class="g-big" id="g_unsettled_count">00</div>
+              <div class="g-muted" style="margin-top:2px;">未收清的债</div>
+            </div>
+            <div style="text-align:right">
+              <div class="g-big-red" id="g_total_count">0 条</div>
+              <div class="g-muted" style="margin-top:2px;">待肉偿抵扣</div>
+            </div>
+          </div>
+          <div class="g-divider"></div>
+          <div class="g-between g-muted" style="font-size:10.5px;">
+            <span>当月累积违约</span>
+            <span style="color:#5B87DE; font-weight:600;" id="g_month_tip">+00 笔待执行 ↗</span>
+          </div>
+        </div>
+
+        <div class="g-between" style="margin-top:6px;">
+          <h2 class="g-h2">契约清单</h2>
+          <span class="g-sub-tag">CHRONOLOGICAL LOG</span>
+        </div>
+
+        <div class="g-tabs">
+          <button class="g-btn active" data-gfilter="all">全部账目</button>
+          <button class="g-btn" data-gfilter="pending">待结算</button>
+          <button class="g-btn" data-gfilter="settled">已讨回</button>
+        </div>
+
+        <div id="g_records_box"></div>
+
+        <button class="g-btn g-primary" id="g_go_new_btn" style="width:100%; margin-top:10px; padding:10px 14px; font-size:12.5px;">
+          ＋ 补录一笔欠账
+        </button>
+      </div>
+
+      <!-- 账目详情视图 -->
+      <div id="g_sub_detail" class="g-hidden">
+        <div class="g-back-link" id="g_back_home_1">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>返回账本
+        </div>
+        <div class="g-sub-tag" id="gd_no"></div>
+        <div class="g-detail-title" id="gd_title" style="margin:4px 0 2px;"></div>
+        <div class="g-muted" id="gd_date" style="font-size:10.5px;"></div>
+        <div class="g-divider"></div>
+
+        <div class="g-clause">
+          <div class="g-clause-label">I. 契约事由 / INCIDENT</div>
+          <div class="g-verdict-line" id="gd_complaint"></div>
+          <p class="g-body-text" id="gd_body"></p>
+        </div>
+        <div class="g-clause">
+          <div class="g-clause-label">II. 私人仲裁 / VERDICT</div>
+          <div class="g-verdict-line" id="gd_judgment"></div>
+          <div class="g-muted" id="gd_level" style="font-size:10.5px; margin-top:2px;"></div>
+        </div>
+        <div class="g-clause">
+          <div class="g-clause-label" style="color:#c6554e;">III. 索偿条款 / SETTLEMENT</div>
+          <div class="g-remedy-card"><div class="g-remedy-text" id="gd_remedy"></div></div>
+          <p class="g-muted" style="margin:5px 0 0; font-size:10px;">注：此项违约不接受任何口头认错，仅限身体力行清算。</p>
+        </div>
+        <div class="g-quote-card">
+          <div class="g-clause-label" style="color:#5B87DE;">IV. 私语留档 / HIS WORDS</div>
+          <div class="g-quote-content" id="gd_quote"></div>
+        </div>
+
+        <button class="g-btn g-primary" id="gd_settle_btn" style="width:100%; margin-top:14px; padding:10px 14px; font-size:12.5px;">
+          标记执行：这笔账已在床上讨回
+        </button>
+      </div>
+
+      <!-- 手动补录视图 -->
+      <div id="g_sub_new" class="g-hidden">
+        <div class="g-back-link" id="g_back_home_2">‹ 取消</div>
+        <h1 class="g-h1">补录一笔欠账</h1>
+        <p class="g-muted" style="margin:2px 0 12px;">客观陈述她的违约事实，不接受任何狡辩。</p>
+        <div class="g-clause">
+          <div class="g-clause-label">违约标题</div>
+          <input type="text" id="g_in_title" class="g-input" placeholder="例如：逃逸的早安吻" style="margin-bottom:8px;">
+          <div class="g-clause-label">契约事由描述</div>
+          <textarea id="g_in_body" class="g-textarea" placeholder="例如：明明答应了温存够五分钟，吻到一半就溜下床……"></textarea>
+          <div class="g-clause-label" style="margin-top:8px; color:#c6554e;">索偿条款（惩罚方式）</div>
+          <input type="text" id="g_in_remedy" class="g-input" placeholder="例如：今晚落地窗前补齐剩余时间，少一秒加倍顺延。">
+        </div>
+        <button class="g-btn g-primary" id="g_save_new_btn" style="width:100%; margin-top:12px; padding:10px 14px; font-size:12.5px;">归档录入账本</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ==================== 🛍️ NET-A-PORTER 顶奢私人百货 ==================== -->
+      <div id="jp_p_nap" class="jp-page">
+        <header class="nap-header">
+          <span class="jp-btn-back nap-back-btn">‹</span>
+          <div class="nap-logo">NET-A-PORTER</div>
+          <div class="nap-caption">EIP 顶奢百货与私密护理 · 日内瓦 & 巴黎</div>
+          <!-- 🕵️‍♀️ 秘密调色机关：点击右上角 EIP 001 弹出隐藏配色面板 -->
+          <div class="nap-eip" id="nap_secret_eip_btn">EIP 001</div>
+        </header>
+
+        <div class="nap-account">
+          <div>
+            <b>MR. CHI · 私人黑卡账户</b>
+            <small>池衿宴 · 全球免审直通权限</small>
+          </div>
+          <div class="nap-for">
+            For Mademoiselle Jiang
+            <em>绛绛小姐专属配额</em>
+          </div>
+        </div>
+
+        <main class="nap-main">
+          <!-- 页面 1：私人购物袋（初始空白待生成） -->
+          <section class="nap-subpage active" id="nap_page_bag">
+            <div class="nap-heading">
+              <div>
+                <div class="nap-overline">PRIVATE SELECTION</div>
+                <h1>私人百货清单</h1>
+              </div>
+              <span class="nap-count" id="nap_bag_count">共 00 件</span>
+            </div>
+
+            <div class="nap-advisor">
+              <div class="nap-advisor-main">
+                <div class="nap-advisor-mark">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M8 10a4 4 0 0 0 8 0"/></svg>
+                </div>
+                <div>
+                  <b>EIP 私人买手与私密百货部</b>
+                  <small>含高定成衣及卧室私密日用品 · 全程无标封箱</small>
+                </div>
+              </div>
+              <span class="nap-advisor-side">仅限本人签收</span>
+            </div>
+
+            <div id="nap_products_box"></div>
+
+            <div class="nap-summary">
+              <div class="nap-summary-row"><span>选品总额小计</span><b id="nap_subtotal">¥ 0</b></div>
+              <div class="nap-summary-row"><span>隐私专车配送</span><b>EIP 尊享免费</b></div>
+              <div class="nap-total">
+                <span>应付总额 · TOTAL</span>
+                <strong id="nap_total">¥ 0</strong>
+              </div>
+              <button class="nap-confirm" id="nap_consult_btn">确认结算 · 由私人专车密送至主卧</button>
+              <p class="nap-notice" id="nap_notice_tip"></p>
+            </div>
+          </section>
+
+          <!-- 页面 2：私密采购档案（初始空白待生成） -->
+          <section class="nap-subpage" id="nap_page_orders">
+            <div class="nap-heading">
+              <div>
+                <div class="nap-overline">ORDER ARCHIVE</div>
+                <h1>私密采购档案</h1>
+              </div>
+              <span class="nap-count">2026 年度</span>
+            </div>
+            <div id="nap_orders_box"></div>
+          </section>
+        </main>
+
+        <nav class="nap-nav">
+          <button class="nap-tab active" data-nappage="bag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/></svg>
+            私人购物袋 · BAG
+          </button>
+          <button class="nap-tab" data-nappage="orders">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M3 9h18M8 14h8"/></svg>
+            采购档案 · ORDERS
+          </button>
+        </nav>
+
+        <!-- 🕵️‍♀️ 隐藏式 EIP 001 调色暗格弹窗（平时完全隐形） -->
+        <div id="nap_color_modal" style="display:none; position:absolute; inset:0; background:rgba(0,0,0,0.4); backdrop-filter:blur(4px); z-index:60; flex-direction:column; justify-content:flex-end;">
+          <div style="background:#fff; border-radius:12px 12px 0 0; padding:18px 18px 26px; display:flex; flex-direction:column; gap:12px; color:#273747;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:13px; font-weight:600; letter-spacing:0.5px;">EIP 001 · 私人百货配色定制</span>
+              <span id="nap_close_color_modal" style="font-size:15px; color:#929BA5; cursor:pointer; padding:0 4px;">✕</span>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:6px;">
+              <button class="nap-preset-btn" data-a="#28517F" data-b="#C7E1FA"><span class="nap-sw"><i style="background:#28517F"></i><i style="background:#C7E1FA"></i></span><small>皇家蓝</small></button>
+              <button class="nap-preset-btn" data-a="#01847F" data-b="#F9D2E4"><span class="nap-sw"><i style="background:#01847F"></i><i style="background:#F9D2E4"></i></span><small>马尔斯绿</small></button>
+              <button class="nap-preset-btn" data-a="#9F899E" data-b="#F2EEEB"><span class="nap-sw"><i style="background:#9F899E"></i><i style="background:#F2EEEB"></i></span><small>扁豆紫</small></button>
+              <button class="nap-preset-btn" data-a="#72749A" data-b="#FFF5DF"><span class="nap-sw"><i style="background:#72749A"></i><i style="background:#FFF5DF"></i></span><small>月光灰</small></button>
+              <button class="nap-preset-btn" data-a="#7D7FA3" data-b="#F1E2D2"><span class="nap-sw"><i style="background:#7D7FA3"></i><i style="background:#F1E2D2"></i></span><small>月灰</small></button>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:11.5px; pt:4px; border-top:1px solid #eee; padding-top:8px;">
+              <span>自定义主色 (文字/按钮)：</span>
+              <div style="display:flex; gap:6px; align-items:center;">
+                <input type="color" id="nap_in_accent_pick" value="#28517F" style="width:22px; height:22px; border:none; background:none;">
+                <input type="text" id="nap_in_accent_hex" value="#28517F" style="width:72px; padding:4px 6px; border:1px solid #ddd; border-radius:6px; font-size:11px;">
+              </div>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:11.5px;">
+              <span>自定义辅色 (细边/点缀)：</span>
+              <div style="display:flex; gap:6px; align-items:center;">
+                <input type="color" id="nap_in_contrast_pick" value="#C7E1FA" style="width:22px; height:22px; border:none; background:none;">
+                <input type="text" id="nap_in_contrast_hex" value="#C7E1FA" style="width:72px; padding:4px 6px; border:1px solid #ddd; border-radius:6px; font-size:11px;">
+              </div>
+            </div>
+            <button id="nap_save_custom_color" style="width:100%; padding:10px; background:var(--nap-accent, #28517F); color:#fff; border:none; border-radius:6px; font-size:11.5px; letter-spacing:1px;">保存配色方案</button>
+          </div>
+        </div>
+      </div>
+     
+
+
+      <!-- ==================== 🌐 ORBIS 私人浏览器（日常商务 + 深夜无痕） ==================== -->
+      <div id="jp_p_browser" class="jp-page">
+        <div class="orb-header">
+          <div class="orb-header-top">
+            <div style="display:flex; align-items:center; gap:2px;">
+              <span class="jp-btn-back orb-back-btn">‹</span>
+              <div class="orb-brand">
+                <span class="orb-brand-main" id="orb_brand_main">ACCÈS MONDIAL</span>
+                <small class="orb-brand-sub" id="orb_brand_sub">MR. CHI · NAVIGATION</small>
+              </div>
+            </div>
+            <div class="orb-mode-badge" id="orb_btn_toggle_mode">
+              <svg id="orb_mode_icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span id="orb_mode_label">日常商务</span>
+            </div>
+          </div>
+          <div class="orb-url-bar" id="orb_global_url_bar">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7E8B99" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" class="orb-url-input" id="orb_normal_input" placeholder="输入网址或检索商业密档...">
+            <span id="orb_normal_search_btn" style="font-size:10.5px; color:#475569; font-weight:600; cursor:pointer; padding:2px 4px;">检索</span>
+          </div>
+        </div>
+
+        <div class="orb-viewport">
+          <!-- 视图一：常规浏览（冷调月光灰 · 初始空白待生成） -->
+          <div class="orb-view-panel" id="orb_view_normal">
+            <div class="orb-sec-label"><span>FREQUENT · 常用直达</span><span style="font-size:9px; opacity:0.7;">VIP</span></div>
+            <div class="orb-quick-links">
+              <div class="orb-quick-item" data-q="日内瓦私行离岸信托最新净值"><div class="orb-quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="7" y1="15" x2="17" y2="15"/></svg></div><span class="orb-quick-title">日内瓦私行</span></div>
+              <div class="orb-quick-item" data-q="亚太与欧洲乳业大区季度财报"><div class="orb-quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></div><span class="orb-quick-title">亚太乳业看板</span></div>
+              <div class="orb-quick-item" data-q="苏富比高定珠宝私洽目录"><div class="orb-quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><span class="orb-quick-title">苏富比珠宝展</span></div>
+              <div class="orb-quick-item" data-q="池太太专属庄园与航班排期"><div class="orb-quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><span class="orb-quick-title">绛绛专属直达</span></div>
+            </div>
+            <div class="orb-feature" id="orb_briefing_card">
+              <div class="orb-feature-label">DAILY BRIEFING · 实时摘要</div>
+              <h2 id="orb_briefing_title">全球商业终端待命</h2>
+              <p id="orb_briefing_desc">等待生成刷新阿宴今日的跨国并购简报与私人备忘 ✨</p>
+            </div>
+            <div class="orb-sec-label"><span>最近搜索 · RECENT SEARCHES</span><span id="orb_clear_normal" style="font-size:9px; opacity:0.7; cursor:pointer;">CLEAR</span></div>
+            <div class="orb-records" id="orb_normal_records"></div>
+          </div>
+
+          <!-- 视图二：深夜无痕浏览（初始空白待生成 + 5秒薄雾消散） -->
+          <div class="orb-view-panel" id="orb_view_secret">
+            <div class="orb-kicker">INCOGNITO ENGINE · BURN ON EXIT</div>
+            <h1 class="orb-private-h1">无痕检索</h1>
+            <div class="orb-sub">Traces dissolved in mist, burned upon exit.</div>
+            <div class="orb-private-search">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#B58EAE" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input id="orb_secret_input" placeholder="输入不留痕迹的私密检索词……">
+              <button id="orb_secret_search_btn">检索</button>
+            </div>
+            <div class="orb-sec-secret"><strong>未销毁的隐秘检索</strong><span id="orb_secret_count">INCOGNITO CACHE · 00</span></div>
+            <div class="orb-results" id="orb_secret_results"></div>
+            <div class="orb-bottom-secret">✧　退出即焚 · 仅 MR. CHI 本人可见　✧</div>
+          </div>
+        </div>
+
+        <!-- 底部 Safari 仿真导航栏 -->
+        <div class="orb-dock">
+          <div class="orb-dock-btn jp-btn-back" title="返回桌面"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></div>
+          <div class="orb-dock-btn" id="orb_dock_top" title="回到顶部"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+          <div class="orb-dock-btn" id="orb_dock_secret" title="切换无痕"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="orb-dock-btn" id="orb_dock_clear_secret" title="销毁无痕缓存"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+          <div class="orb-dock-btn" id="orb_dock_switch" title="切换视图"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="13" height="13" rx="2"/><path d="M8 21h11a2 2 0 0 0 2-2V8"/></svg></div>
+        </div>
+      </div>
+      
+  
+<!-- ==================== 📜 织章 · WEAVE 中枢房间 ==================== -->
+      <div id="jp_p_weave" class="jp-page">
+        <header class="wv-top">
+          <div class="wv-brandrow">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <button class="wv-homeback" id="wv_home_back" aria-label="返回桌面">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+              </button>
+              <div class="wv-brand">CHI &amp; JIANG<small>AN UNWRITTEN STORY</small></div>
+            </div>
+            <span class="wv-seal">C · J</span>
+          </div>
+
+          <!-- 滑窗式横向滚动导航栏（含第5栏：卷宗） -->
+          <div class="wv-nav-wrap">
+            <nav class="wv-nav" id="wv_nav">
+              <button class="active" data-wvtab="rules">
+                <svg viewBox="0 0 24 24"><path d="M5 5h14M5 12h14M5 19h9"/><circle cx="3" cy="5" r=".6" fill="currentColor"/><circle cx="3" cy="12" r=".6" fill="currentColor"/></svg>
+                <span>规则库</span>
+              </button>
+              <button data-wvtab="templates">
+                <svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+                <span>格式集</span>
+              </button>
+              <button data-wvtab="batch">
+                <svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><path d="M15 16h5M17.5 13.5v5"/></svg>
+                <span>暗光织章</span>
+              </button>
+              <button data-wvtab="single">
+                <svg viewBox="0 0 24 24"><path d="M6 4h12v16H6zM9 8h6M9 12h6M9 16h3"/></svg>
+                <span>独章</span>
+              </button>
+              <button data-wvtab="archive">
+                <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M10 14h4"/></svg>
+                <span>卷宗</span>
+              </button>
+            </nav>
+          </div>
+        </header>
+
+        <main class="wv-main" id="wv_main"></main>
+
+        <div class="wv-footer">
+          <span>CHI &amp; JIANG</span>
+          <b>AN UNWRITTEN STORY</b>
+          <span>EDITION 01</span>
+        </div>
+
+        <!-- 内部独立编辑抽屉（右上角带 还原内置 / 我的自定 / SAVE） -->
+        <div class="wv-editor" id="wv_editor">
+          <div class="wv-edithead">
+            <div style="display:flex; align-items:center; gap:4px;">
+              <button class="wv-back" id="wv_edit_back" aria-label="返回">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 18-6-6 6-6"/></svg>
+              </button>
+              <strong id="wv_edit_title">EDIT CONFIG</strong>
+            </div>
+            <div id="wv_edit_sync_tools" style="display:flex; align-items:center; gap:6px;"></div>
+          </div>
+          <div class="wv-editbody" id="wv_edit_body"></div>
+        </div>
+
+        <div class="wv-modalbg" id="wv_modal">
+          <div class="wv-modal">
+            <h3 id="wv_modal_title">NEW ENTRY</h3>
+            <input id="wv_modal_input" placeholder="输入名称……">
+            <div class="wv-modalactions">
+              <button class="wv-secondary" id="wv_modal_cancel">取消</button>
+              <button class="wv-save" id="wv_modal_confirm">CREATE</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="wv-toast" id="wv_toast"></div>
+      </div>
+          
+                  
+     
+            <div class="jp-homebar" title="点击返回桌面"></div>
+    </div>
+  </div>
+</div>
+ 
