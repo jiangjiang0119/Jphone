@@ -1156,8 +1156,9 @@
     line-height: 1.7;
 }
 
+/* 原始回执编辑层避开虚拟状态栏（时间 / 灵动岛 / 电池共 40px） */
 .wv-editor:has(.wv-raw-cache-editor) {
-    inset: 0;
+    inset: 40px 0 0;
     z-index: 30;
 }
 
@@ -1168,7 +1169,27 @@
     padding-bottom: max(24px, env(safe-area-inset-bottom));
 }
 
+/* 编辑工具栏固定在状态栏下方，正文独立滚动 */
 .wv-editor:has(.wv-raw-cache-editor) .wv-edithead {
-    padding-top: env(safe-area-inset-top);
+    height: 58px;
     min-height: 58px;
+    padding: 0 10px;
+}
+
+/* iOS 风格返回键：44×44px 实际触控区域 */
+.wv-editor .wv-back {
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.wv-editor .wv-back svg {
+    width: 22px;
+    height: 22px;
+    display: block;
 }
