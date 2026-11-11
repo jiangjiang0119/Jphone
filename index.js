@@ -2269,15 +2269,6 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         r.color = r.color || colors[i % colors.length];
     });
     
-        // 🔁 一次性同步：旧存档刷入新版内置指令与解析规则
-    const wvSync = extension_settings[extName].weaveData;
-    if (wvSync.tplVer !== 3) {
-        wvSync.templates.forEach((t, i) => { if (DEFAULT_WEAVE_TEMPLATES[i]) t.content = DEFAULT_WEAVE_TEMPLATES[i].content; });
-        wvSync.rules = JSON.parse(JSON.stringify(WV_DEFAULT_RULES));
-        wvSync.lastRawCache = "";
-        wvSync.tplVer = 2;
-        saveSettingsDebounced();
-    }
     
    // =========================================================================
     // 📜【App 模块：织章 · Weave (2A/3)】读取真数据与前 4 栏渲染
