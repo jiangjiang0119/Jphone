@@ -893,26 +893,37 @@ jQuery(async () => {
         toastr.success("笔记修改已保存！✨");
     });
 
-    // 🚀【核心 AI 接球接口】新笔记自动插入在置顶正下方第 1 位
+    // 🚀【核心 AI 接球接口】相同回执更新原笔记，不重复插入
     window.addXhsNoteFromAI = function (payload) {
         if (!payload || typeof payload !== "object") return;
         const notes = extension_settings[extName].xhsNotes || (extension_settings[extName].xhsNotes = []);
+        const title = payload.title || "最新随手记录";
+        const content = payload.content || "";
+        const tags = payload.tags || "#日常生活";
+        const key = wvMakeKey("xhs", [title, content, tags]);
+        const existing = notes.find(n => n._wvKey === key || wvMakeKey("xhs", [n.title || "", n.content || "", n.tags || ""]) === key);
         const now = new Date();
         const timeStr = `${now.getMonth() + 1}月${now.getDate()}日 ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
-        const newNote = {
-            id: "note_" + Date.now(),
-            title: payload.title || "最新随手记录",
-            content: payload.content || "",
-            tags: payload.tags || "#日常生活",
-            likes: payload.likes || (Math.floor(Math.random() * 10 + 1) + "." + Math.floor(Math.random() * 9) + "w"),
-            time: payload.time || timeStr,
-            isPinned: false,
-            bg: xhsCoverBgs[notes.length % xhsCoverBgs.length]
-        };
-        const pinIdx = notes.findIndex(x => x.isPinned);
-        if (pinIdx !== -1) notes.splice(pinIdx + 1, 0, newNote);
-        else notes.unshift(newNote);
-
+        if (existing) {
+            Object.assign(existing, {
+                title, content, tags,
+                likes: payload.likes || existing.likes,
+                _wvKey: key
+            });
+        } else {
+            const newNote = {
+                id: "note_" + Date.now(),
+                title, content, tags,
+                likes: payload.likes || (Math.floor(Math.random() * 10 + 1) + "." + Math.floor(Math.random() * 9) + "w"),
+                time: payload.time || timeStr,
+                isPinned: false,
+                bg: xhsCoverBgs[notes.length % xhsCoverBgs.length],
+                _wvKey: key
+            };
+            const pinIdx = notes.findIndex(x => x.isPinned);
+            if (pinIdx !== -1) notes.splice(pinIdx + 1, 0, newNote);
+            else notes.unshift(newNote);
+        }
         saveSettingsDebounced();
         renderXhsNotes();
     };
@@ -1039,19 +1050,26 @@ jQuery(async () => {
     window.updateWalletFromAI = function (newBillsArray) {
         if (!Array.isArray(newBillsArray) || !newBillsArray.length) return;
         const w = extension_settings[extName].walletData;
+        if (!Array.isArray(w.aiBillKeys)) {
+            w.aiBillKeys = (w.bills || []).map(b => wvMakeKey("wallet", [b.title || "", Number(b.amount) || 0, b.sub || ""]));
+        }
+        const accepted = [];
         let sumIn = 0, sumOut = 0;
-
         newBillsArray.slice(0, 10).forEach(b => {
+            const key = wvMakeKey("wallet", [b.title || "", Number(b.amount) || 0, b.sub || ""]);
+            if (w.aiBillKeys.includes(key)) return;
+            w.aiBillKeys.push(key);
+            accepted.push({ ...b, _wvKey: key });
             const a = Number(b.amount) || 0;
             if (a >= 0) sumIn += a;
             else sumOut += Math.abs(a);
         });
-
-        w.balance = (Number(w.balance) || 0) + sumIn - sumOut;
-        w.lastIn = "+" + (sumIn >= 10000 ? (sumIn / 10000).toFixed(1) + "万" : sumIn.toFixed(2));
-        w.lastOut = "-" + (sumOut >= 10000 ? (sumOut / 10000).toFixed(1) + "万" : sumOut.toFixed(2));
-        w.bills = newBillsArray.slice(0, 10);
-
+        if (accepted.length) {
+            w.balance = (Number(w.balance) || 0) + sumIn - sumOut;
+            w.lastIn = "+" + (sumIn >= 10000 ? (sumIn / 10000).toFixed(1) + "万" : sumIn.toFixed(2));
+            w.lastOut = "-" + (sumOut >= 10000 ? (sumOut / 10000).toFixed(1) + "万" : sumOut.toFixed(2));
+            w.bills = accepted.slice(0, 10);
+        }
         saveSettingsDebounced();
         renderWalletApp();
     };
@@ -1711,22 +1729,35 @@ jQuery(async () => {
     window.addGrudgeFromAI = function (item) {
         if (!item || typeof item !== "object") return;
         const gd = ensureGrudgeData();
+        const title = item.title || "突发违约";
+        const type = item.type || "独占逾矩";
+        const complaint = item.complaint || "“又不乖了。”";
+        const body = item.body || "";
+        const key = wvMakeKey("grudge", [title, type, complaint, body]);
+        const existing = gd.records.find(r => r._wvKey === key || wvMakeKey("grudge", [r.title || "", r.type || "", r.complaint || "", r.body || ""]) === key);
         const nextNo = String(gd.records.length + 1).padStart(3, "0");
         const lv = Math.min(3, Math.max(1, parseInt(String(item.level || "2").match(/\d/)?.[0] || 2)));
-        gd.records.unshift({
-            no: item.no || nextNo,
-            date: item.date || "刚刚 · 亲笔入卷",
-            title: item.title || "突发违约",
-            type: item.type || "独占逾矩",
-            level: lv,
-            complaint: item.complaint || "“又不乖了。”",
-            body: item.body || "",
+        const updated = {
+            title, type, level: lv, complaint, body,
             judgment: item.judgment || "当场扣押，等待清算。",
             remedy: item.remedy || "今夜在主卧连本带利讨清。",
             amount: item.amount || "违约欠款 · 连本带利",
             quote: item.quote || "账本又添了一行，池太太准备好怎么还了么？",
-            settled: false
-        });
+            _wvKey: key
+        };
+        if (existing) {
+            Object.assign(existing, updated);
+            if (!existing.no) existing.no = item.no || nextNo;
+            if (!existing.date) existing.date = item.date || "刚刚 · 亲笔入卷";
+            // 保留用户已经手动设置的结清状态
+        } else {
+            gd.records.unshift({
+                no: item.no || nextNo,
+                date: item.date || "刚刚 · 亲笔入卷",
+                ...updated,
+                settled: false
+            });
+        }
         saveSettingsDebounced();
         renderGrudgeApp();
     };
@@ -1923,7 +1954,16 @@ $(document).on("click", "#g_save_new_btn", () => {
 window.updateNapFromAI = function (payload) {
     const nd = ensureNapData();
     if (Array.isArray(payload?.bag)) nd.bag = payload.bag;
-    if (Array.isArray(payload?.orders)) nd.orders = payload.orders.concat(nd.orders).slice(0, 15);
+    if (Array.isArray(payload?.orders) && payload.orders.length) {
+        const orders = Array.isArray(nd.orders) ? nd.orders : [];
+        payload.orders.forEach(order => {
+            const key = wvMakeKey("nap-order", order.no ? [order.no] : [order.name || "", order.price || 0, order.desc || "", order.archive || ""]);
+            const existing = orders.find(o => o._wvKey === key || wvMakeKey("nap-order", o.no ? [o.no] : [o.name || "", o.price || 0, o.desc || "", o.archive || ""]) === key);
+            if (existing) Object.assign(existing, order, { _wvKey: key });
+            else orders.unshift({ ...order, _wvKey: key });
+        });
+        nd.orders = orders.slice(0, 15);
+    }
     saveSettingsDebounced();
     renderNapApp();
 };
@@ -2051,12 +2091,19 @@ $(document).on("click", "#nap_save_custom_color", () => {
         if (payload.briefing && (payload.briefing.title || payload.briefing.desc)) {
             bd.briefing = { title: payload.briefing.title || bd.briefing.title, desc: payload.briefing.desc || bd.briefing.desc };
         }
-        if (Array.isArray(payload.normal) && payload.normal.length) {
-            bd.normal = payload.normal.concat(bd.normal).slice(0, 15);
-        }
-        if (Array.isArray(payload.secret) && payload.secret.length) {
-            bd.secret = payload.secret.concat(bd.secret).slice(0, 15);
-        }
+        const mergeRecords = (incoming, current, type, fields) => {
+            if (!Array.isArray(incoming) || !incoming.length) return current || [];
+            const records = Array.isArray(current) ? current : [];
+            incoming.forEach(item => {
+                const key = wvMakeKey(type, fields.map(field => item[field] ?? ""));
+                const existing = records.find(x => x._wvKey === key || wvMakeKey(type, fields.map(field => x[field] ?? "")) === key);
+                if (existing) Object.assign(existing, item, { _wvKey: key });
+                else records.unshift({ ...item, _wvKey: key });
+            });
+            return records.slice(0, 15);
+        };
+        bd.normal = mergeRecords(payload.normal, bd.normal, "browser-normal", ["title", "desc", "date"]);
+        bd.secret = mergeRecords(payload.secret, bd.secret, "browser-secret", ["type", "date", "query", "answer", "count"]);
         saveSettingsDebounced();
         renderBrowserApp();
     };
@@ -2445,6 +2492,10 @@ const WV_P_XHS = String.raw`【小红书生成指令】
             }
         } catch (e) { toastr.error(`「${r.name}」正则写法有误，请去规则库检查`); }
         return out;
+    }
+    // 织章回执稳定识别键：同一条原始内容重复解析时命中同一记录
+    function wvMakeKey(type, fields) {
+        return type + ":" + JSON.stringify(fields.map(value => String(value ?? "").trim()));
     }
     const wvNum = v => Number(String(v || "").replace(/[−–—]/g, "-").replace(/[^\d.+-]/g, "")) || 0;
 
