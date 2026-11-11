@@ -2265,6 +2265,17 @@ const WV_P_XHS = String.raw`【小红书生成指令】
             t.name = DEFAULT_WEAVE_TEMPLATES[i].name;
         }
     });
+
+    // 记仇本字段结构迁移：仅将仍使用旧七字段格式的已保存模板更新为新版八字段指令
+    const savedGrudgeTemplate = extension_settings[extName].weaveData.templates.find(t => t.name === "记仇本");
+    if (savedGrudgeTemplate && (
+        savedGrudgeTemplate.content.includes("4. 契约事由：") ||
+        savedGrudgeTemplate.content.includes("此处填契约事由|此处填私人仲裁")
+    ) && !savedGrudgeTemplate.content.includes("契约事由·控诉")) {
+        savedGrudgeTemplate.content = DEFAULT_WEAVE_TEMPLATES.find(t => t.name === "记仇本").content;
+        saveSettingsDebounced();
+    }
+
     extension_settings[extName].weaveData.rules.forEach((r, i) => {
         const colors = ["g-rose", "g-purple", "g-lilac", "g-gold", "g-silver"];
         r.color = r.color || colors[i % colors.length];
