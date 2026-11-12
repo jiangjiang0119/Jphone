@@ -1212,10 +1212,15 @@
     padding-top: 40px;
     background: linear-gradient(155deg, #f7f8fc 0%, #eef0f6 52%, #f5eef2 100%) !important;
     color: var(--text-main);
-    display: flex;
+    display: none !important; /* 默认隐藏，绝不挡住桌面！ */
     flex-direction: column;
     overflow: hidden;
     isolation: isolate;
+  }
+
+  /* 只有从桌面点开设置图标(.active)时才显示！ */
+  #jp_p_set.active {
+    display: flex !important;
   }
 
   #jp_p_set .jp-svg {
@@ -1581,7 +1586,7 @@
   }
   #jp_p_set .jp-up-btn .jp-svg {
     width: 12px;
-    height: 12px;
+    height: 12.5px;
   }
   #jp_p_set .jp-up-btn:hover {
     background: var(--jiang-soft);
