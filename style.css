@@ -1298,7 +1298,7 @@
   #jp_p_set .jp-head-sub {
     font-size: 8.5px;
     letter-spacing: 1.5px;
-    font-weight: 600;
+    font-weight: 400 !important;
     color: var(--text-muted);
     margin-top: 2px;
   }
@@ -1373,7 +1373,6 @@
     opacity: 1;
   }
 
-  /* 保证第四页与前三页、顶部导航宽度100%对齐 */
   #jp_p_set .jp-body {
     flex: 1;
     min-height: 0;
@@ -1443,7 +1442,6 @@
     color: var(--text-main);
   }
 
-  /* 第四页：可折叠卡片专属样式 (.jp-fold-card) */
   #jp_p_set .jp-fold-card > .jp-set-title {
     cursor: pointer;
     user-select: none;
@@ -1483,13 +1481,12 @@
     height: 13px;
   }
 
-  /* 细体不加粗英文尾标 */
   #jp_p_set .jp-title-micro {
     margin-left: auto;
     font-size: 10px;
     letter-spacing: 0.5px;
     color: var(--text-muted);
-    font-weight: 400;
+    font-weight: 400 !important;
   }
 
   #jp_p_set .jp-field-block {
@@ -1524,7 +1521,6 @@
     opacity: 0.85;
   }
 
-  /* 双行名称（如：手机全屏壁纸 + 原图保留 · 最大 10MB） */
   #jp_p_set .jp-upload-info {
     display: flex;
     flex-direction: column;
@@ -1544,13 +1540,17 @@
     background: rgba(244, 246, 250, 0.9);
     border: 1px solid rgba(132, 26, 45, 0.14);
     border-radius: 7px;
-    padding: 8px 9px;
+    padding: 7.5px 9px;
     font-size: 11.5px;
     color: var(--text-main);
     box-shadow: inset 0 1px 3px rgba(44, 46, 59, 0.04);
     outline: none;
     transition: all 0.2s ease;
     line-height: 1.5;
+  }
+  #jp_p_set select.jp-input {
+    height: 34px;
+    padding: 0 9px;
   }
   #jp_p_set .jp-input:focus,
   #jp_p_set .jp-textarea:focus {
@@ -1559,7 +1559,6 @@
     box-shadow: 0 0 0 2.5px var(--jiang-soft);
   }
 
-  /* 第三处 & 第六处：颜色选择器圆圈改为与右侧输入框同高同圆角的方框 */
   #jp_p_set .jp-color-ctrl {
     display: flex;
     align-items: center;
@@ -1595,7 +1594,6 @@
     color: var(--text-main);
   }
 
-  /* 第四处 & 第五处：装饰方框（壁纸/照片/头像），高度与圆角与后面按钮完全一致 */
   #jp_p_set .jp-up-group {
     display: flex;
     align-items: center;
@@ -1658,19 +1656,18 @@
     border-bottom: none;
   }
 
-  /* 第八处：11个软件图标双列并排网格（和谐比例，绝不撑破外框） */
   #jp_p_set .jp-icon-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 7px;
+    gap: 6.5px;
     margin-top: 2px;
   }
   #jp_p_set .jp-icon-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 4px;
-    padding: 7px 7.5px;
+    gap: 3px;
+    padding: 6.5px 6px;
     border: 1px solid rgba(132, 26, 45, 0.11);
     border-radius: 7px;
     background: rgba(255, 255, 255, 0.62);
@@ -1679,8 +1676,8 @@
   #jp_p_set .jp-icon-name {
     display: inline-flex;
     align-items: center;
-    gap: 4.5px;
-    font-size: 10.5px;
+    gap: 4px;
+    font-size: 10px;
     font-weight: 500;
     color: var(--text-main);
     white-space: nowrap;
@@ -1689,8 +1686,8 @@
     min-width: 0;
   }
   #jp_p_set .jp-icon-name .jp-svg {
-    width: 12px;
-    height: 12px;
+    width: 11.5px;
+    height: 11.5px;
     color: var(--jiang-primary);
     opacity: 0.85;
     flex-shrink: 0;
@@ -1700,7 +1697,7 @@
     align-items: center;
     gap: 2px;
     color: var(--jiang-primary);
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 650;
     cursor: pointer;
     white-space: nowrap;
@@ -1794,10 +1791,10 @@
     gap: 5px;
     background: linear-gradient(135deg, #841A2D 0%, #A3243B 100%);
     color: #FFFFFF !important;
-    padding: 7px 13px;
+    padding: 6.5px 11px;
     border-radius: 7px;
     border: 1px solid rgba(255, 255, 255, 0.25);
-    font-size: 11.5px;
+    font-size: 11px;
     font-weight: 650;
     cursor: pointer;
     overflow: hidden;
@@ -1808,11 +1805,28 @@
     transition: transform 0.2s var(--spring), box-shadow 0.2s;
   }
   #jp_p_set .jp-btn-gen .jp-svg {
-    width: 13px;
-    height: 13px;
+    width: 12.5px;
+    height: 12.5px;
     stroke: #FFFFFF !important;
     color: #FFFFFF !important;
   }
+
+  /* 关键修正：第二页【载入】按钮与前面的下拉框严格等高（34px）对齐，横向紧凑不超长！ */
+  #jp_p_set #jp_load_wi_books {
+    height: 34px !important;
+    padding: 0 9px !important;
+    gap: 3.5px !important;
+    font-size: 11px !important;
+    border-radius: 7px !important;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  #jp_p_set #jp_load_wi_books .jp-svg {
+    width: 13.5px !important;
+    height: 13.5px !important;
+    stroke-width: 2 !important;
+  }
+
   #jp_p_set .jp-btn-gen::before {
     content: "";
     position: absolute;
@@ -1860,11 +1874,11 @@
   #jp_p_set .jp-wi-badge {
     color: var(--jiang-primary);
     background: var(--jiang-soft);
-    padding: 3px 6px;
+    padding: 4px 9px;
     border-radius: 6px;
-    font-size: 9px;
-    font-weight: 400;
-    letter-spacing: 0.4px;
+    font-size: 9.5px;
+    font-weight: 400 !important;
+    letter-spacing: 0.6px;
   }
   #jp_p_set .jp-wi-list {
     max-height: 240px;
