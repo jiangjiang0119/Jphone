@@ -1193,3 +1193,463 @@
     height: 22px;
     display: block;
 }
+
+/* === START_JP_SET_HIGH_FASHION === */
+  #jp_p_set {
+    --jiang-primary: #841A2D;
+    --jiang-light: #A6263D;
+    --jiang-soft: rgba(132, 26, 45, 0.08);
+    --jiang-border: rgba(132, 26, 45, 0.13);
+    --jiang-glow: rgba(132, 26, 45, 0.22);
+    --text-main: #2C2E3B;
+    --text-sub: #686D7C;
+    --text-muted: #959AA8;
+    --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 10 !important;
+    padding-top: 40px;
+    background: linear-gradient(155deg, #f7f8fc 0%, #eef0f6 52%, #f5eef2 100%) !important;
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  #jp_p_set .jp-svg {
+    width: 13.5px;
+    height: 13.5px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.85;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+  }
+
+  #jp_p_set::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background: 
+      radial-gradient(circle at 88% 10%, rgba(132, 26, 45, 0.15) 0%, transparent 45%),
+      radial-gradient(circle at 12% 78%, rgba(142, 154, 175, 0.22) 0%, transparent 50%),
+      radial-gradient(circle at 50% 45%, rgba(196, 98, 120, 0.09) 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  #jp_p_set::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: radial-gradient(rgba(132, 26, 45, 0.14) 1.1px, transparent 1.1px);
+    background-size: 14px 14px;
+    mask-image: radial-gradient(circle at 50% 42%, black 45%, transparent 95%);
+    -webkit-mask-image: radial-gradient(circle at 50% 42%, black 45%, transparent 95%);
+    pointer-events: none;
+  }
+
+  #jp_p_set .jp-header {
+    height: 44px;
+    padding: 0 12px;
+    background: rgba(255, 255, 255, 0.68);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--jiang-border);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-main);
+    flex-shrink: 0;
+    letter-spacing: 0.3px;
+  }
+
+  #jp_p_set .jp-head-center {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  #jp_p_set .jp-head-center .jp-svg {
+    color: var(--jiang-primary);
+    width: 15px;
+    height: 15px;
+  }
+
+  #jp_p_set .jp-btn-back {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 3px;
+    background: rgba(255, 255, 255, 0.86) !important;
+    color: var(--jiang-primary) !important;
+    padding: 4px 9px 4px 7px !important;
+    border: 1px solid var(--jiang-border) !important;
+    border-radius: 7px !important;
+    font-size: 11.5px !important;
+    font-weight: 600;
+    cursor: pointer;
+    filter: none !important;
+    box-shadow: inset 0 1px 0 #fff, 0 2px 6px rgba(132, 26, 45, 0.06);
+    transition: transform 0.2s var(--spring), background 0.2s;
+  }
+  #jp_p_set .jp-btn-back:active {
+    transform: scale(0.92);
+  }
+
+  #jp_p_set .jp-subtabs {
+    display: flex;
+    margin: 8px 10px 2px;
+    padding: 3.5px;
+    gap: 4px;
+    background: rgba(232, 235, 242, 0.78);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(44, 46, 59, 0.06);
+    border-radius: 9px;
+    box-shadow: 
+      inset 0 2px 4px rgba(44, 46, 59, 0.06),
+      0 1px 0 rgba(255, 255, 255, 0.9);
+    flex-shrink: 0;
+  }
+
+  #jp_p_set .jp-subtab {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 6px 2px;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--text-sub);
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all 0.28s var(--spring);
+    user-select: none;
+  }
+  #jp_p_set .jp-subtab .jp-svg {
+    width: 12.5px;
+    height: 12.5px;
+    opacity: 0.75;
+  }
+
+  #jp_p_set .jp-subtab.active {
+    background: #FFFFFF;
+    color: var(--jiang-primary);
+    font-weight: 600;
+    box-shadow: 
+      0 2px 8px rgba(132, 26, 45, 0.12),
+      inset 0 1px 0 #FFFFFF;
+    transform: translateY(-0.5px);
+  }
+  #jp_p_set .jp-subtab.active .jp-svg {
+    opacity: 1;
+  }
+
+  #jp_p_set .jp-body {
+    flex: 1;
+    min-height: 0;
+    background: transparent !important;
+    padding: 8px 10px 24px;
+    overflow-y: auto;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 8px, black calc(100% - 12px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8px, black calc(100% - 12px), transparent 100%);
+  }
+  #jp_p_set .jp-body::-webkit-scrollbar { width: 3px; }
+  #jp_p_set .jp-body::-webkit-scrollbar-thumb { background: rgba(132, 26, 45, 0.2); border-radius: 6px; }
+
+  .jp-subpane { display: none; animation: setPaneFade 0.22s ease; }
+  .jp-subpane.active { display: block; }
+  @keyframes setPaneFade {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  #jp_p_set .jp-set-card {
+    background: rgba(255, 255, 255, 0.84);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--jiang-border);
+    border-radius: 10px;
+    padding: 11px 12px;
+    margin-bottom: 9px;
+    font-size: 12px;
+    color: var(--text-main);
+    box-shadow: 
+      inset 0 1.5px 0 0 rgba(255, 255, 255, 0.96),
+      0 5px 15px -3px rgba(44, 46, 59, 0.05),
+      0 2px 6px rgba(132, 26, 45, 0.03);
+  }
+
+  #jp_p_set .jp-set-title {
+    font-weight: 600;
+    font-size: 12.5px;
+    margin-bottom: 9px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid rgba(132, 26, 45, 0.09);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--text-main);
+  }
+
+  #jp_p_set .jp-title-ico {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: var(--jiang-soft);
+    border: 1px solid rgba(132, 26, 45, 0.14);
+    color: var(--jiang-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    flex-shrink: 0;
+  }
+  #jp_p_set .jp-title-ico .jp-svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  #jp_p_set .jp-row-lbl {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-main);
+    font-weight: 500;
+  }
+  #jp_p_set .jp-row-lbl .jp-svg {
+    color: var(--jiang-primary);
+    opacity: 0.85;
+  }
+
+  #jp_p_set .jp-input,
+  #jp_p_set .jp-textarea {
+    width: 100%;
+    background: rgba(244, 246, 250, 0.9);
+    border: 1px solid rgba(132, 26, 45, 0.14);
+    border-radius: 7px;
+    padding: 6px 9px;
+    font-size: 11.5px;
+    color: var(--text-main);
+    box-shadow: inset 0 1px 3px rgba(44, 46, 59, 0.04);
+    outline: none;
+    transition: all 0.2s ease;
+  }
+  #jp_p_set .jp-input:focus,
+  #jp_p_set .jp-textarea:focus {
+    background: #FFFFFF;
+    border-color: var(--jiang-primary);
+    box-shadow: 0 0 0 2.5px var(--jiang-soft);
+  }
+
+  #jp_p_set .jp-field-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    margin-bottom: 8px;
+    font-size: 11.5px;
+    color: var(--text-sub);
+  }
+  #jp_p_set .jp-field-col {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 9px;
+    font-size: 11.5px;
+    color: var(--text-sub);
+  }
+
+  #jp_p_set .jp-chk-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 2px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-main);
+    cursor: pointer;
+    border-bottom: 1px dashed rgba(132, 26, 45, 0.08);
+  }
+  #jp_p_set .jp-chk-row:last-of-type {
+    border-bottom: none;
+  }
+  #jp_p_set .jp-chk-row input[type="checkbox"] {
+    order: 2;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 36px;
+    height: 20px;
+    border-radius: 10px;
+    background: rgba(142, 154, 175, 0.32);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    transition: background 0.28s ease, box-shadow 0.28s ease;
+    flex-shrink: 0;
+  }
+  #jp_p_set .jp-chk-row input[type="checkbox"]::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    top: 2px;
+    left: 2px;
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.18);
+    transition: transform 0.34s var(--spring), width 0.18s ease;
+  }
+  #jp_p_set .jp-chk-row input[type="checkbox"]:active::after {
+    width: 19px;
+  }
+  #jp_p_set .jp-chk-row input[type="checkbox"]:checked {
+    background: linear-gradient(135deg, var(--jiang-primary), var(--jiang-light));
+    box-shadow: 0 2px 7px var(--jiang-glow);
+  }
+  #jp_p_set .jp-chk-row input[type="checkbox"]:checked::after {
+    transform: translateX(16px);
+  }
+
+  #jp_p_set .jp-btn-gen {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background: linear-gradient(135deg, #841A2D 0%, #A3243B 100%);
+    color: #FFFFFF !important;
+    padding: 5px 12px;
+    border-radius: 7px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 
+      0 4px 12px -2px rgba(132, 26, 45, 0.32),
+      inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    transition: transform 0.2s var(--spring), box-shadow 0.2s;
+  }
+  #jp_p_set .jp-btn-gen .jp-svg {
+    width: 12.5px;
+    height: 12.5px;
+    stroke: #FFFFFF;
+  }
+  #jp_p_set .jp-btn-gen::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, 0.35) 50%, transparent 80%);
+    animation: jpSilkSweep 3.2s infinite;
+  }
+  @keyframes jpSilkSweep {
+    0% { left: -100%; }
+    45%, 100% { left: 160%; }
+  }
+  #jp_p_set .jp-btn-gen:active {
+    transform: scale(0.94);
+  }
+
+  #jp_p_set .jp-up-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--jiang-primary);
+    border: 1px solid rgba(132, 26, 45, 0.2);
+    padding: 4px 9px;
+    border-radius: 7px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: inset 0 1px 0 #fff, 0 2px 5px rgba(44, 46, 59, 0.04);
+    transition: all 0.2s var(--spring);
+    white-space: nowrap;
+  }
+  #jp_p_set .jp-up-btn .jp-svg {
+    width: 12px;
+    height: 12px;
+  }
+  #jp_p_set .jp-up-btn:hover {
+    background: var(--jiang-soft);
+    border-color: var(--jiang-primary);
+  }
+  #jp_p_set .jp-up-btn:active {
+    transform: scale(0.93);
+  }
+
+  #jp_p_set .jp-wi-list {
+    max-height: 240px;
+    overflow-y: auto;
+    background: rgba(244, 246, 250, 0.85);
+    border: 1px solid var(--jiang-border);
+    border-radius: 8px;
+    padding: 8px 10px;
+    color: var(--text-sub);
+    font-size: 11.5px;
+    box-shadow: inset 0 1px 3px rgba(44, 46, 59, 0.04);
+  }
+  #jp_p_set #jp_wi_count_tip {
+    color: var(--jiang-primary) !important;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  #jp_p_set .jp-upload-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 0;
+    border-bottom: 1px dashed rgba(132, 26, 45, 0.09);
+    font-size: 11.5px;
+    color: var(--text-main);
+  }
+  #jp_p_set .jp-upload-row:last-child {
+    border-bottom: none;
+  }
+
+  #jp_p_set .jp-quick-color-btn {
+    padding: 4px 9px;
+    border-radius: 6px;
+    font-size: 10.5px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid rgba(132, 26, 45, 0.15);
+    transition: transform 0.15s var(--spring);
+  }
+  #jp_p_set .jp-quick-color-btn:active {
+    transform: scale(0.93);
+  }
+
+  #jp_p_set #jp_reset_all_img {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--jiang-primary) !important;
+    background: var(--jiang-soft);
+    border: 1px solid var(--jiang-border);
+    padding: 5px 11px;
+    border-radius: 7px;
+    font-size: 11px;
+    font-weight: 600;
+    transition: transform 0.2s var(--spring);
+  }
+  #jp_p_set #jp_reset_all_img:active {
+    transform: scale(0.95);
+  }
+  /* === END_JP_SET_HIGH_FASHION === */
