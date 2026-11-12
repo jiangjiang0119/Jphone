@@ -390,12 +390,28 @@
         </div>
 
         <div id="jp_sub_preset" class="jp-subpane">
+          <!-- 第一处：导语区 -->
+          <div class="jp-pane-intro">
+            <div class="jp-eyebrow">GLOBAL PROMPT /03</div>
+            <h2 class="jp-pane-h2">预设编辑</h2>
+            <div class="jp-pane-desc">统一管理小手机各软件使用的全局提示词。</div>
+          </div>
+
           <div class="jp-set-card">
+            <!-- 第二处：标题行右侧细体 PROMPT + 底部浅色分隔线 -->
             <div class="jp-set-title">
               <span class="jp-title-ico"><svg class="jp-svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg></span>
               <span>小手机全局提示词预设</span>
+              <span class="jp-title-micro">PROMPT</span>
             </div>
-            <textarea id="jp_preset_textarea" class="jp-textarea" rows="8" __gcruniqueid="8"></textarea>
+
+            <!-- 第三处：浅色线下方加“预设正文” -->
+            <div class="jp-field-block">
+              <label class="jp-field-lbl">预设正文</label>
+              <textarea id="jp_preset_textarea" class="jp-textarea" rows="8" placeholder="在这里编辑全局提示词……" __gcruniqueid="1"></textarea>
+            </div>
+
+            <!-- 其他保持哈基米原来的不变 -->
             <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
               <span id="jp_reset_preset_btn" class="jp-up-btn">
                 <svg class="jp-svg" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>恢复
