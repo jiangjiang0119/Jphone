@@ -1373,11 +1373,12 @@
     opacity: 1;
   }
 
+  /* 保证第四页与前三页、顶部导航宽度100%对齐 */
   #jp_p_set .jp-body {
     flex: 1;
     min-height: 0;
     background: transparent !important;
-    padding: 10px 11px 24px;
+    padding: 10px 10px 26px;
     overflow-y: auto;
     mask-image: linear-gradient(to bottom, transparent 0%, black 8px, black calc(100% - 12px), transparent 100%);
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8px, black calc(100% - 12px), transparent 100%);
@@ -1393,7 +1394,7 @@
   }
 
   #jp_p_set .jp-pane-intro {
-    padding: 2px 3px 11px;
+    padding: 2px 2px 11px;
   }
   #jp_p_set .jp-eyebrow {
     font-size: 9.5px;
@@ -1430,7 +1431,6 @@
       0 2px 6px rgba(132, 26, 45, 0.03);
   }
 
-  /* 标题行 + 底部参考GPT的浅色分隔线 rgba(132,26,45,0.09) */
   #jp_p_set .jp-set-title {
     font-weight: 650;
     font-size: 12.5px;
@@ -1441,6 +1441,28 @@
     align-items: center;
     gap: 8px;
     color: var(--text-main);
+  }
+
+  /* 第四页：可折叠卡片专属样式 (.jp-fold-card) */
+  #jp_p_set .jp-fold-card > .jp-set-title {
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+    transition: padding 0.2s ease;
+  }
+  #jp_p_set .jp-fold-card.open > .jp-set-title {
+    margin-bottom: 9px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid rgba(132, 26, 45, 0.09);
+  }
+  #jp_p_set .jp-fold-body {
+    display: none;
+    animation: setPaneFade 0.2s ease;
+  }
+  #jp_p_set .jp-fold-card.open > .jp-fold-body {
+    display: block;
   }
 
   #jp_p_set .jp-title-ico {
@@ -1461,7 +1483,7 @@
     height: 13px;
   }
 
-  /* 右侧细体尾标 (PROMPT / LOREBOOK) */
+  /* 细体不加粗英文尾标 */
   #jp_p_set .jp-title-micro {
     margin-left: auto;
     font-size: 10px;
@@ -1474,11 +1496,19 @@
     margin: 9px 0;
   }
   #jp_p_set .jp-field-lbl {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 5px;
     font-size: 11px;
     font-weight: 550;
     color: var(--text-main);
     margin-bottom: 5px;
+  }
+  #jp_p_set .jp-field-lbl .jp-svg {
+    width: 12.5px;
+    height: 12.5px;
+    color: var(--jiang-primary);
+    opacity: 0.85;
   }
 
   #jp_p_set .jp-row-lbl {
@@ -1486,11 +1516,26 @@
     align-items: center;
     gap: 6px;
     color: var(--text-main);
-    font-weight: 500;
+    font-weight: 550;
+    font-size: 11.5px;
   }
   #jp_p_set .jp-row-lbl .jp-svg {
     color: var(--jiang-primary);
     opacity: 0.85;
+  }
+
+  /* 双行名称（如：手机全屏壁纸 + 原图保留 · 最大 10MB） */
+  #jp_p_set .jp-upload-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  #jp_p_set .jp-upload-sub {
+    font-size: 9.5px;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin-top: 2px;
+    padding-left: 19px;
   }
 
   #jp_p_set .jp-input,
@@ -1505,13 +1550,167 @@
     box-shadow: inset 0 1px 3px rgba(44, 46, 59, 0.04);
     outline: none;
     transition: all 0.2s ease;
-    line-height: 1.55;
+    line-height: 1.5;
   }
   #jp_p_set .jp-input:focus,
   #jp_p_set .jp-textarea:focus {
     background: #FFFFFF;
     border-color: var(--jiang-primary);
     box-shadow: 0 0 0 2.5px var(--jiang-soft);
+  }
+
+  /* 第三处 & 第六处：颜色选择器圆圈改为与右侧输入框同高同圆角的方框 */
+  #jp_p_set .jp-color-ctrl {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  #jp_p_set input[type="color"].jp-color-box {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 29px !important;
+    height: 29px !important;
+    border: 1px solid rgba(132, 26, 45, 0.16) !important;
+    border-radius: 7px !important;
+    padding: 2px !important;
+    background: #FFFFFF !important;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  #jp_p_set input[type="color"].jp-color-box::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+  #jp_p_set input[type="color"].jp-color-box::-webkit-color-swatch {
+    border: 1px solid rgba(44, 46, 59, 0.08);
+    border-radius: 4.5px;
+  }
+  #jp_p_set .jp-hex-input {
+    width: 82px !important;
+    height: 29px !important;
+    padding: 0 8px !important;
+    border-radius: 7px !important;
+    background: #FFFFFF !important;
+    border: 1px solid rgba(132, 26, 45, 0.16) !important;
+    font-size: 10.5px !important;
+    color: var(--text-main);
+  }
+
+  /* 第四处 & 第五处：装饰方框（壁纸/照片/头像），高度与圆角与后面按钮完全一致 */
+  #jp_p_set .jp-up-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  #jp_p_set .jp-deco-box {
+    height: 30px;
+    min-width: 34px;
+    padding: 0 7px;
+    border: 1px solid rgba(132, 26, 45, 0.15);
+    border-radius: 7px;
+    background: linear-gradient(135deg, #FFD4DE 0%, #FFFFFF 100%);
+    color: var(--jiang-primary);
+    font-size: 10px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  #jp_p_set .jp-up-btn {
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.94);
+    color: var(--jiang-primary);
+    border: 1px solid rgba(132, 26, 45, 0.2);
+    padding: 0 10px;
+    border-radius: 7px;
+    font-size: 11px;
+    font-weight: 650;
+    cursor: pointer;
+    box-shadow: inset 0 1px 0 #fff, 0 2px 5px rgba(44, 46, 59, 0.04);
+    transition: all 0.2s var(--spring);
+    white-space: nowrap;
+  }
+  #jp_p_set .jp-up-btn .jp-svg {
+    width: 12px;
+    height: 12px;
+  }
+  #jp_p_set .jp-up-btn:active {
+    transform: scale(0.94);
+  }
+
+  #jp_p_set .jp-upload-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8.5px 0;
+    border-bottom: 1px solid rgba(132, 26, 45, 0.07);
+    font-size: 11.5px;
+    color: var(--text-main);
+  }
+  #jp_p_set .jp-upload-row:last-child {
+    border-bottom: none;
+  }
+
+  /* 第八处：11个软件图标双列并排网格（和谐比例，绝不撑破外框） */
+  #jp_p_set .jp-icon-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+    margin-top: 2px;
+  }
+  #jp_p_set .jp-icon-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    padding: 7px 7.5px;
+    border: 1px solid rgba(132, 26, 45, 0.11);
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.62);
+    min-width: 0;
+  }
+  #jp_p_set .jp-icon-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 4.5px;
+    font-size: 10.5px;
+    font-weight: 500;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+  #jp_p_set .jp-icon-name .jp-svg {
+    width: 12px;
+    height: 12px;
+    color: var(--jiang-primary);
+    opacity: 0.85;
+    flex-shrink: 0;
+  }
+  #jp_p_set .jp-icon-act {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    color: var(--jiang-primary);
+    font-size: 10px;
+    font-weight: 650;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 2px 4px;
+    border-radius: 5px;
+    background: rgba(132, 26, 45, 0.06);
+  }
+  #jp_p_set .jp-icon-act:active {
+    transform: scale(0.93);
   }
 
   #jp_p_set .jp-field-row {
@@ -1632,35 +1831,6 @@
     transform: scale(0.94);
   }
 
-  #jp_p_set .jp-up-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    background: rgba(255, 255, 255, 0.92);
-    color: var(--jiang-primary);
-    border: 1px solid rgba(132, 26, 45, 0.2);
-    padding: 6px 10px;
-    border-radius: 7px;
-    font-size: 11px;
-    font-weight: 650;
-    cursor: pointer;
-    box-shadow: inset 0 1px 0 #fff, 0 2px 5px rgba(44, 46, 59, 0.04);
-    transition: all 0.2s var(--spring);
-    white-space: nowrap;
-  }
-  #jp_p_set .jp-up-btn .jp-svg {
-    width: 12px;
-    height: 12px;
-  }
-  #jp_p_set .jp-up-btn:hover {
-    background: var(--jiang-soft);
-    border-color: var(--jiang-primary);
-  }
-  #jp_p_set .jp-up-btn:active {
-    transform: scale(0.93);
-  }
-
   #jp_p_set .jp-split-foot {
     display: flex;
     align-items: center;
@@ -1670,8 +1840,9 @@
     padding-top: 4px;
   }
   #jp_p_set .jp-foot-notice {
-    font-size: 10.5px;
+    font-size: 10px;
     color: var(--text-sub);
+    line-height: 1.45;
   }
 
   #jp_p_set .jp-wi-meta-row {
@@ -1711,24 +1882,11 @@
     font-size: 11px;
   }
 
-  #jp_p_set .jp-upload-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 7px 0;
-    border-bottom: 1px dashed rgba(132, 26, 45, 0.09);
-    font-size: 11.5px;
-    color: var(--text-main);
-  }
-  #jp_p_set .jp-upload-row:last-child {
-    border-bottom: none;
-  }
-
   #jp_p_set .jp-quick-color-btn {
-    padding: 4px 9px;
+    padding: 5px 9px;
     border-radius: 6px;
-    font-size: 10.5px;
-    font-weight: 600;
+    font-size: 10px;
+    font-weight: 650;
     cursor: pointer;
     border: 1px solid rgba(132, 26, 45, 0.15);
     transition: transform 0.15s var(--spring);
@@ -1744,7 +1902,7 @@
     color: var(--jiang-primary) !important;
     background: var(--jiang-soft);
     border: 1px solid var(--jiang-border);
-    padding: 5px 11px;
+    padding: 6px 12px;
     border-radius: 7px;
     font-size: 11px;
     font-weight: 600;
