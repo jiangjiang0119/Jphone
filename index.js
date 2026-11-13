@@ -59,6 +59,65 @@ function applySavedImages() {
             if (clearInner) el.children().hide();
         }
     });
+    updateAutoStatusTimeColor();
+}
+
+/* 根据自定义壁纸顶部区域的实际像素亮度，自动切换状态栏时间文字黑/白。
+   仅作用于 #jp_top_clock，不影响右侧信号、Wi-Fi、电池图标。 */
+function updateAutoStatusTimeColor() {
+    const wallpaper = (extension_settings[extName].customImages || {}).wallpaper;
+    const clock = document.getElementById("jp_top_clock");
+    const screen = document.getElementById("jp_screen_inner");
+    if (!clock || !screen) return;
+
+    if (!wallpaper) {
+        clock.style.color = "#000000";
+        return;
+    }
+
+    const img = new Image();
+    img.onload = () => {
+        try {
+            const width = screen.clientWidth || 390;
+            const height = screen.clientHeight || 844;
+            const scale = Math.max(width / img.naturalWidth, height / img.naturalHeight);
+            const scaledWidth = img.naturalWidth * scale;
+            const scaledHeight = img.naturalHeight * scale;
+            const offsetX = (width - scaledWidth) / 2;
+            const offsetY = (height - scaledHeight) / 2;
+
+            const sampleWidth = 48;
+            const sampleHeight = 8;
+            const canvas = document.createElement("canvas");
+            canvas.width = sampleWidth;
+            canvas.height = sampleHeight;
+            const ctx = canvas.getContext("2d", { willReadFrequently: true });
+            ctx.drawImage(
+                img,
+                -offsetX / scale,
+                -offsetY / scale,
+                width / scale,
+                height / scale
+            );
+            const pixels = ctx.getImageData(0, 0, sampleWidth, sampleHeight).data;
+            let luminanceTotal = 0;
+            let count = 0;
+            for (let i = 0; i < pixels.length; i += 4) {
+                const alpha = pixels[i + 3] / 255;
+                const red = pixels[i] * alpha + 255 * (1 - alpha);
+                const green = pixels[i + 1] * alpha + 255 * (1 - alpha);
+                const blue = pixels[i + 2] * alpha + 255 * (1 - alpha);
+                luminanceTotal += 0.2126 * red + 0.7152 * green + 0.0722 * blue;
+                count++;
+            }
+            const averageLuminance = count ? luminanceTotal / count : 255;
+            clock.style.color = averageLuminance >= 145 ? "#000000" : "#FFFFFF";
+        } catch (error) {
+            // 图片无法读取像素时保留当前状态栏配色。
+        }
+    };
+    img.onerror = () => { clock.style.color = "#000000"; };
+    img.src = wallpaper;
 }
 
 // 🎨 应用状态栏与软件名颜色
