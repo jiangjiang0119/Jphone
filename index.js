@@ -791,7 +791,30 @@ jQuery(async () => {
         const file = this.files && this.files[0];
         if (!file) return;
         const key = $(this).data("key");
-        const maxSize = (key === "wallpaper" || key === "polaroid") ? 720 : 180;
+
+        // 全局壁纸保留原图，不经过 Canvas 压缩；文件大小上限 10MB。
+        if (key === "wallpaper") {
+            if (file.size > 10 * 1024 * 1024) {
+                toastr.warning("壁纸不能超过 10MB，请选择较小的图片。");
+                this.value = "";
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                s.customImages[key] = e.target.result;
+                saveSettingsDebounced();
+                applySavedImages();
+                toastr.success("原画质壁纸已保存！✨");
+            };
+            reader.onerror = () => {
+                toastr.error("壁纸读取失败，请重新选择图片。");
+            };
+            reader.readAsDataURL(file);
+            return;
+        }
+
+        // 其他图片继续沿用原有压缩规则，不作改动。
+        const maxSize = key === "polaroid" ? 720 : 180;
         compressImage(file, maxSize, (dataUrl) => {
             s.customImages[key] = dataUrl;
             saveSettingsDebounced();
