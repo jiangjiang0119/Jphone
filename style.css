@@ -357,6 +357,320 @@
     border: 1px solid rgba(0,0,0,0.1);
 }
 
+/* ==================== 世界书载入界面 · 绛红玻璃风格 ==================== */
+#jp_sub_wi .jp-wi-manager-card {
+    background: rgba(255,255,255,0.88);
+    border: 1px solid rgba(132,26,45,0.14);
+    border-radius: 10px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.96), 0 5px 15px -3px rgba(44,46,59,0.05);
+}
+#jp_sub_wi .jp-wi-card-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #2C2E3B;
+    padding-bottom: 9px;
+    border-bottom: 1px solid rgba(132,26,45,0.09);
+}
+#jp_sub_wi .jp-title-ico {
+    width: 23px;
+    height: 23px;
+    border-radius: 6px;
+    background: rgba(132,26,45,0.08);
+    border: 1px solid rgba(132,26,45,0.14);
+    color: #841A2D;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+#jp_sub_wi .jp-field-lbl { color: #2C2E3B; }
+#jp_sub_wi .jp-input {
+    min-width: 0;
+    background: rgba(244,246,250,0.92);
+    border: 1px solid rgba(132,26,45,0.16);
+    border-radius: 7px;
+    color: #2C2E3B;
+}
+#jp_sub_wi .jp-btn-gen {
+    min-height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 0 10px;
+    border-radius: 7px;
+    background: linear-gradient(135deg,#841A2D 0%,#A6263D 100%);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #FFFFFF;
+    white-space: nowrap;
+}
+.jp-wi-meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 2px 0 9px;
+}
+.jp-wi-badge {
+    padding: 3px 7px;
+    border: 1px solid rgba(132,26,45,0.14);
+    border-radius: 6px;
+    color: #841A2D;
+    background: rgba(132,26,45,0.055);
+    font-size: 9px;
+    letter-spacing: 0.7px;
+}
+.jp-wi-accordion {
+    margin-bottom: 8px;
+    border: 1px solid rgba(132,26,45,0.14);
+    border-radius: 8px;
+    background: rgba(247,248,252,0.76);
+    overflow: hidden;
+}
+.jp-wi-accordion.open {
+    background: rgba(255,255,255,0.92);
+    border-color: rgba(132,26,45,0.22);
+    box-shadow: 0 3px 10px rgba(132,26,45,0.04);
+}
+.jp-wi-acc-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 9px 10px;
+    cursor: pointer;
+    user-select: none;
+    background: rgba(255,255,255,0.62);
+}
+.jp-wi-accordion.open .jp-wi-acc-head {
+    background: rgba(132,26,45,0.04);
+    border-bottom: 1px solid rgba(132,26,45,0.09);
+}
+.jp-wi-acc-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #2C2E3B;
+}
+.jp-wi-acc-title > span:last-child {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+.jp-wi-acc-title .jp-svg {
+    width: 13px;
+    height: 13px;
+    color: #841A2D;
+    flex-shrink: 0;
+}
+.jp-wi-acc-arrow {
+    display: inline-flex;
+    color: #959AA8;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+.jp-wi-accordion.open .jp-wi-acc-arrow {
+    transform: rotate(180deg);
+    color: #841A2D;
+}
+.jp-wi-acc-body {
+    display: none;
+    padding: 2px 10px 4px;
+    max-height: 175px;
+    overflow-y: auto;
+}
+.jp-wi-accordion.open .jp-wi-acc-body { display: block; }
+.jp-wi-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 2px;
+    border-bottom: 1px solid rgba(132,26,45,0.06);
+    color: #2C2E3B;
+    font-size: 11px;
+    cursor: pointer;
+}
+.jp-wi-row:last-child { border-bottom: 0; }
+.jp-wi-row-info { flex: 1; min-width: 0; overflow: hidden; }
+.jp-wi-row-title {
+    color: #2C2E3B;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+.jp-wi-row-desc {
+    color: #959AA8;
+    font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.jp-wi-row.checked .jp-wi-row-title,
+.jp-wi-row.checked .jp-wi-name {
+    color: #841A2D;
+}
+.jp-wi-book-prefix {
+    color: #686D7C;
+    font-size: 10px;
+    flex-shrink: 0;
+}
+.jp-wi-name {
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.jp-wi-chk,
+.jp-alert-check {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+    border: 1.5px solid rgba(132,26,45,0.28);
+    border-radius: 6px;
+    background: #FFFFFF;
+    position: relative;
+    cursor: pointer;
+}
+.jp-wi-chk:checked,
+.jp-alert-check:checked {
+    background: linear-gradient(135deg,#841A2D,#A6263D);
+    border-color: #841A2D;
+}
+.jp-wi-chk:checked::after,
+.jp-alert-check:checked::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 4px;
+    height: 8px;
+    border: solid #FFFFFF;
+    border-width: 0 1.7px 1.7px 0;
+    transform: rotate(45deg);
+}
+.jp-wi-empty {
+    padding: 13px 4px;
+    text-align: center;
+    color: #959AA8;
+    font-size: 10.5px;
+}
+.jp-wi-error { color: #841A2D; }
+.jp-wi-clear-zone {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid rgba(132,26,45,0.24);
+    border-radius: 8px;
+    background: linear-gradient(135deg,rgba(132,26,45,0.075),rgba(166,38,61,0.035));
+}
+.jp-wi-clear-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 9px;
+}
+.jp-wi-warn-tip {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    color: #841A2D;
+    font-size: 10.5px;
+    line-height: 1.55;
+    font-weight: 550;
+}
+.jp-wi-warn-tip .jp-svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+.jp-btn-clear-wi {
+    width: 100%;
+    min-height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 7px 11px;
+    border: 1px solid rgba(132,26,45,0.35);
+    border-radius: 7px;
+    background: linear-gradient(135deg,#841A2D 0%,#A6263D 100%);
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: 650;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(132,26,45,0.16);
+}
+.jp-btn-clear-wi:active { transform: scale(0.98); }
+.jp-wi-confirm-alert {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 9px;
+    padding: 10px;
+    border: 1px solid rgba(132,26,45,0.34);
+    border-radius: 8px;
+    background: rgba(132,26,45,0.10);
+}
+.jp-wi-confirm-alert.show { display: flex; }
+.jp-alert-text {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    color: #841A2D;
+    font-size: 10.5px;
+    line-height: 1.55;
+    font-weight: 650;
+}
+.jp-alert-text .jp-svg { flex-shrink: 0; margin-top: 1px; }
+.jp-clear-check-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px;
+    border: 1px solid rgba(132,26,45,0.18);
+    border-radius: 7px;
+    background: rgba(255,255,255,0.88);
+    color: #2C2E3B;
+    font-size: 10.5px;
+    line-height: 1.45;
+    font-weight: 600;
+    cursor: pointer;
+}
+.jp-alert-btns { display: flex; gap: 7px; width: 100%; }
+.jp-alert-cancel,
+.jp-alert-ok {
+    flex: 1;
+    min-height: 34px;
+    padding: 7px 9px;
+    border-radius: 7px;
+    font-size: 10.5px;
+    font-weight: 650;
+    cursor: pointer;
+}
+.jp-alert-cancel {
+    border: 1px solid rgba(44,46,59,0.16);
+    background: #FFFFFF;
+    color: #686D7C;
+}
+.jp-alert-ok {
+    border: 1px solid rgba(132,26,45,0.24);
+    background: linear-gradient(135deg,#841A2D,#A6263D);
+    color: #FFFFFF;
+}
+.jp-alert-ok:disabled {
+    border-color: #B9A8AC;
+    background: #B9A8AC;
+    color: rgba(255,255,255,0.96);
+    cursor: not-allowed;
+    opacity: 0.78;
+    box-shadow: none;
+}
+
+
 /* ==================== 📕 小红书全屏沉浸与修复 ==================== */
 /* 彻底让小红书充满屏幕顶到最上方，把漏出来的壁纸死死封住 */
 #jp_p_xhs {
