@@ -430,6 +430,59 @@ export async function generatePhoneContent(taskPrompt) {
     }
 }
 
+/* App 页面打开时，根据顶部实际内容背景切换黑/白状态栏。
+   桌面仍由壁纸顶部亮度决定；灵动岛保持黑色。 */
+function updateStatusColorForPage(pageId) {
+    if (pageId === "jp_p_home") {
+        updateAutoStatusTimeColor();
+        return;
+    }
+
+    const statusbar = document.querySelector("#jp_screen_inner .jp-statusbar");
+    const page = document.getElementById(pageId);
+    if (!statusbar || !page) return;
+
+    const screen = document.getElementById("jp_screen_inner");
+    const rect = page.getBoundingClientRect();
+    const x = Math.max(1, Math.min(window.innerWidth - 2, rect.left + rect.width / 2));
+    const y = Math.max(1, Math.min(window.innerHeight - 2, rect.top + 2));
+    let el = document.elementFromPoint(x, y);
+    let color = null;
+
+    while (el && page.contains(el)) {
+        const bg = window.getComputedStyle(el).backgroundColor;
+        const match = bg && bg.match(/rgba?\\(([^)]+)\\)/);
+        if (match) {
+            const values = match[1].split(",").map(v => parseFloat(v.trim()));
+            const alpha = values.length > 3 ? values[3] : 1;
+            if (alpha > 0.05) {
+                const base = color || [255, 255, 255];
+                color = [
+                    values[0] * alpha + base[0] * (1 - alpha),
+                    values[1] * alpha + base[1] * (1 - alpha),
+                    values[2] * alpha + base[2] * (1 - alpha)
+                ];
+                break;
+            }
+        }
+        el = el.parentElement;
+    }
+
+    if (!color) {
+        const bg = window.getComputedStyle(page).backgroundColor;
+        const match = bg && bg.match(/rgba?\\(([^)]+)\\)/);
+        if (match) color = match[1].split(",").slice(0, 3).map(v => parseFloat(v.trim()));
+    }
+
+    if (!color || color.some(v => !Number.isFinite(v))) {
+        statusbar.style.color = "#000000";
+        return;
+    }
+
+    const luminance = 0.2126 * color[0] + 0.7152 * color[1] + 0.0722 * color[2];
+    statusbar.style.color = luminance >= 145 ? "#000000" : "#FFFFFF";
+}
+
 function switchPage(pageId) {
     $(".jp-page").removeClass("active");
     $(`#${pageId}`).addClass("active");
@@ -438,6 +491,7 @@ function switchPage(pageId) {
         updateWiCountTip();
         applyCustomColors();
     }
+    requestAnimationFrame(() => updateStatusColorForPage(pageId));
 }
 
 function togglePhoneModal(show) {
