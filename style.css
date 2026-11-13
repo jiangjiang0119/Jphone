@@ -135,7 +135,8 @@
 .jp-battery-tip {
     width: 1.4px;
     height: 3.8px;
-    background: #C7C7CC;
+    background: currentColor;
+    opacity: 0.45;
     border-radius: 0 1px 1px 0;
     margin-left: 1px;
 }
