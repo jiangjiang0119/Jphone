@@ -62,16 +62,20 @@ function applySavedImages() {
     updateAutoStatusTimeColor();
 }
 
-/* 根据自定义壁纸顶部区域的实际像素亮度，自动切换状态栏时间文字黑/白。
-   仅作用于 #jp_top_clock，不影响右侧信号、Wi-Fi、电池图标。 */
+/* 根据小手机壁纸顶部区域亮度，自动切换整行状态栏黑/白。
+   时间、信号、Wi-Fi、电池统一继承状态栏颜色；灵动岛保持原样。 */
 function updateAutoStatusTimeColor() {
     const wallpaper = (extension_settings[extName].customImages || {}).wallpaper;
-    const clock = document.getElementById("jp_top_clock");
+    const statusbar = document.querySelector("#jp_screen_inner .jp-statusbar");
     const screen = document.getElementById("jp_screen_inner");
-    if (!clock || !screen) return;
+    if (!statusbar || !screen) return;
+
+    const applyColor = (color) => {
+        statusbar.style.color = color;
+    };
 
     if (!wallpaper) {
-        clock.style.color = "#000000";
+        applyColor("#000000");
         return;
     }
 
@@ -111,12 +115,12 @@ function updateAutoStatusTimeColor() {
                 count++;
             }
             const averageLuminance = count ? luminanceTotal / count : 255;
-            clock.style.color = averageLuminance >= 145 ? "#000000" : "#FFFFFF";
+            applyColor(averageLuminance >= 145 ? "#000000" : "#FFFFFF");
         } catch (error) {
-            // 图片无法读取像素时保留当前状态栏配色。
+            // 无法读取图片像素时，保持当前状态栏颜色。
         }
     };
-    img.onerror = () => { clock.style.color = "#000000"; };
+    img.onerror = () => applyColor("#000000");
     img.src = wallpaper;
 }
 
