@@ -451,7 +451,7 @@ function updateStatusColorForPage(pageId) {
 
     while (el && page.contains(el)) {
         const bg = window.getComputedStyle(el).backgroundColor;
-        const match = bg && bg.match(/rgba?\\(([^)]+)\\)/);
+        const match = bg && bg.match(/rgba?\(([^)]+)\)/);
         if (match) {
             const values = match[1].split(",").map(v => parseFloat(v.trim()));
             const alpha = values.length > 3 ? values[3] : 1;
@@ -470,7 +470,7 @@ function updateStatusColorForPage(pageId) {
 
     if (!color) {
         const bg = window.getComputedStyle(page).backgroundColor;
-        const match = bg && bg.match(/rgba?\\(([^)]+)\\)/);
+        const match = bg && bg.match(/rgba?\(([^)]+)\)/);
         if (match) color = match[1].split(",").slice(0, 3).map(v => parseFloat(v.trim()));
     }
 
