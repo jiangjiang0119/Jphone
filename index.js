@@ -154,47 +154,51 @@ async function loadWorldBookNames() {
 function updateWiCountTip() {
     const checkedWi = extension_settings[extName].checkedWi || {};
     const keys = Object.keys(checkedWi);
-    $("#jp_wi_count_tip").text(`已勾选 ${keys.length} 个条目 (跨书永久保存)`);
+    $("#jp_wi_count_tip").text(`已勾选 ${keys.length} 条 · 跨书永久保存`);
+    $("#jp_wi_checked_title").text(`已勾选条目（共 ${keys.length} 条）`);
 
-    let summaryBox = $("#jp_wi_selected_summary");
-    if (!summaryBox.length) {
-        summaryBox = $(`<div id="jp_wi_selected_summary" style="margin-bottom:8px;"></div>`);
-        $("#jp_wi_entries_box").before(summaryBox);
-    }
+    const summaryBox = $("#jp_wi_selected_summary");
     summaryBox.empty();
 
-    if (keys.length > 0) {
-        const wrap = $(`<div style="background:#FEF1BD; border:1px solid #E1E9A5; border-radius:8px; padding:6px 8px; max-height:150px; overflow-y:auto;">
-            <div style="font-size:11px; font-weight:600; color:#556B2F; margin-bottom:4px;">✅ 已勾选清单（直接取消打勾即可移除）：</div>
-        </div>`);
-
-        keys.forEach((keyId, i) => {
-            const item = checkedWi[keyId];
-            const cleanPreview = (item.content || "").replace(/\s+/g, " ").slice(0, 32);
-            const row = $(`<label style="display:flex; align-items:center; gap:6px; padding:4px 6px; background:#FFFFFF; border-radius:6px; margin-bottom:4px; font-size:11px; color:#4A5D29; cursor:pointer;"></label>`);
-            const chk = $(`<input type="checkbox" checked>`).on("change", function () {
-                delete extension_settings[extName].checkedWi[keyId];
-                saveSettingsDebounced();
-                $(`#jp_wi_entries_box .jp-wi-entry-chk[data-keyid="${keyId}"]`).prop("checked", false);
-                updateWiCountTip();
-            });
-            const textDiv = $(`<div style="flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"></div>`)
-                .text(`${i + 1}. [${item.book}] ${item.title}：${cleanPreview}...`);
-            row.append(chk).append(textDiv);
-            wrap.append(row);
-        });
-        summaryBox.append(wrap);
+    if (!keys.length) {
+        summaryBox.html('<div class="jp-wi-empty">暂未勾选任何世界书条目</div>');
+        return;
     }
+
+    keys.forEach((keyId) => {
+        const item = checkedWi[keyId];
+        if (!item) return;
+
+        const row = $('<label class="jp-wi-row checked"></label>');
+        const book = $('<span class="jp-wi-book-prefix"></span>').text(`《${item.book || "未命名世界书"}》`);
+        const title = $('<span class="jp-wi-name"></span>').text(item.title || "未命名条目");
+        const chk = $('<input type="checkbox" class="jp-wi-chk" checked>');
+        chk.on("change", function () {
+            delete extension_settings[extName].checkedWi[keyId];
+            saveSettingsDebounced();
+            $("#jp_wi_entries_box .jp-wi-entry-chk").filter(function () {
+                return $(this).attr("data-keyid") === keyId;
+            }).prop("checked", false);
+            updateWiCountTip();
+        });
+
+        row.append(book, title, chk);
+        summaryBox.append(row);
+    });
 }
 
 async function loadBookEntries(bookName) {
     const box = $("#jp_wi_entries_box");
     updateWiCountTip();
+
     if (!bookName) {
-        box.html(`<div style="color:#8AA85B; text-align:center; padding:14px 0; font-size:11px;">请先选择上方的世界书~✨</div>`);
+        $("#jp_wi_all_title").text("当前书目全部条目（未载入）");
+        box.html('<div class="jp-wi-empty">请先载入并选择一本世界书</div>');
         return;
     }
-    box.html(`<div style="color:#8AA85B; text-align:center; padding:14px 0; font-size:11px;">⏳ 正在读取《${bookName}》...</div>`);
+
+    $("#jp_wi_all_title").text(`《${bookName}》全部条目（读取中…）`);
+    box.html('<div class="jp-wi-empty">正在读取世界书条目…</div>');
 
     try {
         let data = null;
@@ -214,12 +218,14 @@ async function loadBookEntries(bookName) {
         }
 
         const entries = data && data.entries ? Object.values(data.entries) : [];
+        $("#jp_wi_all_title").text(`《${bookName}》全部条目（${entries.length}）`);
+
         if (!entries.length) {
-            box.html(`<div style="color:#8AA85B; text-align:center; padding:14px 0; font-size:11px;">这本书里还没有条目哦~</div>`);
+            box.html('<div class="jp-wi-empty">这本世界书里还没有条目</div>');
             return;
         }
 
-        box.empty().css({ "max-height": "260px", "overflow-y": "auto" });
+        box.empty().css({ "max-height": "175px", "overflow-y": "auto" });
         const checkedWi = extension_settings[extName].checkedWi || {};
 
         entries.forEach((entry, idx) => {
@@ -235,34 +241,39 @@ async function loadBookEntries(bookName) {
             const preview = content.replace(/\s+/g, " ").slice(0, 48);
             const isChecked = Boolean(checkedWi[keyId]);
 
-            const row = $(`<label style="display:flex; align-items:flex-start; gap:6px; padding:6px; background:#FFFFFF; border:1px solid #E1E9A5; border-radius:7px; margin-bottom:5px; font-size:11px; color:#4A5D29; cursor:pointer;"></label>`);
-            const chk = $(`<input type="checkbox" class="jp-wi-entry-chk" style="margin-top:2px;">`)
+            const row = $('<label class="jp-wi-row"></label>');
+            const infoBox = $('<div class="jp-wi-row-info"></div>');
+            const titleEl = $('<div class="jp-wi-row-title"></div>').text(`${idx + 1}. ${title}`);
+            const descEl = $('<div class="jp-wi-row-desc"></div>').text(preview || "(空内容)");
+            const chk = $('<input type="checkbox" class="jp-wi-chk jp-wi-entry-chk">')
                 .attr("data-uid", uid)
                 .attr("data-keyid", keyId)
                 .prop("checked", isChecked);
 
-            const infoBox = $(`<div style="flex:1; overflow:hidden;"></div>`);
-            const titleEl = $(`<div style="font-weight:600; color:#556B2F; margin-bottom:2px;"></div>`).text(`${idx + 1}. ${title}`);
-            const descEl = $(`<div style="font-size:10px; color:#8AA85B; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"></div>`).text(preview || "(空内容)");
-
-            infoBox.append(titleEl).append(descEl);
-            row.append(chk).append(infoBox);
+            infoBox.append(titleEl, descEl);
+            row.append(infoBox, chk);
 
             chk.on("change", function () {
+                extension_settings[extName].checkedWi = extension_settings[extName].checkedWi || {};
                 if ($(this).prop("checked")) {
                     extension_settings[extName].checkedWi[keyId] = { book: bookName, uid, title, content };
+                    row.addClass("checked");
                 } else {
                     delete extension_settings[extName].checkedWi[keyId];
+                    row.removeClass("checked");
                 }
                 saveSettingsDebounced();
                 updateWiCountTip();
             });
+            if (isChecked) row.addClass("checked");
             box.append(row);
         });
     } catch (err) {
-        box.html(`<div style="color:#d9534f; text-align:center; padding:12px;">读取世界书失败：${err.message}</div>`);
+        $("#jp_wi_all_title").text(`《${bookName}》条目读取失败`);
+        box.empty().append($('<div class="jp-wi-empty jp-wi-error"></div>').text(`读取世界书失败：${err.message || err}`));
     }
 }
+
 
 function cleanMesText(raw) {
     if (!raw) return "";
@@ -601,6 +612,38 @@ jQuery(async () => {
     });
     $(document).on("click", "#jp_wi_uncheck_all", () => {
         $("#jp_wi_entries_box .jp-wi-entry-chk").prop("checked", false).trigger("change");
+    });
+
+    $(document).on("click", "#jp_sub_wi .jp-wi-acc-head", function () {
+        $(this).closest(".jp-wi-accordion").toggleClass("open");
+    });
+
+    function setWiClearConfirm(show) {
+        $("#jp_wi_clear_normal").toggle(!show);
+        $("#jp_wi_clear_confirm").toggleClass("show", show);
+        if (!show) {
+            $("#jp_wi_clear_checkbox").prop("checked", false);
+            $("#jp_wi_clear_confirm_btn").prop("disabled", true);
+        }
+    }
+
+    $(document).on("click", "#jp_wi_clear_trigger", () => setWiClearConfirm(true));
+    $(document).on("click", "#jp_wi_clear_cancel", () => setWiClearConfirm(false));
+    $(document).on("change", "#jp_wi_clear_checkbox", function () {
+        $("#jp_wi_clear_confirm_btn").prop("disabled", !this.checked);
+    });
+    $(document).on("click", "#jp_wi_clear_confirm_btn", function () {
+        if (!$("#jp_wi_clear_checkbox").prop("checked")) return;
+
+        extension_settings[extName].checkedWi = {};
+        saveSettingsDebounced();
+
+        $("#jp_wi_book_select").empty().append('<option value="">请先载入世界书</option>');
+        $("#jp_wi_all_title").text("当前书目全部条目（未载入）");
+        $("#jp_wi_entries_box").html('<div class="jp-wi-empty">请先载入并选择一本世界书</div>');
+        updateWiCountTip();
+        setWiClearConfirm(false);
+        toastr.info("已清空全部已勾选世界书条目，并重置载入界面");
     });
 
     $(document).on("click", "#jp_save_preset_btn", () => {
