@@ -1791,7 +1791,7 @@ jQuery(async () => {
 
         if (wt.polaName) $("#jp_polaroid_img").next().children().first().text(wt.polaName);
         if (wt.polaTag) $("#jp_polaroid_img").next().children().last().text(wt.polaTag);
-        if (wt.pillText) $("#jp_pill_text_ayan").text(wt.pillText);
+        $("#jp_pill_text_ayan").text(wt.pillText || "");
         if (wt.quoteBig) slide1.find(".font-cursive").text(wt.quoteBig);
         if (wt.quoteSmall) slide1.find(".font-cursive").siblings(".font-serif-italic").text(wt.quoteSmall);
 
@@ -1800,7 +1800,7 @@ jQuery(async () => {
             $("#jp_w_color_picker, #jp_w_color_hex").val(c);
             if (wt.polaName) $("#jp_in_pola_name").val(wt.polaName);
             if (wt.polaTag) $("#jp_in_pola_tag").val(wt.polaTag);
-            if (wt.pillText) $("#jp_in_pill_text").val(wt.pillText);
+            $("#jp_in_pill_text").val(wt.pillText || "");
             if (wt.quoteBig) $("#jp_in_quote_big").val(wt.quoteBig);
             if (wt.quoteSmall) $("#jp_in_quote_small").val(wt.quoteSmall);
         }
@@ -1824,7 +1824,7 @@ jQuery(async () => {
 
         if (pName) wt.polaName = pName;
         if (pTag) wt.polaTag = pTag;
-        if (pText) wt.pillText = pText;
+        wt.pillText = pText;
         if (qBig) wt.quoteBig = qBig;
         if (qSmall) wt.quoteSmall = qSmall;
 
