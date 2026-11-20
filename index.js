@@ -3005,7 +3005,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
             saveSettingsDebounced();
         }
         if (Array.isArray(wd.rules) && !wd.rules.some(r => r.app === "日记")) {
-            wd.rules.push({ name: "黑巴克日记规则", app: "日记", color: "g-rose", enabled: true, find: String.raw`[\[【](日记)\s*[|｜]([^\]】*)[\]】]`, replace: "天气 | 心境 | 地点 | 标题 | 400字正文 | 夹页批注" });
+            wd.rules.push({ name: "黑巴克日记规则", app: "日记", color: "g-rose", enabled: true, find: String.raw`[\[【](日记)\s*[|｜]([\s\S]*?)[\]】]`, replace: "天气 | 心境 | 地点 | 标题 | 400字正文 | 夹页批注" });
             saveSettingsDebounced();
         }
         if (typeof window.jpWeaveDispatch === "function" && !window.jpWeaveDispatch._diaryMounted) {
