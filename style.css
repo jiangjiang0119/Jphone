@@ -2391,30 +2391,30 @@
 .dy-ink-dot { width: 16px; height: 16px; border-radius: 4px; }
 
 
-/* === GLOBAL WEAVE TASK ORB · 檀绛香槟白四芒星琉璃球 === */
-.wv-weave-orb-anchor {
+/* === GLOBAL WEAVE TASK ORB · 檀绛香槟白四芒星琉璃球（同款极简高定定位） === */
+#wv_weave_task_orb {
     position: fixed !important;
-    right: max(22px, env(safe-area-inset-right));
-    bottom: max(24px, env(safe-area-inset-bottom));
+    top: 196px;
+    left: calc(100vw - 60px);
     z-index: 2147483647 !important;
-    width: 50px;
-    height: 50px;
-    display: none !important;
-    align-items: center;
-    justify-content: center;
-    touch-action: none;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
-    -webkit-user-select: none;
-}
-.wv-weave-orb-anchor.is-visible {
+    width: 50px !important;
+    height: 50px !important;
     display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
-    position: fixed !important;
-    z-index: 2147483647 !important;
+    touch-action: none;
+    cursor: grab;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+    box-sizing: border-box;
+    overflow: visible;
+}
+#wv_weave_task_orb.wv-orb-hidden {
+    display: none !important;
 }
 
 /* 球体正上方裸感悬空计时，不使用胶囊或边框 */
@@ -2447,7 +2447,7 @@
     flex: 0 0 auto;
     fill: #841A2D;
 }
-.wv-weave-orb-anchor.is-running .wv-weave-timer-star {
+#wv_weave_task_orb.is-running .wv-weave-timer-star {
     animation: wv-weave-spin-slow 3.5s linear infinite;
 }
 .wv-weave-timer-text {
@@ -2477,8 +2477,11 @@
     transition: transform .24s cubic-bezier(.34,1.56,.64,1),
                 box-shadow .25s ease;
 }
-.wv-weave-orb-anchor:active .wv-weave-orb-sphere {
+#wv_weave_task_orb:active .wv-weave-orb-sphere {
     transform: scale(.90);
+}
+#wv_weave_task_orb.is-done .wv-weave-orb-sphere {
+    animation: wv-weave-done-pulse 1.9s ease-in-out infinite;
 }
 
 /* 外圈流光环：冷雾檀绛、绯红宝石、暖香槟与纯白 */
@@ -2494,7 +2497,7 @@
         #D8B898 300deg,
         #841A2D 360deg);
 }
-.wv-weave-orb-anchor.is-running .wv-weave-orb-rotor {
+#wv_weave_task_orb.is-running .wv-weave-orb-rotor {
     animation: wv-weave-spin-slow 2.4s linear infinite;
 }
 
@@ -2524,7 +2527,7 @@
             rgba(243,227,211,.55) 210deg,#A3243B 290deg,#841A2D 360deg);
     opacity: .92;
 }
-.wv-weave-orb-anchor.is-running .wv-weave-orb-inner-swirl {
+#wv_weave_task_orb.is-running .wv-weave-orb-inner-swirl {
     animation: wv-weave-spin-slow 3.4s linear infinite;
 }
 .wv-weave-orb-gloss {
@@ -2546,15 +2549,15 @@
     color: #FFFFFF;
     filter: drop-shadow(0 1px 4px rgba(70,10,20,.5));
 }
-.wv-weave-orb-anchor.is-running .wv-weave-astrolabe-track {
+#wv_weave_task_orb.is-running .wv-weave-astrolabe-track {
     transform-origin: 12px 12px;
     animation: wv-weave-spin-reverse 6s linear infinite;
 }
-.wv-weave-orb-anchor.is-running .wv-weave-main-four-star {
+#wv_weave_task_orb.is-running .wv-weave-main-four-star {
     transform-origin: 12px 12px;
     animation: wv-weave-star-breath 1.8s ease-in-out infinite;
 }
-.wv-weave-orb-anchor.is-running .wv-weave-sub-four-star {
+#wv_weave_task_orb.is-running .wv-weave-sub-four-star {
     transform-origin: 17.5px 6.8px;
     animation: wv-weave-star-breath 1.8s ease-in-out .6s infinite;
 }
@@ -2571,9 +2574,15 @@
     0%,100% { transform: scale(.86); opacity: .84; }
     50% { transform: scale(1.08); opacity: 1; }
 }
-@media (max-width: 480px) {
-    .wv-weave-orb-anchor {
-        right: max(22px, env(safe-area-inset-right));
-        bottom: max(24px, env(safe-area-inset-bottom));
+@keyframes wv-weave-done-pulse {
+    0%,100% {
+        box-shadow: 0 10px 26px -2px rgba(132,26,45,.42),
+                    0 0 0 0 rgba(243,227,211,.65),
+                    inset 0 1.5px 2px #FFFFFF;
+    }
+    50% {
+        box-shadow: 0 10px 28px -2px rgba(132,26,45,.55),
+                    0 0 0 8px rgba(243,227,211,0),
+                    inset 0 1.5px 2px #FFFFFF;
     }
 }

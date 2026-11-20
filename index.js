@@ -495,7 +495,7 @@ function switchPage(pageId) {
         applyCustomColors();
     }
     if (pageId === "jp_p_weave") {
-        jpWeaveOrbHooks?.hideOrb?.();
+        jpWeaveOrbHooks?.onEnterWeave?.();
     } else if (wasInWeave) {
         jpWeaveOrbHooks?.onLeaveWeave?.();
     }
@@ -513,7 +513,7 @@ function togglePhoneModal(show) {
         applyCustomColors();
         overlay.removeClass("j-phone-hidden");
         if ($("#jp_p_weave").hasClass("active")) {
-            jpWeaveOrbHooks?.hideOrb?.();
+            jpWeaveOrbHooks?.onEnterWeave?.();
         }
     } else {
         const wasInWeave = $("#jp_p_weave").hasClass("active");
@@ -2622,8 +2622,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
     $(document).on("click", '.jp-icon-btn[data-app="jp_p_weave"]', () => {
         switchPage("jp_p_weave");
         renderWeaveApp();
-        wvHideTaskOrb();
-        if (!wvTaskRunning && wvTaskState !== "idle") wvTaskNeedsAttention = false;
+        wvHandleEnterWeave();
     });
     // 返回桌面交由 switchPage 统一在移除 .active 前记录 wasInWeave 并触发极光琉璃球
     $(document).off("click.wvTaskOrb", "#wv_home_back").on("click.wvTaskOrb", "#wv_home_back", function () {
@@ -2751,13 +2750,13 @@ const WV_P_XHS = String.raw`【小红书生成指令】
     // =========================================================================
     const WV_HEAD = "【织章 · 多软件联动生成】请一次性完成下方全部任务。只输出各任务要求的方括号标签，每条标签独占一行；任何字段内禁止出现竖线 | 与方括号 [ ]，正文需要换行时用 \\n 表示；不要输出任何解释、前言、标题或代码块。";
 
-    // 全酒馆级织章任务球：独立于原有小手机悬浮球，不依附手机页面
+    // 全酒馆级织章后台计时琉璃球：参考 #jp_mini_bubble 与 CJ-Jott 后台计时架构，启动即挂载 body
     let wvTaskStartedAt = 0;
     let wvTaskEndedAt = 0;
     let wvTaskTicker = null;
+    let wvTaskAutoHideTimer = null;
     let wvTaskState = "idle";
     let wvTaskRunning = false;
-    let wvTaskOrbRevealed = false;
     let wvTaskNeedsAttention = false;
     let wvTaskButtonId = null;
 
@@ -2782,10 +2781,11 @@ const WV_P_XHS = String.raw`【小红书生成指令】
             </svg>`
     };
 
-    function wvEnsureTaskFloat() {
-        if ($("#wv_weave_task_orb").length) return;
-        $("body").append(`
-            <div id="wv_weave_task_orb" class="wv-weave-orb-anchor" role="button" tabindex="0" aria-label="织章生成状态，点击返回织章页面">
+    function wvEnsureTaskFloat(forceRebuild = false) {
+        if (!forceRebuild && $("#wv_weave_task_orb").length) return;
+        $("#wv_weave_task_orb").remove();
+        const $orb = $(`
+            <div id="wv_weave_task_orb" class="wv-weave-orb-anchor wv-orb-hidden" role="button" tabindex="0" aria-label="织章生成状态，点击返回织章页面">
                 <div class="wv-weave-floating-timer" aria-live="polite">
                     <svg class="wv-weave-timer-star" viewBox="0 0 16 16" aria-hidden="true">
                         <path d="M8 0L9.8 6.2L16 8L9.8 9.8L8 16L6.2 9.8L0 8L6.2 6.2L8 0Z"/>
@@ -2797,46 +2797,64 @@ const WV_P_XHS = String.raw`【小红书生成指令】
                     <div class="wv-weave-orb-core">
                         <div class="wv-weave-orb-inner-swirl"></div>
                         <div class="wv-weave-orb-gloss"></div>
-                        <div id="wv_weave_orb_icon" class="wv-weave-orb-icon"></div>
+                        <div id="wv_weave_orb_icon" class="wv-weave-orb-icon">${WV_TASK_ORB_SVGS.running}</div>
                     </div>
                 </div>
             </div>`);
+        $("body").append($orb);
 
-        const orb = document.getElementById("wv_weave_task_orb");
-        let dragging = false, moved = false, startX = 0, startY = 0, initialLeft = 0, initialTop = 0;
+        // 与绿色小手机悬浮球 #jp_mini_bubble、CJ-Jott 完全同款的手机端触摸 + 鼠标自由拖动
+        let orbPointerActive = false;
+        let isDraggingOrb = false;
+        let orbStartX = 0, orbStartY = 0;
+        let orbInitLeft = 0, orbInitTop = 0;
 
-        orb.addEventListener("pointerdown", (e) => {
-            dragging = true;
-            moved = false;
-            startX = e.clientX;
-            startY = e.clientY;
-            const rect = orb.getBoundingClientRect();
-            initialLeft = rect.left;
-            initialTop = rect.top;
-            try { orb.setPointerCapture(e.pointerId); } catch (_) {}
+        $orb.on("touchstart mousedown", function (e) {
+            orbPointerActive = true;
+            isDraggingOrb = false;
+            const touch = e.type === "touchstart" ? e.originalEvent.touches[0] : e;
+            orbStartX = touch.clientX;
+            orbStartY = touch.clientY;
+            const rect = this.getBoundingClientRect();
+            orbInitLeft = rect.left;
+            orbInitTop = rect.top;
         });
-        orb.addEventListener("pointermove", (e) => {
-            if (!dragging) return;
-            const dx = e.clientX - startX;
-            const dy = e.clientY - startY;
-            if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
-                moved = true;
-                const maxLeft = window.innerWidth - orb.offsetWidth - 10;
-                const maxTop = window.innerHeight - orb.offsetHeight - 10;
-                orb.style.left = Math.max(10, Math.min(maxLeft, initialLeft + dx)) + "px";
-                orb.style.top = Math.max(28, Math.min(maxTop, initialTop + dy)) + "px";
-                orb.style.right = "auto";
-                orb.style.bottom = "auto";
+
+        $(window).off(".jpwvorb").on("touchmove.jpwvorb mousemove.jpwvorb", function (e) {
+            if (!orbPointerActive || $orb.hasClass("wv-orb-hidden")) return;
+            if (e.type === "mousemove" && e.buttons !== 1) return;
+
+            const touch = e.type === "touchmove" ? e.originalEvent.touches[0] : e;
+            const dx = touch.clientX - orbStartX;
+            const dy = touch.clientY - orbStartY;
+
+            if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+                isDraggingOrb = true;
+                const maxLeft = window.innerWidth - 54;
+                const maxTop = window.innerHeight - 54;
+                const newLeft = Math.max(6, Math.min(maxLeft, orbInitLeft + dx));
+                const newTop = Math.max(28, Math.min(maxTop, orbInitTop + dy));
+                $orb.css({ left: newLeft + "px", top: newTop + "px", right: "auto", bottom: "auto" });
             }
         });
-        const finishPointer = () => {
-            if (!dragging) return;
-            dragging = false;
-            if (!moved) wvOpenTaskWeavePage();
-        };
-        orb.addEventListener("pointerup", finishPointer);
-        orb.addEventListener("pointercancel", () => { dragging = false; });
-        orb.addEventListener("keydown", (e) => {
+
+        $orb.on("touchend mouseup", function (e) {
+            if (!orbPointerActive) return;
+            orbPointerActive = false;
+            if (!isDraggingOrb) {
+                e.preventDefault();
+                e.stopPropagation();
+                wvOpenTaskWeavePage();
+            }
+            isDraggingOrb = false;
+        });
+
+        $(window).on("touchend.jpwvorb mouseup.jpwvorb", function () {
+            orbPointerActive = false;
+            isDraggingOrb = false;
+        });
+
+        $orb.on("keydown", (e) => {
             if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
                 wvOpenTaskWeavePage();
@@ -2844,34 +2862,42 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         });
     }
 
+    // 启动即挂载到 body（与 #jp_mini_bubble 同步生命周期）
+    wvEnsureTaskFloat(true);
+
     function wvIsGenTab() {
         const curTab = extension_settings[extName]?.weaveData?.currentTab;
         return curTab === "batch" || curTab === "single";
     }
 
+    function wvIsViewingWeave() {
+        const overlayOpen = !$("#j_phone_overlay").hasClass("j-phone-hidden");
+        return overlayOpen && $("#jp_p_weave").hasClass("active");
+    }
+
     function wvHasActiveOrPendingTask() {
-        return !!(wvTaskRunning || (wvTaskStartedAt && wvTaskState !== "idle"));
+        return !!(wvTaskRunning || (wvTaskStartedAt && wvTaskState !== "idle" && wvTaskNeedsAttention));
+    }
+
+    function wvClearAutoHideTimer() {
+        if (wvTaskAutoHideTimer) {
+            clearTimeout(wvTaskAutoHideTimer);
+            wvTaskAutoHideTimer = null;
+        }
     }
 
     function wvApplyOrbVisibility(visible) {
-        const orb = document.getElementById("wv_weave_task_orb");
-        if (!orb) return;
+        wvEnsureTaskFloat();
+        const $orb = $("#wv_weave_task_orb");
         if (visible) {
-            orb.classList.add("is-visible");
-            orb.style.setProperty("display", "flex", "important");
-            orb.style.setProperty("opacity", "1", "important");
-            orb.style.setProperty("visibility", "visible", "important");
-            orb.style.setProperty("pointer-events", "auto", "important");
-            orb.style.setProperty("position", "fixed", "important");
-            orb.style.setProperty("z-index", "2147483647", "important");
+            $orb.removeClass("wv-orb-hidden").addClass("is-visible");
         } else {
-            orb.classList.remove("is-visible");
-            orb.style.setProperty("display", "none", "important");
+            $orb.addClass("wv-orb-hidden").removeClass("is-visible");
         }
     }
 
     function wvHideTaskOrb() {
-        wvTaskOrbRevealed = false;
+        wvClearAutoHideTimer();
         wvApplyOrbVisibility(false);
     }
 
@@ -2887,32 +2913,28 @@ const WV_P_XHS = String.raw`【小红书生成指令】
             : `${String(minutes).padStart(2, "0")}:${String(remainder).padStart(2, "0")}`;
     }
 
+    function wvHandleEnterWeave() {
+        if (wvTaskRunning) {
+            // 生成进行中时保留读秒球，随时能看实时计时
+            wvClearAutoHideTimer();
+            wvApplyOrbVisibility(true);
+        } else {
+            wvTaskNeedsAttention = false;
+            wvHideTaskOrb();
+        }
+    }
+
     function wvOpenTaskWeavePage() {
         togglePhoneModal(true);
         switchPage("jp_p_weave");
         renderWeaveApp();
-        wvHideTaskOrb();
-        // 正在生成时保留待提醒标记；已结束的任务在用户打开页面后视为已查看
-        if (!wvTaskRunning && wvTaskState !== "idle") wvTaskNeedsAttention = false;
-    }
-
-    function wvRevealTaskOrb(allowIdleStandby = false) {
-        const hasTask = wvHasActiveOrPendingTask();
-        const standby = !hasTask && (allowIdleStandby || wvIsGenTab());
-        if (!hasTask && !standby) return;
-        wvEnsureTaskFloat();
-        wvTaskOrbRevealed = true;
-        wvApplyOrbVisibility(true);
-        if (standby) {
-            wvShowTaskFloat("running", { standby: true });
-        } else {
-            wvShowTaskFloat(wvTaskState === "idle" ? "running" : wvTaskState);
-        }
+        wvHandleEnterWeave();
     }
 
     function wvShowTaskFloat(state, options = {}) {
         const isStandby = !!options.standby;
         wvEnsureTaskFloat();
+        wvClearAutoHideTimer();
         if (!isStandby) {
             wvTaskState = state;
         }
@@ -2930,24 +2952,45 @@ const WV_P_XHS = String.raw`【小红书生成指令】
             if (wvTaskTicker) clearInterval(wvTaskTicker);
             wvTaskTicker = setInterval(() => {
                 $("#wv_weave_task_elapsed").text(wvFormatElapsed());
-            }, 1000);
+            }, 200);
         } else {
             if (!wvTaskEndedAt) wvTaskEndedAt = Date.now();
             if (wvTaskTicker) clearInterval(wvTaskTicker);
             wvTaskTicker = null;
-            // 完成/失败后停止计时，但保留本次真实耗时；结果由球体图标与状态样式区分
             $("#wv_weave_task_elapsed").text(wvFormatElapsed());
         }
 
         $("#wv_weave_orb_icon").html(WV_TASK_ORB_SVGS[visualState] || WV_TASK_ORB_SVGS.running);
         $orb.attr("aria-label", visualState === "done" ? "织章已完成，点击返回查看" : visualState === "error" ? "织章生成未完成，点击返回查看" : "织章生成中，点击返回织章页面");
 
-        // 显影与隐藏统一走强制样式，避免旧行内样式残留或被遮挡
-        wvApplyOrbVisibility(wvTaskOrbRevealed);
+        wvApplyOrbVisibility(true);
+
+        // 参考 CJ-Jott：若完成/出错时人正好停在织章页面里看结果，展示 2.5 秒耗时后温柔收起；
+        // 若人在桌面/其他 App/酒馆聊天，则一直悬着呼吸提醒直到点击返回查看
+        if (!isStandby && (visualState === "done" || visualState === "error") && wvIsViewingWeave()) {
+            wvTaskNeedsAttention = false;
+            wvTaskAutoHideTimer = setTimeout(() => {
+                if (!wvTaskRunning && wvIsViewingWeave()) {
+                    wvHideTaskOrb();
+                }
+            }, 2500);
+        }
+    }
+
+    function wvRevealTaskOrb(allowIdleStandby = false) {
+        wvClearAutoHideTimer();
+        const hasTask = wvHasActiveOrPendingTask();
+        const standby = !hasTask && (allowIdleStandby || wvIsGenTab());
+        if (!hasTask && !standby) return;
+        if (standby) {
+            wvShowTaskFloat("running", { standby: true });
+        } else {
+            wvShowTaskFloat(wvTaskState === "idle" ? "running" : wvTaskState);
+        }
     }
 
     jpWeaveOrbHooks = {
-        hideOrb: wvHideTaskOrb,
+        onEnterWeave: wvHandleEnterWeave,
         onLeaveWeave: () => {
             if (wvHasActiveOrPendingTask() || wvIsGenTab()) {
                 wvRevealTaskOrb(wvIsGenTab());
@@ -2971,7 +3014,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         wvTaskNeedsAttention = true;
         wvTaskButtonId = $btn.attr("id");
         $btn.prop("disabled", true).text("织章中 · 正在等待回执……");
-        wvHideTaskOrb();
+        // 参考 CJ-Jott：点下生成即刻浮出极光琉璃球并开始后台实时读秒
         wvShowTaskFloat("running");
 
         try {
@@ -2986,12 +3029,16 @@ const WV_P_XHS = String.raw`【小红书生成指令】
             const auto = !sw.length || sw.hasClass("on");
             const res = auto ? window.jpWeaveDispatch(raw) : [];
 
+            wvTaskRunning = false;
+            wvTaskButtonId = null;
             renderWeaveApp();
             wvShowTaskFloat("done");
             if (!auto) toastr.info("回执已存入缓存，可稍后手动解析分发");
             else if (res.length) toastr.success(`织章完成 ✧ ${res.join(" · ")}`);
             else toastr.warning("回执已缓存，但没识别到标签，可检查格式后重新解析");
         } catch (e) {
+            wvTaskRunning = false;
+            wvTaskButtonId = null;
             wvShowTaskFloat("error");
             toastr.error(`织章失败：${e.message || e}`);
         } finally {
