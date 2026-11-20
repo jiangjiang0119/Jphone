@@ -2723,9 +2723,55 @@ const WV_P_XHS = String.raw`【小红书生成指令】
     // =========================================================================
     const WV_HEAD = "【织章 · 多软件联动生成】请一次性完成下方全部任务。只输出各任务要求的方括号标签，每条标签独占一行；任何字段内禁止出现竖线 | 与方括号 [ ]，正文需要换行时用 \\n 表示；不要输出任何解释、前言、标题或代码块。";
 
+    // 全酒馆级织章任务胶囊：不依附手机页面，切换酒馆界面时仍留在 body
+    let wvTaskStartedAt = 0;
+    let wvTaskTicker = null;
+    function wvEnsureTaskFloat() {
+        if ($("#wv_global_task_float").length) return;
+        $("body").append(`
+            <div id="wv_global_task_float" class="wv-global-task-float" aria-live="polite">
+                <button type="button" class="wv-global-task-main" id="wv_global_task_open" aria-label="返回织章生成页面">
+                    <span class="wv-global-task-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.64 5.64l2.12 2.12m8.48 8.48 2.12 2.12m0-12.72-2.12 2.12m-8.48 8.48-2.12 2.12"/><circle cx="12" cy="12" r="4"/></svg></span>
+                    <span class="wv-global-task-copy"><strong id="wv_global_task_title">织章生成中</strong><small id="wv_global_task_elapsed">正在等待回执 · 00:00</small></span>
+                </button>
+                <button type="button" class="wv-global-task-min" id="wv_global_task_min" aria-label="收起 Jphone" title="收起 Jphone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+            </div>`);
+        $("#wv_global_task_open").on("click", () => {
+            togglePhoneModal(true);
+            switchPage("jp_p_weave");
+            renderWeaveApp();
+        });
+        $("#wv_global_task_min").on("click", (e) => {
+            e.stopPropagation();
+            togglePhoneModal(false);
+        });
+    }
+    function wvFormatElapsed() {
+        const seconds = Math.max(0, Math.floor((Date.now() - wvTaskStartedAt) / 1000));
+        return String(Math.floor(seconds / 60)).padStart(2, "0") + ":" + String(seconds % 60).padStart(2, "0");
+    }
+    function wvShowTaskFloat(state) {
+        wvEnsureTaskFloat();
+        const $float = $("#wv_global_task_float");
+        $float.removeClass("is-done is-error").addClass(state === "done" ? "is-done" : state === "error" ? "is-error" : "is-running");
+        $("#wv_global_task_title").text(state === "done" ? "织章已完成" : state === "error" ? "生成未完成" : "织章生成中");
+        if (state === "running") {
+            $("#wv_global_task_elapsed").text("正在等待回执 · " + wvFormatElapsed());
+            if (wvTaskTicker) clearInterval(wvTaskTicker);
+            wvTaskTicker = setInterval(() => $("#wv_global_task_elapsed").text("正在等待回执 · " + wvFormatElapsed()), 1000);
+        } else {
+            if (wvTaskTicker) clearInterval(wvTaskTicker);
+            wvTaskTicker = null;
+            $("#wv_global_task_elapsed").text((state === "done" ? "回执已返回 · " : "请返回查看 · ") + wvFormatElapsed());
+        }
+        $float.addClass("is-visible");
+    }
+
     async function wvRunGenerate(prompt, $btn, label) {
         if ($btn.prop("disabled")) return;
         $btn.prop("disabled", true).text("织章中 · 正在等待回执……");
+        wvTaskStartedAt = Date.now();
+        wvShowTaskFloat("running");
         try {
             const raw = String(await generatePhoneContent(`${WV_HEAD}\n\n${prompt}`) || "").trim();
             if (!raw) throw new Error("AI 返回为空");
@@ -2735,10 +2781,12 @@ const WV_P_XHS = String.raw`【小红书生成指令】
             const sw = $("#wv_main [data-wvsw]").eq(1), auto = !sw.length || sw.hasClass("on");
             const res = auto ? window.jpWeaveDispatch(raw) : [];
             renderWeaveApp();
+            wvShowTaskFloat("done");
             if (!auto) toastr.info("回执已存入缓存，可稍后手动解析分发");
             else if (res.length) toastr.success(`织章完成 ✧ ${res.join(" · ")}`);
             else toastr.warning("回执已缓存，但没识别到标签，可检查格式后重新解析");
         } catch (e) {
+            wvShowTaskFloat("error");
             toastr.error(`织章失败：${e.message || e}`);
             $btn.prop("disabled", false).text(label);
         }
