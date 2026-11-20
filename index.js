@@ -2597,7 +2597,10 @@ const WV_P_XHS = String.raw`【小红书生成指令】
                 `<div class="wv-doomsday-box"><div class="wv-cyber-alert-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="17" r="0.8" fill="currentColor"/></svg></div><div class="wv-doomsday-title">全域出厂清零 · SYSTEM RESET</div><div class="wv-doomsday-desc">将小手机全部软件数据彻底清零重置（钱包本金回退 1.93 亿，小红书仅保留初始置顶，其余全部净空）。</div><button class="wv-btn-doomsday" id="wv_doomsday_btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg><span>确认执行全部软件清零 · 恢复出厂空白</span></button></div>`;
         }
         $("#wv_main").html(html);
-        if (wvTaskRunning) $("#wv_batch_btn, #wv_single_btn").prop("disabled", true);
+        if (wvTaskRunning) {
+            $("#wv_batch_btn, #wv_single_btn").prop("disabled", true);
+            if (wvTaskButtonId) $("#" + wvTaskButtonId).text("织章中 · 正在等待回执……");
+        }
     }
 
     $(document).on("click", '.jp-icon-btn[data-app="jp_p_weave"]', () => {
@@ -2607,9 +2610,12 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         wvTaskOrbRevealed = false;
         if (!wvTaskRunning && wvTaskState !== "idle") wvTaskNeedsAttention = false;
     });
-    $(document).on("click", "#wv_home_back", () => {
+    // 直接绑定静态返回键，避免其他页面级点击处理器阻止事件冒泡到 document
+    document.getElementById("wv_home_back")?.addEventListener("click", () => {
         switchPage("jp_p_home");
-        if (wvTaskStartedAt) wvRevealTaskOrb();
+        requestAnimationFrame(() => {
+            if (wvTaskStartedAt && wvTaskNeedsAttention) wvRevealTaskOrb();
+        });
     });
     $(document).on("click", "#wv_nav button", function () { extension_settings[extName].weaveData.currentTab = $(this).data("wvtab"); saveSettingsDebounced(); renderWeaveApp(); });
     $(document).on("change", "#wv_main [data-wvtchk]", function () { const idx = Number($(this).data("wvtchk")); const wd = extension_settings[extName].weaveData; if (wd.templates[idx]) wd.templates[idx].enabled = $(this).prop("checked"); saveSettingsDebounced(); renderWeaveApp(); });
@@ -2741,6 +2747,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
     let wvTaskRunning = false;
     let wvTaskOrbRevealed = false;
     let wvTaskNeedsAttention = false;
+    let wvTaskButtonId = null;
 
     const WV_TASK_ORB_SVGS = {
         running: `
@@ -2891,6 +2898,8 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         wvTaskEndedAt = 0;
         wvTaskOrbRevealed = false;
         wvTaskNeedsAttention = true;
+        wvTaskButtonId = $btn.attr("id");
+        $btn.prop("disabled", true).text("织章中 · 正在等待回执……");
         $("#wv_weave_task_orb").removeClass("is-visible");
         wvShowTaskFloat("running");
 
@@ -2916,6 +2925,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
             toastr.error(`织章失败：${e.message || e}`);
         } finally {
             wvTaskRunning = false;
+            wvTaskButtonId = null;
             $("#wv_batch_btn").prop("disabled", false).text("WEAVE STORIES · 一键织章生成 →");
             $("#wv_single_btn").prop("disabled", false).text("GENERATE CHAPTER · 单章生成 →");
         }
