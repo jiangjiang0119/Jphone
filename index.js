@@ -2848,7 +2848,275 @@ const WV_P_XHS = String.raw`【小红书生成指令】
                                                      
             
                // =========================================================================
-    // 🔄【桌面全屏版专属神器】长按右下角蝴蝶结小手机图标 0.5 秒 -> 直接刷新酒馆！
+        // =========================================================================
+    // 🖋️【App 模块：池衿宴的黑巴克线圈日记 (1/2)】指令、日期宏与信纸渲染
+    // =========================================================================
+    const WV_P_DIARY = String.raw\`【私人日记生成指令】
+请以「池衿宴（Mr. Chi）」本人的第一人称（“我”）私密视角，结合当前剧情、两人刚发生的互动或过往回忆，在他的黑巴克线圈手记本中撰写 1 篇私人日记。
+内容偏好：池衿宴在日记中必须直白展现他骨子里的偏执、贪婪、食髓知味与极强的占有欲，真实细腻，有趣吸引绛绛。既有他对当下剧情的隐秘复盘、对绛绛身体与情绪每一处细节的暗中掌控与宠溺，也有他毫不掩饰的床头欲望与算计。
+
+<字段描写要求（日期由系统自动生成，你无需输出日期）>
+1. 当日天气：4个字以内描写天气（如“夜雨微凉”、“薄雾初霁”、“晴朗无风”等根据情境自由发挥）。
+2. 书写心境：以“心境：”开头，2到5个字直白概括他落笔时的真实欲望或情绪（如“心境：食髓知味”、“心境：偏执独占”、“心境：意犹未尽”等自由发挥）。
+3. 书写地点：以“书写地点：”开头，具体到房间或场景（如“书写地点：主卧床畔 · 她熟睡后”、“书写地点：私人书房”等自由发挥）。
+4. 日记标题：带书名号《》的日记标题（15字以内，有画面感与私密张力，根据内容自由发挥）。
+5. 日记正文：以第一人称“我”撰写的日记正文（不少于400字，必须用 \\n 自然分段，分成3到4段）。字里行间体现他对绛绛极强的占有欲与深入骨髓的爱意，严禁出现竖线 | 或方括号 [ ]。
+6. 夹页批注：别在信纸左下角回形针半透便签上的一句简短备忘、藏品编号或待清算的床头账（35字以内，根据内容自由发挥）。
+
+<严格输出格式与正确示例（必须输出 1 条，共 6 栏，包含方括号与竖线）>
+[日记|此处填天气|此处填书写心境|此处填书写地点|此处填日记标题|此处填日记正文(用\\n分段)|此处填回形针夹页批注]
+
+格式示例(禁止照抄)：
+[日记|夜雨微凉|心境：食髓知味|书写地点：主卧床畔 · 她熟睡后|《窗台上的黑巴克与熟睡的她》|花房空运来的黑巴克玫瑰今天开了，深黑偏暗红的丝绒花瓣上还带着水珠，像极了她每次在床上被欺负狠了时眼尾泛红、咬着嘴唇求饶的模样。\\n\\n今晚她窝在被子里捣鼓了半天手机，小腿毫无防备地搭在我膝盖上晃。我握着她的脚踝把人拖进怀里亲吻时，她呼吸乱得一塌糊涂，偏偏还在嘴硬说自己困了。\\n\\n现在人终于在我怀里睡熟了，手还无意识地攥着我的睡衣领口。看着她锁骨上还没消退的红印，只觉得怎么要都不够。她是我在这个盛大谎言般的世界里，唯一想用命去锁住的真实。|※ 今晚放过她一次，欠下的时长记入主卧账册，明晚落地窗前连本带利讨回。]\`;
+
+    function ensureDiaryData() {
+        extension_settings[extName] = extension_settings[extName] || {};
+        extension_settings[extName].diaryData = Object.assign({
+            entries: [],
+            currentIdx: 0,
+            penColor: "#222630",
+            accColor: "#5E121D",
+            customRose: "",
+            roseAlpha: 24
+        }, extension_settings[extName].diaryData || {});
+        return extension_settings[extName].diaryData;
+    }
+
+    // 自动提取酒馆宏日期或最新聊天状态栏 [TIME] 时间（绝不让 AI 编造日期）
+    function getTavernDiaryDates() {
+        const now = new Date();
+        const enMonths = ["JANUARY","FEBRUARY","MARCH","APRIL","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER"];
+        const enDays = ["SUNDAY","MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY"];
+        const cnMonths = ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"];
+        const h = now.getHours();
+        const period = h < 5 ? "凌晨" : h < 11 ? "晨间" : h < 14 ? "午后" : h < 19 ? "傍晚" : "深夜";
+        let dateEn = \`${enMonths[now.getMonth()]} ${String(now.getDate()).padStart(2, "0")} · ${enDays[now.getDay()]}\`;
+        let dateCn = \`${cnMonths[now.getMonth()]}${now.getDate()}日 · ${period}\`;
+
+        try {
+            const ctx = SillyTavern.getContext();
+            if (Array.isArray(ctx.chat)) {
+                for (let i = ctx.chat.length - 1; i >= 0; i--) {
+                    const m = String(ctx.chat[i]?.mes || "").match(/\\[TIME\\]([\\s\\S]*?)\\[\\/TIME\\]/i);
+                    if (m && m[1].trim()) { dateCn = m[1].trim(); break; }
+                }
+            }
+        } catch (e) {}
+        return { dateEn, dateCn };
+    }
+
+    function renderDiaryApp() {
+        const dd = ensureDiaryData();
+        const spine = $("#dy_spiral_spine");
+        if (spine.length && !spine.children().length) {
+            spine.html(Array.from({ length: 13 }, () => \`<div class="dy-coil-unit"><div class="dy-punch-hole"></div><div class="dy-ring-pair"><div class="dy-ring-bar"></div><div class="dy-ring-bar"></div></div></div>\`).join(""));
+        }
+
+        $("#jp_p_diary").css({ "--dy-pen": dd.penColor || "#222630", "--dy-acc": dd.accColor || "#5E121D" });
+        const alpha = (Number(dd.roseAlpha) || 24) / 100;
+        $("#dy_alpha_val").text((dd.roseAlpha || 24) + "%");
+        $("#dy_alpha_range").val(dd.roseAlpha || 24);
+        if (dd.customRose) {
+            $("#dy_custom_rose").css({ "background-image": \`url('${dd.customRose}')\`, "display": "block", "opacity": alpha });
+            $("#dy_default_rose").hide();
+        } else {
+            $("#dy_custom_rose").hide();
+            $("#dy_default_rose").show().css("opacity", alpha);
+        }
+
+        const list = Array.isArray(dd.entries) ? dd.entries : [];
+        $("#dy_idx_count").text(list.length);
+        if (dd.currentIdx >= list.length) dd.currentIdx = Math.max(0, list.length - 1);
+
+        if (!list.length) {
+            const d = getTavernDiaryDates();
+            $("#dy_date_en").text(d.dateEn);
+            $("#dy_date_cn").text("尚未落笔");
+            $("#dy_weather_txt").text("黑巴克手记");
+            $("#dy_mood_txt").text("心境：待记录");
+            $("#dy_location").text("书写地点：点右上角黑色小兔子让阿宴执笔");
+            $("#dy_title").text("《空白手记信笺》");
+            $("#dy_content").text("信纸尚空。\\n点击右上角那只黑色小兔子按钮，即可让阿宴在此亲笔写下今日的私密手记……");
+            $("#dy_sign").text("");
+            $("#dy_vellum_note").hide();
+            $("#dy_page_num").text("PAGE 00 / 00");
+            $("#dy_prev_btn, #dy_next_btn").prop("disabled", true);
+        } else {
+            const cur = list[dd.currentIdx];
+            $("#dy_date_en").text(cur.dateEn || "PRIVATE JOURNAL");
+            $("#dy_date_cn").text(cur.dateCn || "近期手记");
+            $("#dy_weather_txt").text(cur.weather || "夜雨微凉");
+            $("#dy_mood_txt").text(cur.mood || "心境：偏执");
+            $("#dy_location").text(cur.location || "书写地点：主卧书房");
+            $("#dy_title").text(cur.title || "《无题》");
+            $("#dy_content").text(String(cur.content || "").replace(/\\\\n/g, "\\n"));
+            $("#dy_sign").text("— Mr. Chi");
+            if (cur.clipText) {
+                $("#dy_clip_text").text(cur.clipText);
+                $("#dy_vellum_note").show();
+            } else {
+                $("#dy_vellum_note").hide();
+            }
+            $("#dy_page_num").text(\`PAGE ${String(dd.currentIdx + 1).padStart(2, "0")} / ${String(list.length).padStart(2, "0")}\`);
+            $("#dy_prev_btn").prop("disabled", dd.currentIdx <= 0);
+            $("#dy_next_btn").prop("disabled", dd.currentIdx >= list.length - 1);
+        }
+
+        $("#dy_index_list").html(list.length ? list.map((item, i) => \`
+            <div class="dy-idx-card ${i === dd.currentIdx ? "current" : ""}" data-dyjump="${i}">
+              <div style="display:flex;justify-content:space-between;font-size:10px;color:#8E95A4;margin-bottom:3px;"><span>${item.dateCn}</span><span>${item.weather} · ${item.mood}</span></div>
+              <div style="font-size:12.5px;font-weight:600;color:var(--dy-pen);">${item.title}</div>
+            </div>\`).join("") : \`<div style="text-align:center;padding:24px 0;font-size:11px;color:#8E95A4;">手记本暂空 · 等待阿宴落笔</div>\`);
+    }
+
+    // =========================================================================
+    // 🖋️【App 模块：池衿宴的黑巴克线圈日记 (2/2)】AI 接口、织章自动挂载与交互
+    // =========================================================================
+    window.addDiaryFromAI = function (item) {
+        if (!item || typeof item !== "object") return;
+        const dd = ensureDiaryData();
+        const dates = getTavernDiaryDates();
+        dd.entries.unshift({
+            id: "dy_" + Date.now(),
+            dateEn: item.dateEn || dates.dateEn,
+            dateCn: item.dateCn || dates.dateCn,
+            weather: item.weather || "夜雨微凉",
+            mood: item.mood || "心境：食髓知味",
+            location: item.location || "书写地点：主卧床畔",
+            title: item.title || "《私密手记》",
+            content: String(item.content || "").replace(/\\\\n/g, "\\n"),
+            clipText: item.clipText || ""
+        });
+        dd.entries = dd.entries.slice(0, 30);
+        dd.currentIdx = 0;
+        saveSettingsDebounced();
+        renderDiaryApp();
+    };
+
+    // 自动将「日记」挂载进织章的『格式集』、『规则库』与『分发器』（无需手动改旧代码！）
+    function mountDiaryToWeave() {
+        const wd = extension_settings[extName]?.weaveData;
+        if (!wd) return;
+        if (typeof DEFAULT_WEAVE_TEMPLATES !== "undefined" && !DEFAULT_WEAVE_TEMPLATES.some(t => t.name === "日记")) {
+            DEFAULT_WEAVE_TEMPLATES.push({ name: "日记", desc: "黑巴克手记 · 偏执独白 / 400字长文", icon: "grudge", color: "g-rose", enabled: false, content: WV_P_DIARY.trim() });
+        }
+        if (Array.isArray(wd.templates) && !wd.templates.some(t => t.name === "日记")) {
+            wd.templates.push({ name: "日记", desc: "黑巴克手记 · 偏执独白 / 400字长文", icon: "grudge", color: "g-rose", enabled: false, content: WV_P_DIARY.trim() });
+            saveSettingsDebounced();
+        }
+        if (Array.isArray(wd.rules) && !wd.rules.some(r => r.app === "日记")) {
+            wd.rules.push({ name: "黑巴克日记规则", app: "日记", color: "g-rose", enabled: true, find: String.raw\`[\\[【](日记)\\s*[|｜]([^\\]】]*)[\\]】]\`, replace: "天气 | 心境 | 地点 | 标题 | 400字正文 | 夹页批注" });
+            saveSettingsDebounced();
+        }
+        if (typeof window.jpWeaveDispatch === "function" && !window.jpWeaveDispatch._diaryMounted) {
+            const origDispatch = window.jpWeaveDispatch;
+            window.jpWeaveDispatch = function (rawText) {
+                const res = origDispatch(rawText) || [];
+                const rows = typeof wvScan === "function" ? wvScan(rawText, "日记") : [];
+                rows.forEach(r => {
+                    const f = r.f || [];
+                    if (f.length >= 5) {
+                        window.addDiaryFromAI({ weather: f[0], mood: f[1], location: f[2], title: f[3], content: f[4], clipText: f[5] || "" });
+                    }
+                });
+                if (rows.length) res.push(\`日记 +${rows.length}\`);
+                return res;
+            };
+            window.jpWeaveDispatch._diaryMounted = true;
+        }
+    }
+    setTimeout(mountDiaryToWeave, 400);
+
+    // 左上角时间智能返回：小兔子抽屉开着就先关抽屉，否则退回主桌面
+    $(document).on("click", "#dy_time_back_zone, #jp_top_clock", function (e) {
+        if (!$("#jp_p_diary").hasClass("active")) return;
+        e.stopPropagation();
+        if ($("#dy_bunny_modal").hasClass("show")) {
+            $("#dy_bunny_modal").removeClass("show");
+        } else {
+            switchPage("jp_p_home");
+        }
+    });
+
+    $(document).on("click", '.jp-icon-btn[data-app="jp_p_diary"]', () => { mountDiaryToWeave(); renderDiaryApp(); });
+    $(document).on("click", "#dy_vellum_note", function () { $(this).toggleClass("folded"); });
+    $(document).on("click", "#dy_prev_btn", () => { const dd = ensureDiaryData(); if (dd.currentIdx > 0) { dd.currentIdx--; renderDiaryApp(); } });
+    $(document).on("click", "#dy_next_btn", () => { const dd = ensureDiaryData(); if (dd.currentIdx < dd.entries.length - 1) { dd.currentIdx++; renderDiaryApp(); } });
+    $(document).on("click", "#dy_open_bunny", () => { renderDiaryApp(); $("#dy_bunny_modal").addClass("show"); });
+    $(document).on("click", "#dy_close_bunny", () => $("#dy_bunny_modal").removeClass("show"));
+    $(document).on("click", "#dy_bunny_modal", function (e) { if (e.target === this) $(this).removeClass("show"); });
+
+    $(document).on("click", "#jp_p_diary [data-dypane]", function () {
+        const p = $(this).data("dypane");
+        $("#jp_p_diary .dy-tab").removeClass("active");
+        $(this).addClass("active");
+        $("#jp_p_diary .dy-pane").removeClass("active");
+        $(\`#dy_pane_${p}\`).addClass("active");
+    });
+
+    $(document).on("click", "[data-dyjump]", function () {
+        const dd = ensureDiaryData();
+        dd.currentIdx = Number($(this).data("dyjump")) || 0;
+        renderDiaryApp();
+        $("#dy_bunny_modal").removeClass("show");
+    });
+
+    $(document).on("click", ".dy-ink-btn", function () {
+        const dd = ensureDiaryData();
+        dd.penColor = $(this).data("pen");
+        dd.accColor = $(this).data("acc");
+        saveSettingsDebounced();
+        renderDiaryApp();
+        toastr.success("✓ 已切换阿宴的万宝龙钢笔墨色");
+    });
+
+    $(document).on("input change", "#dy_alpha_range", function () {
+        const dd = ensureDiaryData();
+        dd.roseAlpha = Number($(this).val()) || 24;
+        saveSettingsDebounced();
+        renderDiaryApp();
+    });
+
+    $(document).on("change", "#dy_rose_file", function () {
+        const file = this.files && this.files[0];
+        if (!file) return;
+        compressImage(file, 640, (dataUrl) => {
+            const dd = ensureDiaryData();
+            dd.customRose = dataUrl;
+            if (dd.roseAlpha < 36) dd.roseAlpha = 40;
+            saveSettingsDebounced();
+            renderDiaryApp();
+            toastr.success("🌹 黑巴克玫瑰原图已自动溶入信纸并永久保存！");
+        });
+    });
+
+    // 🖋️ 小兔子抽屉内一键单独生成今日日记（自动读取你在织章格式集里改过的最新日记指令！）
+    $(document).on("click", "#dy_gen_single_btn", async function () {
+        const $btn = $(this);
+        if ($btn.prop("disabled")) return;
+        mountDiaryToWeave();
+        const wd = extension_settings[extName]?.weaveData;
+        const tpl = wd?.templates?.find(t => t.name === "日记");
+        const promptText = tpl?.content || WV_P_DIARY.trim();
+        $btn.prop("disabled", true).text("阿宴正在灯下执笔落墨…… ⏳");
+        try {
+            const head = "【系统指令】请严格只输出1条[日记|...]方括号标签，字段内禁止出现竖线|与方括号[]，正文换行用\\\\n表示，不要输出任何多余解释：\\n\\n";
+            const raw = String(await generatePhoneContent(head + promptText) || "").trim();
+            if (!raw) throw new Error("返回为空");
+            if (wd) { wd.lastRawCache = raw; saveSettingsDebounced(); }
+            if (typeof window.jpWeaveDispatch === "function") window.jpWeaveDispatch(raw);
+            $("#dy_bunny_modal").removeClass("show");
+            renderDiaryApp();
+            toastr.success("🖋️ 阿宴已写完最新一篇黑巴克手记！");
+        } catch (err) {
+            toastr.error("日记生成失败：" + (err.message || err));
+        } finally {
+            $btn.prop("disabled", false).text("🖋️ 让阿宴执笔写今日日记 (单独生成)");
+        }
+    });
+
+
+// 🔄【桌面全屏版专属神器】长按右下角蝴蝶结小手机图标 0.5 秒 -> 直接刷新酒馆！
     // =========================================================================
     let jpRefreshTimer = null;
     $(document).on("touchstart mousedown", "#lime_phone_entry_btn", () => {
