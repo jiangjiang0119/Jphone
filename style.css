@@ -2365,7 +2365,8 @@
 .dy-vellum-text { font-family: var(--dy-hand); font-size: 13.5px; color: var(--dy-pen); line-height: 1.4; }
 
 .dy-footer { position: relative; z-index: 5; height: 34px; border-top: 1px solid var(--dy-line); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 11px; color: var(--dy-muted); }
-.dy-turn-btn { border: none; background: transparent; color: var(--dy-pen); font-size: 11px; font-weight: 600; padding: 4px 8px; border-radius: 6px; cursor: pointer; }
+.dy-turn-btn { display: inline-flex; align-items: center; justify-content: center; gap: 5px; border: none; background: transparent; color: var(--dy-pen); font-family: inherit; font-size: 11px; font-weight: 600; padding: 4px 8px; border-radius: 6px; cursor: pointer; }
+.dy-turn-icon { display: block; width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto; }
 .dy-turn-btn:disabled { color: #CED4E0; cursor: default; }
 
 /* 🐇 黑色小兔子抽屉 */
