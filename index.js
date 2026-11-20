@@ -2851,7 +2851,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         // =========================================================================
     // 🖋️【App 模块：池衿宴的黑巴克线圈日记 (1/2)】指令、日期宏与信纸渲染
     // =========================================================================
-    const WV_P_DIARY = String.raw\`【私人日记生成指令】
+    const WV_P_DIARY = String.raw`【私人日记生成指令】
 请以「池衿宴（Mr. Chi）」本人的第一人称（“我”）私密视角，结合当前剧情、两人刚发生的互动或过往回忆，在他的黑巴克线圈手记本中撰写 1 篇私人日记。
 内容偏好：池衿宴在日记中必须直白展现他骨子里的偏执、贪婪、食髓知味与极强的占有欲，真实细腻，有趣吸引绛绛。既有他对当下剧情的隐秘复盘、对绛绛身体与情绪每一处细节的暗中掌控与宠溺，也有他毫不掩饰的床头欲望与算计。
 
@@ -2867,7 +2867,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
 [日记|此处填天气|此处填书写心境|此处填书写地点|此处填日记标题|此处填日记正文(用\\n分段)|此处填回形针夹页批注]
 
 格式示例(禁止照抄)：
-[日记|夜雨微凉|心境：食髓知味|书写地点：主卧床畔 · 她熟睡后|《窗台上的黑巴克与熟睡的她》|花房空运来的黑巴克玫瑰今天开了，深黑偏暗红的丝绒花瓣上还带着水珠，像极了她每次在床上被欺负狠了时眼尾泛红、咬着嘴唇求饶的模样。\\n\\n今晚她窝在被子里捣鼓了半天手机，小腿毫无防备地搭在我膝盖上晃。我握着她的脚踝把人拖进怀里亲吻时，她呼吸乱得一塌糊涂，偏偏还在嘴硬说自己困了。\\n\\n现在人终于在我怀里睡熟了，手还无意识地攥着我的睡衣领口。看着她锁骨上还没消退的红印，只觉得怎么要都不够。她是我在这个盛大谎言般的世界里，唯一想用命去锁住的真实。|※ 今晚放过她一次，欠下的时长记入主卧账册，明晚落地窗前连本带利讨回。]\`;
+[日记|夜雨微凉|心境：食髓知味|书写地点：主卧床畔 · 她熟睡后|《窗台上的黑巴克与熟睡的她》|花房空运来的黑巴克玫瑰今天开了，深黑偏暗红的丝绒花瓣上还带着水珠，像极了她每次在床上被欺负狠了时眼尾泛红、咬着嘴唇求饶的模样。\\n\\n今晚她窝在被子里捣鼓了半天手机，小腿毫无防备地搭在我膝盖上晃。我握着她的脚踝把人拖进怀里亲吻时，她呼吸乱得一塌糊涂，偏偏还在嘴硬说自己困了。\\n\\n现在人终于在我怀里睡熟了，手还无意识地攥着我的睡衣领口。看着她锁骨上还没消退的红印，只觉得怎么要都不够。她是我在这个盛大谎言般的世界里，唯一想用命去锁住的真实。|※ 今晚放过她一次，欠下的时长记入主卧账册，明晚落地窗前连本带利讨回。]`;
 
     function ensureDiaryData() {
         extension_settings[extName] = extension_settings[extName] || {};
@@ -2890,8 +2890,8 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         const cnMonths = ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"];
         const h = now.getHours();
         const period = h < 5 ? "凌晨" : h < 11 ? "晨间" : h < 14 ? "午后" : h < 19 ? "傍晚" : "深夜";
-        let dateEn = \`${enMonths[now.getMonth()]} ${String(now.getDate()).padStart(2, "0")} · ${enDays[now.getDay()]}\`;
-        let dateCn = \`${cnMonths[now.getMonth()]}${now.getDate()}日 · ${period}\`;
+        let dateEn = `${enMonths[now.getMonth()]} ${String(now.getDate()).padStart(2, "0")} · ${enDays[now.getDay()]}`;
+        let dateCn = `${cnMonths[now.getMonth()]}${now.getDate()}日 · ${period}`;
 
         try {
             const ctx = SillyTavern.getContext();
@@ -2909,7 +2909,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         const dd = ensureDiaryData();
         const spine = $("#dy_spiral_spine");
         if (spine.length && !spine.children().length) {
-            spine.html(Array.from({ length: 13 }, () => \`<div class="dy-coil-unit"><div class="dy-punch-hole"></div><div class="dy-ring-pair"><div class="dy-ring-bar"></div><div class="dy-ring-bar"></div></div></div>\`).join(""));
+            spine.html(Array.from({ length: 13 }, () => `<div class="dy-coil-unit"><div class="dy-punch-hole"></div><div class="dy-ring-pair"><div class="dy-ring-bar"></div><div class="dy-ring-bar"></div></div></div>`).join(""));
         }
 
         $("#jp_p_diary").css({ "--dy-pen": dd.penColor || "#222630", "--dy-acc": dd.accColor || "#5E121D" });
@@ -2917,7 +2917,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         $("#dy_alpha_val").text((dd.roseAlpha || 24) + "%");
         $("#dy_alpha_range").val(dd.roseAlpha || 24);
         if (dd.customRose) {
-            $("#dy_custom_rose").css({ "background-image": \`url('${dd.customRose}')\`, "display": "block", "opacity": alpha });
+            $("#dy_custom_rose").css({ "background-image": `url('${dd.customRose}')`, "display": "block", "opacity": alpha });
             $("#dy_default_rose").hide();
         } else {
             $("#dy_custom_rose").hide();
@@ -2957,16 +2957,16 @@ const WV_P_XHS = String.raw`【小红书生成指令】
             } else {
                 $("#dy_vellum_note").hide();
             }
-            $("#dy_page_num").text(\`PAGE ${String(dd.currentIdx + 1).padStart(2, "0")} / ${String(list.length).padStart(2, "0")}\`);
+            $("#dy_page_num").text(`PAGE ${String(dd.currentIdx + 1).padStart(2, "0")} / ${String(list.length).padStart(2, "0")}`);
             $("#dy_prev_btn").prop("disabled", dd.currentIdx <= 0);
             $("#dy_next_btn").prop("disabled", dd.currentIdx >= list.length - 1);
         }
 
-        $("#dy_index_list").html(list.length ? list.map((item, i) => \`
+        $("#dy_index_list").html(list.length ? list.map((item, i) => `
             <div class="dy-idx-card ${i === dd.currentIdx ? "current" : ""}" data-dyjump="${i}">
               <div style="display:flex;justify-content:space-between;font-size:10px;color:#8E95A4;margin-bottom:3px;"><span>${item.dateCn}</span><span>${item.weather} · ${item.mood}</span></div>
               <div style="font-size:12.5px;font-weight:600;color:var(--dy-pen);">${item.title}</div>
-            </div>\`).join("") : \`<div style="text-align:center;padding:24px 0;font-size:11px;color:#8E95A4;">手记本暂空 · 等待阿宴落笔</div>\`);
+            </div>`).join("") : `<div style="text-align:center;padding:24px 0;font-size:11px;color:#8E95A4;">手记本暂空 · 等待阿宴落笔</div>`);
     }
 
     // =========================================================================
@@ -3005,7 +3005,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
             saveSettingsDebounced();
         }
         if (Array.isArray(wd.rules) && !wd.rules.some(r => r.app === "日记")) {
-            wd.rules.push({ name: "黑巴克日记规则", app: "日记", color: "g-rose", enabled: true, find: String.raw\`[\\[【](日记)\\s*[|｜]([^\\]】]*)[\\]】]\`, replace: "天气 | 心境 | 地点 | 标题 | 400字正文 | 夹页批注" });
+            wd.rules.push({ name: "黑巴克日记规则", app: "日记", color: "g-rose", enabled: true, find: String.raw`[\\[【](日记)\\s*[|｜]([^\\]】]*)[\\]】]`, replace: "天气 | 心境 | 地点 | 标题 | 400字正文 | 夹页批注" });
             saveSettingsDebounced();
         }
         if (typeof window.jpWeaveDispatch === "function" && !window.jpWeaveDispatch._diaryMounted) {
@@ -3019,7 +3019,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
                         window.addDiaryFromAI({ weather: f[0], mood: f[1], location: f[2], title: f[3], content: f[4], clipText: f[5] || "" });
                     }
                 });
-                if (rows.length) res.push(\`日记 +${rows.length}\`);
+                if (rows.length) res.push(`日记 +${rows.length}`);
                 return res;
             };
             window.jpWeaveDispatch._diaryMounted = true;
@@ -3051,7 +3051,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         $("#jp_p_diary .dy-tab").removeClass("active");
         $(this).addClass("active");
         $("#jp_p_diary .dy-pane").removeClass("active");
-        $(\`#dy_pane_${p}\`).addClass("active");
+        $(`#dy_pane_${p}`).addClass("active");
     });
 
     $(document).on("click", "[data-dyjump]", function () {
