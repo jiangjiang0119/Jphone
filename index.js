@@ -833,7 +833,6 @@ jQuery(async () => {
 
     updateSendButton();
     applySavedImages();
-});
 // =========================================================================
   // =========================================================================
     // 📕【App 模块：小红书】头像/背景 100% 永久保存与自动回显
@@ -3328,4 +3327,4 @@ const WV_P_XHS = String.raw`【小红书生成指令】
     }).on("touchend mouseup touchmove", "#lime_phone_entry_btn", () => {
         clearTimeout(jpRefreshTimer);
     });
-      
+});
