@@ -2600,7 +2600,12 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         if (wvTaskRunning) $("#wv_batch_btn, #wv_single_btn").prop("disabled", true);
     }
 
-    $(document).on("click", '.jp-icon-btn[data-app="jp_p_weave"]', () => { switchPage("jp_p_weave"); renderWeaveApp(); });
+    $(document).on("click", '.jp-icon-btn[data-app="jp_p_weave"]', () => {
+        switchPage("jp_p_weave");
+        renderWeaveApp();
+        $("#wv_weave_task_orb").removeClass("is-visible");
+        wvTaskOrbRevealed = false;
+    });
     $(document).on("click", "#wv_home_back", () => {
         switchPage("jp_p_home");
         if (wvTaskStartedAt) wvRevealTaskOrb();
