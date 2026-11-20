@@ -3027,15 +3027,24 @@ const WV_P_XHS = String.raw`【小红书生成指令】
     }
     setTimeout(mountDiaryToWeave, 400);
 
-    // 左上角时间智能返回：小兔子抽屉开着就先关抽屉，否则退回主桌面
+    // 左上角时间智能返回：先关闭抽屉；否则返回桌面第 3 页（织章页）
     $(document).on("click", "#dy_time_back_zone, #jp_top_clock", function (e) {
         if (!$("#jp_p_diary").hasClass("active")) return;
+        e.preventDefault();
         e.stopPropagation();
         if ($("#dy_bunny_modal").hasClass("show")) {
             $("#dy_bunny_modal").removeClass("show");
-        } else {
-            switchPage("jp_p_home");
+            return;
         }
+        switchPage("jp_p_home");
+        // 桌面共有三页，日记返回时固定定位到第 3 页
+        requestAnimationFrame(() => {
+            const swiper = document.getElementById("jp_desktop_swiper");
+            if (swiper) {
+                swiper.scrollLeft = swiper.clientWidth * 2;
+                $("#jp_page_dots .jp-dot").removeClass("main").eq(2).addClass("main");
+            }
+        });
     });
 
     $(document).on("click", '.jp-icon-btn[data-app="jp_p_diary"]', () => { mountDiaryToWeave(); renderDiaryApp(); });
