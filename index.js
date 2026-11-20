@@ -498,6 +498,8 @@ function togglePhoneModal(show) {
     const overlay = $("#j_phone_overlay");
     if (show === undefined) show = overlay.hasClass("j-phone-hidden");
     if (show) {
+        // 统一恢复手机时隐藏绿色缩小悬浮球，避免它残留在已打开的手机界面上。
+        $("#jp_mini_bubble").addClass("jp-bubble-hidden");
         updateClock();
         applySavedImages();
         applyCustomColors();
