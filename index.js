@@ -2860,14 +2860,14 @@ const WV_P_XHS = String.raw`【小红书生成指令】
 2. 书写心境：以“心境：”开头，2到5个字直白概括他落笔时的真实欲望或情绪（如“心境：食髓知味”、“心境：偏执独占”、“心境：意犹未尽”等自由发挥）。
 3. 书写地点：以“书写地点：”开头，具体到房间或场景（如“书写地点：主卧床畔 · 她熟睡后”、“书写地点：私人书房”等自由发挥）。
 4. 日记标题：带书名号《》的日记标题（15字以内，有画面感与私密张力，根据内容自由发挥）。
-5. 日记正文：以第一人称“我”撰写的日记正文（不少于400字，必须用 \\n 自然分段，分成3到4段）。字里行间体现他对绛绛极强的占有欲与深入骨髓的爱意，严禁出现竖线 | 或方括号 [ ]。
+5. 日记正文：以第一人称“我”撰写的日记正文（不少于400字，必须用 \n 自然分段，分成3到4段）。字里行间体现他对绛绛极强的占有欲与深入骨髓的爱意，严禁出现竖线 | 或方括号 [ ]。
 6. 夹页批注：别在信纸左下角回形针半透便签上的一句简短备忘、藏品编号或待清算的床头账（35字以内，根据内容自由发挥）。
 
 <严格输出格式与正确示例（必须输出 1 条，共 6 栏，包含方括号与竖线）>
-[日记|此处填天气|此处填书写心境|此处填书写地点|此处填日记标题|此处填日记正文(用\\n分段)|此处填回形针夹页批注]
+[日记|此处填天气|此处填书写心境|此处填书写地点|此处填日记标题|此处填日记正文(用\n分段)|此处填回形针夹页批注]
 
 格式示例(禁止照抄)：
-[日记|夜雨微凉|心境：食髓知味|书写地点：主卧床畔 · 她熟睡后|《窗台上的黑巴克与熟睡的她》|花房空运来的黑巴克玫瑰今天开了，深黑偏暗红的丝绒花瓣上还带着水珠，像极了她每次在床上被欺负狠了时眼尾泛红、咬着嘴唇求饶的模样。\\n\\n今晚她窝在被子里捣鼓了半天手机，小腿毫无防备地搭在我膝盖上晃。我握着她的脚踝把人拖进怀里亲吻时，她呼吸乱得一塌糊涂，偏偏还在嘴硬说自己困了。\\n\\n现在人终于在我怀里睡熟了，手还无意识地攥着我的睡衣领口。看着她锁骨上还没消退的红印，只觉得怎么要都不够。她是我在这个盛大谎言般的世界里，唯一想用命去锁住的真实。|※ 今晚放过她一次，欠下的时长记入主卧账册，明晚落地窗前连本带利讨回。]`;
+[日记|夜雨微凉|心境：食髓知味|书写地点：主卧床畔 · 她熟睡后|《窗台上的黑巴克与熟睡的她》|花房空运来的黑巴克玫瑰今天开了，深黑偏暗红的丝绒花瓣上还带着水珠，像极了她每次在床上被欺负狠了时眼尾泛红、咬着嘴唇求饶的模样。\n\n今晚她窝在被子里捣鼓了半天手机，小腿毫无防备地搭在我膝盖上晃。我握着她的脚踝把人拖进怀里亲吻时，她呼吸乱得一塌糊涂，偏偏还在嘴硬说自己困了。\n\n现在人终于在我怀里睡熟了，手还无意识地攥着我的睡衣领口。看着她锁骨上还没消退的红印，只觉得怎么要都不够。她是我在这个盛大谎言般的世界里，唯一想用命去锁住的真实。|※ 今晚放过她一次，欠下的时长记入主卧账册，明晚落地窗前连本带利讨回。]`;
 
     function ensureDiaryData() {
         extension_settings[extName] = extension_settings[extName] || {};
@@ -2897,7 +2897,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
             const ctx = SillyTavern.getContext();
             if (Array.isArray(ctx.chat)) {
                 for (let i = ctx.chat.length - 1; i >= 0; i--) {
-                    const m = String(ctx.chat[i]?.mes || "").match(/\\[TIME\\]([\\s\\S]*?)\\[\\/TIME\\]/i);
+                    const m = String(ctx.chat[i]?.mes || "").match(/\[TIME\]([\s\S]*?)\[\/TIME\]/i);
                     if (m && m[1].trim()) { dateCn = m[1].trim(); break; }
                 }
             }
@@ -2949,7 +2949,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
             $("#dy_mood_txt").text(cur.mood || "心境：偏执");
             $("#dy_location").text(cur.location || "书写地点：主卧书房");
             $("#dy_title").text(cur.title || "《无题》");
-            $("#dy_content").text(String(cur.content || "").replace(/\\\\n/g, "\\n"));
+            $("#dy_content").text(String(cur.content || "").replace(/\\n/g, "\n"));
             $("#dy_sign").text("— Mr. Chi");
             if (cur.clipText) {
                 $("#dy_clip_text").text(cur.clipText);
@@ -2984,7 +2984,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
             mood: item.mood || "心境：食髓知味",
             location: item.location || "书写地点：主卧床畔",
             title: item.title || "《私密手记》",
-            content: String(item.content || "").replace(/\\\\n/g, "\\n"),
+            content: String(item.content || "").replace(/\\n/g, "\n"),
             clipText: item.clipText || ""
         });
         dd.entries = dd.entries.slice(0, 30);
@@ -3005,7 +3005,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
             saveSettingsDebounced();
         }
         if (Array.isArray(wd.rules) && !wd.rules.some(r => r.app === "日记")) {
-            wd.rules.push({ name: "黑巴克日记规则", app: "日记", color: "g-rose", enabled: true, find: String.raw`[\\[【](日记)\\s*[|｜]([^\\]】]*)[\\]】]`, replace: "天气 | 心境 | 地点 | 标题 | 400字正文 | 夹页批注" });
+            wd.rules.push({ name: "黑巴克日记规则", app: "日记", color: "g-rose", enabled: true, find: String.raw`[\[【](日记)\s*[|｜]([^\]】*)[\]】]`, replace: "天气 | 心境 | 地点 | 标题 | 400字正文 | 夹页批注" });
             saveSettingsDebounced();
         }
         if (typeof window.jpWeaveDispatch === "function" && !window.jpWeaveDispatch._diaryMounted) {
@@ -3100,7 +3100,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         const promptText = tpl?.content || WV_P_DIARY.trim();
         $btn.prop("disabled", true).text("阿宴正在灯下执笔落墨…… ⏳");
         try {
-            const head = "【系统指令】请严格只输出1条[日记|...]方括号标签，字段内禁止出现竖线|与方括号[]，正文换行用\\\\n表示，不要输出任何多余解释：\\n\\n";
+            const head = "【系统指令】请严格只输出1条[日记|...]方括号标签，字段内禁止出现竖线|与方括号[]，正文换行用\\n表示，不要输出任何多余解释：\n\n";
             const raw = String(await generatePhoneContent(head + promptText) || "").trim();
             if (!raw) throw new Error("返回为空");
             if (wd) { wd.lastRawCache = raw; saveSettingsDebounced(); }
