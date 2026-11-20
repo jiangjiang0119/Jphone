@@ -1302,7 +1302,7 @@
 
 .wv-top { padding: 42px 18px 10px; border-bottom: 1px solid var(--wv-line); background: #FFFFFF; flex-shrink: 0; }
 .wv-brandrow { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-.wv-homeback { width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid #E8E0EB; border-radius: 7px; background: linear-gradient(135deg, #fff, #f8f2f8); color: var(--slate); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.wv-homeback { width: 42px; height: 42px; flex: 0 0 42px; border: 1px solid #E8E0EB; border-radius: 7px; background: linear-gradient(135deg, #fff, #f8f2f8); color: var(--slate); display: flex; align-items: center; justify-content: center; cursor: pointer; }
 .wv-homeback svg { width: 22px; height: 22px; display: block; }
 .wv-homeback:active { transform: scale(0.96); background: #F0E8F3; }
 
@@ -2396,10 +2396,10 @@
     position: fixed !important;
     right: max(22px, env(safe-area-inset-right));
     bottom: max(24px, env(safe-area-inset-bottom));
-    z-index: 2147483000 !important;
+    z-index: 2147483647 !important;
     width: 50px;
     height: 50px;
-    display: none;
+    display: none !important;
     align-items: center;
     justify-content: center;
     touch-action: none;
@@ -2408,7 +2408,14 @@
     user-select: none;
     -webkit-user-select: none;
 }
-.wv-weave-orb-anchor.is-visible { display: flex; }
+.wv-weave-orb-anchor.is-visible {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    position: fixed !important;
+    z-index: 2147483647 !important;
+}
 
 /* 球体正上方裸感悬空计时，不使用胶囊或边框 */
 .wv-weave-floating-timer {
