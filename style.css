@@ -1,3 +1,5 @@
+@import url('https://fonts.loli.net/css2?family=Caveat:wght@600&family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Ma+Shan+Zheng&display=swap');
+
 .lime-setting-item { padding: 8px 4px; font-size: 14px; }
 .lime-setting-item small { color: #9BB570; }
 
@@ -2241,3 +2243,144 @@
     transform: scale(0.95);
   }
   /* === END_JP_SET_HIGH_FASHION === */
+
+/* ==================== 🖋️ 池衿宴的黑巴克线圈日记样式 (1/2) ==================== */
+#jp_p_diary {
+    --dy-paper: #FFFFFF;
+    --dy-line: #E6E9F0;
+    --dy-pen: #222630;
+    --dy-acc: #5E121D;
+    --dy-muted: #8E95A4;
+    --dy-lh: 30px;
+    --dy-hand: 'Ma Shan Zheng', 'Kaiti SC', 'STKaiti', cursive, serif;
+    position: absolute !important; inset: 0 !important; z-index: 10 !important;
+    background: #F4F5F8 !important; color: var(--dy-pen);
+    display: none; flex-direction: column; padding: 38px 4px 14px 13px; overflow: hidden;
+}
+#jp_p_diary.active { display: flex !important; }
+
+/* 覆盖在左上角系统时间上的透明返回键热区（点时间即返回上一层/桌面） */
+#dy_time_back_zone {
+    position: absolute; top: 4px; left: 6px; width: 68px; height: 34px;
+    z-index: 40; cursor: pointer; border-radius: 6px;
+}
+
+.dy-notebook {
+    flex: 1; min-height: 0; background: var(--dy-paper);
+    border-radius: 6px 10px 10px 6px; border: 1px solid #E2E5EC;
+    box-shadow: 2px 2px 0 #FFFFFF, 3px 3px 0 #DCE1EB, 0 10px 28px rgba(25,30,40,0.06);
+    position: relative; display: flex; flex-direction: column; overflow: visible;
+}
+
+/* 左侧 13 组立体黑色金属双线圈 + 打孔凹槽 */
+.dy-spiral-spine {
+    position: absolute; left: -11px; top: 18px; bottom: 18px; width: 32px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    z-index: 25; pointer-events: none;
+}
+.dy-coil-unit { position: relative; height: 22px; display: flex; align-items: center; }
+.dy-punch-hole {
+    position: absolute; left: 16px; width: 10.5px; height: 10.5px; border-radius: 50%;
+    background: #E8EBF2;
+    box-shadow: inset 1.5px 1.5px 2.5px rgba(15,20,30,0.38), inset -1px -1px 1px #FFF, 0 0 0 1px rgba(180,188,205,0.45);
+}
+.dy-ring-pair {
+    position: relative; z-index: 2; width: 23px; height: 12px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    filter: drop-shadow(2px 2px 2px rgba(15,20,30,0.22));
+}
+.dy-ring-bar {
+    width: 22px; height: 4.2px; border-radius: 4px;
+    background: linear-gradient(90deg, #111318 0%, #2B2F3A 26%, #6E778A 48%, #1F222A 76%, #0E1014 100%);
+    transform: rotate(-5deg);
+}
+
+.dy-page {
+    flex: 1; min-height: 0; padding: 12px 15px 10px 30px;
+    display: flex; flex-direction: column; position: relative;
+    overflow: hidden; border-radius: 6px 10px 10px 6px;
+}
+
+/* 黑巴克玫瑰水印与自定义原图正片叠底溶图层 */
+.dy-baccara-layer { position: absolute; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+.dy-rose-svg { position: absolute; right: -12px; bottom: 26px; width: 235px; height: 265px; opacity: 0.24; transition: opacity 0.3s; }
+.dy-custom-rose {
+    position: absolute; right: 0; bottom: 28px; width: 230px; height: 270px;
+    background-size: cover; background-position: center; background-repeat: no-repeat;
+    mix-blend-mode: multiply; opacity: 0.38; border-radius: 8px;
+    -webkit-mask-image: radial-gradient(ellipse at 65% 58%, #000 38%, transparent 76%);
+    mask-image: radial-gradient(ellipse at 65% 58%, #000 38%, transparent 76%);
+    display: none;
+}
+/* ==================== 🖋️ 池衿宴的黑巴克线圈日记样式 (2/2) ==================== */
+.dy-header {
+    position: relative; z-index: 5; padding-bottom: 8px;
+    border-bottom: 1.4px solid var(--dy-pen);
+    display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;
+}
+.dy-date-box { display: flex; flex-direction: column; }
+.dy-date-en { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 10.5px; letter-spacing: 1.6px; color: var(--dy-muted); text-transform: uppercase; }
+.dy-date-cn { font-family: var(--dy-hand); font-size: 18.5px; color: var(--dy-pen); margin-top: 1px; }
+.dy-head-right { display: flex; align-items: center; gap: 8px; }
+.dy-weather-box { display: flex; flex-direction: column; align-items: flex-end; font-size: 12.5px; color: var(--dy-muted); font-family: var(--dy-hand); line-height: 1.25; }
+
+.dy-bunny-btn {
+    width: 36px; height: 36px; border-radius: 8px; border: 1px solid #E2E5EC;
+    background: #FAFBFD; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; box-shadow: 0 2px 6px rgba(20,24,32,0.06); flex-shrink: 0;
+}
+.dy-bunny-btn:active { transform: scale(0.88); }
+.dy-bunny-btn svg { width: 22px; height: 22px; display: block; }
+
+.dy-subhead {
+    position: relative; z-index: 5; height: 24px; border-bottom: 1px solid var(--dy-line);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12.5px; font-family: var(--dy-hand); color: var(--dy-muted); flex-shrink: 0;
+}
+
+/* 30px 等高信纸横线 + 温润毛笔文字整体下移 5px */
+.dy-scroll { position: relative; z-index: 5; flex: 1; overflow-y: auto; padding-bottom: 36px; scrollbar-width: none; }
+.dy-scroll::-webkit-scrollbar { display: none; }
+.dy-lines-canvas {
+    min-height: 100%;
+    background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent calc(var(--dy-lh) - 1px), var(--dy-line) calc(var(--dy-lh) - 1px), var(--dy-line) var(--dy-lh));
+    background-size: 100% var(--dy-lh);
+}
+.dy-shift-box { transform: translateY(5px); }
+.dy-title { font-family: var(--dy-hand); font-size: 17.5px; color: var(--dy-pen); line-height: var(--dy-lh); margin: 0; }
+.dy-content { font-family: var(--dy-hand); font-size: 15.5px; color: var(--dy-pen); line-height: var(--dy-lh); white-space: pre-wrap; word-break: break-word; margin: 0; letter-spacing: 0.4px; }
+.dy-sign { margin-top: var(--dy-lh); text-align: right; font-family: 'Caveat', Georgia, cursive; font-size: 20px; color: var(--dy-acc); line-height: var(--dy-lh); padding-right: 6px; }
+
+/* 回形针半透硫酸纸夹页便签 */
+.dy-vellum-note {
+    position: absolute; left: 30px; bottom: 42px; width: 192px;
+    background: rgba(255,255,255,0.82); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(190,196,210,0.65); border-radius: 6px; padding: 10px 11px 8px;
+    box-shadow: 0 6px 18px rgba(25,30,40,0.07), inset 0 1px 0 #FFF;
+    transform: rotate(-1.8deg); transition: all 0.25s ease; cursor: pointer; z-index: 15;
+}
+.dy-vellum-note.folded { transform: rotate(1deg) translateY(74%); opacity: 0.82; }
+.dy-paperclip { position: absolute; top: -13px; left: 16px; width: 16px; height: 32px; stroke: #4A5264; fill: none; stroke-width: 1.8; }
+.dy-vellum-tag { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 8.5px; letter-spacing: 1.3px; color: var(--dy-acc); font-weight: 700; display: flex; justify-content: space-between; margin-bottom: 2px; }
+.dy-vellum-text { font-family: var(--dy-hand); font-size: 13.5px; color: var(--dy-pen); line-height: 1.4; }
+
+.dy-footer { position: relative; z-index: 5; height: 34px; border-top: 1px solid var(--dy-line); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 11px; color: var(--dy-muted); }
+.dy-turn-btn { border: none; background: transparent; color: var(--dy-pen); font-size: 11px; font-weight: 600; padding: 4px 8px; border-radius: 6px; cursor: pointer; }
+.dy-turn-btn:disabled { color: #CED4E0; cursor: default; }
+
+/* 🐇 黑色小兔子抽屉 */
+.dy-modal-mask { position: absolute; inset: 0; background: rgba(20,22,28,0.35); backdrop-filter: blur(4px); z-index: 50; display: none; align-items: flex-end; justify-content: center; }
+.dy-modal-mask.show { display: flex; }
+.dy-sheet { width: 100%; max-height: 78%; background: #FFF; border-radius: 12px 12px 0 0; padding: 14px 16px 22px; display: flex; flex-direction: column; box-shadow: 0 -10px 30px rgba(0,0,0,0.14); }
+.dy-gen-now-btn { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid rgba(94,18,29,0.25); border-radius: 8px; background: linear-gradient(115deg, #222630 0%, #5E121D 100%); color: #FFF; font-size: 11.5px; font-weight: 600; letter-spacing: 0.5px; cursor: pointer; }
+.dy-tabs-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; background: #F3F5F9; padding: 4px; border-radius: 8px; margin-bottom: 12px; }
+.dy-tab { padding: 7px 4px; border: none; border-radius: 6px; background: transparent; color: #7E8696; font-size: 11px; font-weight: 600; cursor: pointer; }
+.dy-tab.active { background: #FFF; color: var(--dy-pen); box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+.dy-pane { display: none; overflow-y: auto; }
+.dy-pane.active { display: block; }
+.dy-idx-card { padding: 10px 12px; border: 1px solid var(--dy-line); border-radius: 7px; margin-bottom: 8px; background: #FAFBFD; cursor: pointer; }
+.dy-idx-card.current { border-color: var(--dy-acc); background: #FFFDFD; }
+.dy-upload-label { display: flex; align-items: center; justify-content: center; width: 100%; padding: 10px; border: 1px dashed var(--dy-acc); border-radius: 7px; background: #FFF9FA; color: var(--dy-acc); font-size: 11.5px; font-weight: 600; cursor: pointer; margin-bottom: 8px; }
+.dy-ink-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.dy-ink-btn { padding: 9px 10px; border: 1px solid var(--dy-line); border-radius: 7px; background: #FFF; display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 11.5px; }
+.dy-ink-dot { width: 16px; height: 16px; border-radius: 4px; }
