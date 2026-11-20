@@ -2605,6 +2605,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         renderWeaveApp();
         $("#wv_weave_task_orb").removeClass("is-visible");
         wvTaskOrbRevealed = false;
+        if (!wvTaskRunning && wvTaskState !== "idle") wvTaskNeedsAttention = false;
     });
     $(document).on("click", "#wv_home_back", () => {
         switchPage("jp_p_home");
@@ -2739,6 +2740,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
     let wvTaskState = "idle";
     let wvTaskRunning = false;
     let wvTaskOrbRevealed = false;
+    let wvTaskNeedsAttention = false;
 
     const WV_TASK_ORB_SVGS = {
         running: `
@@ -2835,10 +2837,12 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         renderWeaveApp();
         $("#wv_weave_task_orb").removeClass("is-visible");
         wvTaskOrbRevealed = false;
+        // 正在生成时保留待提醒标记；已结束的任务在用户打开页面后视为已查看
+        if (!wvTaskRunning && wvTaskState !== "idle") wvTaskNeedsAttention = false;
     }
 
     function wvRevealTaskOrb() {
-        if (!wvTaskStartedAt || wvTaskState === "idle") return;
+        if (!wvTaskStartedAt || wvTaskState === "idle" || !wvTaskNeedsAttention) return;
         wvEnsureTaskFloat();
         wvTaskOrbRevealed = true;
         $("#wv_weave_task_orb").addClass("is-visible");
@@ -2881,6 +2885,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         wvTaskStartedAt = Date.now();
         wvTaskEndedAt = 0;
         wvTaskOrbRevealed = false;
+        wvTaskNeedsAttention = true;
         $("#wv_weave_task_orb").removeClass("is-visible");
         wvShowTaskFloat("running");
 
