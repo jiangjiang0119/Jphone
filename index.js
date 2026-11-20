@@ -636,7 +636,13 @@ jQuery(async () => {
     $(document).on("click", ".jp-icon-btn[data-app]", function () {
         switchPage($(this).data("app"));
     });
-    $(document).on("click", ".jp-btn-back, .jp-homebar", () => switchPage("jp_p_home"));
+    $(document).on("click", ".jp-btn-back, .jp-homebar", function () {
+        // 从织章页面通过通用返回键/底部横条回桌面时，同样显示任务球。
+        if ($("#jp_p_weave").hasClass("active") && wvTaskStartedAt && wvTaskState !== "idle") {
+            wvRevealTaskOrb();
+        }
+        switchPage("jp_p_home");
+    });
 
     $(document).on("click", ".jp-subtab", function () {
         $(".jp-subtab").removeClass("active");
