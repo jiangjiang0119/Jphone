@@ -2391,53 +2391,182 @@
 .dy-ink-dot { width: 16px; height: 16px; border-radius: 4px; }
 
 
-/* === GLOBAL WEAVE TASK PILL · 全酒馆悬浮任务胶囊 === */
-.wv-global-task-float {
+/* === GLOBAL WEAVE TASK ORB · 檀绛香槟白四芒星琉璃球 === */
+.wv-weave-orb-anchor {
     position: fixed !important;
-    right: max(13px, env(safe-area-inset-right));
-    bottom: max(16px, env(safe-area-inset-bottom));
+    right: max(22px, env(safe-area-inset-right));
+    bottom: max(24px, env(safe-area-inset-bottom));
     z-index: 2147483000 !important;
+    width: 50px;
+    height: 50px;
     display: none;
     align-items: center;
-    gap: 1px;
-    width: 172px;
-    min-height: 47px;
-    padding: 4px 6px 4px 8px;
-    border: 1px solid rgba(112, 39, 57, 0.19);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.91);
-    box-shadow: 0 3px 14px rgba(38, 32, 39, 0.10), 0 1px 2px rgba(112, 39, 57, 0.045);
-    -webkit-backdrop-filter: blur(16px) saturate(1.08);
-    backdrop-filter: blur(16px) saturate(1.08);
-    color: #34313A;
-    font-family: inherit;
-}
-.wv-global-task-float.is-visible { display: flex; }
-.wv-global-task-main {
-    display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0;
-    padding: 1px 0; border: 0; background: transparent; color: inherit;
-    text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent;
-}
-.wv-global-task-mark {
-    width: 25px; height: 25px; flex: 0 0 25px; display: grid; place-items: center;
-    border-radius: 6px; color: #783247; background: rgba(120, 50, 71, 0.055);
-}
-.wv-global-task-mark svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.45; stroke-linecap: round; }
-.wv-global-task-float.is-running .wv-global-task-mark svg { animation: wv-task-pulse 2s ease-in-out infinite; }
-.wv-global-task-copy { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
-.wv-global-task-copy strong { color: #38343B; font-size: 10.5px; line-height: 1.15; font-weight: 550; letter-spacing: .025em; }
-.wv-global-task-copy small { color: #918A91; font-size: 8.5px; line-height: 1.15; white-space: nowrap; font-variant-numeric: tabular-nums; }
-.wv-global-task-min {
-    width: 22px; height: 25px; flex: 0 0 22px; display: grid; place-items: center;
-    border: 0; border-left: 1px solid rgba(112, 39, 57, 0.09); border-radius: 0;
-    background: transparent; color: #A49BA1; cursor: pointer;
+    justify-content: center;
+    touch-action: none;
+    cursor: pointer;
     -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
 }
-.wv-global-task-min svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.55; stroke-linecap: round; }
-.wv-global-task-min:active { color: #783247; }
-.wv-global-task-float.is-done .wv-global-task-mark { color: #657B70; background: rgba(101, 123, 112, 0.07); }
-.wv-global-task-float.is-error .wv-global-task-mark { color: #A64A55; background: rgba(166, 74, 85, 0.065); }
-@keyframes wv-task-pulse { 0%,100% { opacity: .62; transform: scale(.96); } 50% { opacity: 1; transform: scale(1.035); } }
+.wv-weave-orb-anchor.is-visible { display: flex; }
+
+/* 球体正上方裸感悬空计时，不使用胶囊或边框 */
+.wv-weave-floating-timer {
+    position: absolute;
+    bottom: calc(100% + 5px);
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 3.5px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    white-space: nowrap;
+    pointer-events: none;
+    filter: drop-shadow(0 1px 3px rgba(255,255,255,.98))
+            drop-shadow(0 0 8px rgba(255,255,255,.9))
+            drop-shadow(0 2px 5px rgba(132,26,45,.32));
+    animation: wv-weave-timer-float 2.6s ease-in-out infinite;
+}
+@keyframes wv-weave-timer-float {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-2.5px); }
+}
+.wv-weave-timer-star {
+    width: 8.5px;
+    height: 8.5px;
+    flex: 0 0 auto;
+    fill: #841A2D;
+}
+.wv-weave-orb-anchor.is-running .wv-weave-timer-star {
+    animation: wv-weave-spin-slow 3.5s linear infinite;
+}
+.wv-weave-timer-text {
+    color: #841A2D;
+    font-family: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    font-variant-numeric: tabular-nums;
+}
+
+/* 檀绛 × 香槟白琉璃球主体 */
+.wv-weave-orb-sphere {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    padding: 2.2px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.92);
+    box-shadow: 0 10px 26px -2px rgba(132,26,45,.42),
+                0 3px 10px rgba(132,26,45,.32),
+                inset 0 1.5px 2px #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: transform .24s cubic-bezier(.34,1.56,.64,1),
+                box-shadow .25s ease;
+}
+.wv-weave-orb-anchor:active .wv-weave-orb-sphere {
+    transform: scale(.90);
+}
+
+/* 外圈流光环：冷雾檀绛、绯红宝石、暖香槟与纯白 */
+.wv-weave-orb-rotor {
+    position: absolute;
+    inset: -35%;
+    z-index: 0;
+    background: conic-gradient(from 0deg,
+        #841A2D 0deg,
+        #A3243B 100deg,
+        #F3E3D3 190deg,
+        #FFFFFF 245deg,
+        #D8B898 300deg,
+        #841A2D 360deg);
+}
+.wv-weave-orb-anchor.is-running .wv-weave-orb-rotor {
+    animation: wv-weave-spin-slow 2.4s linear infinite;
+}
+
+/* 球体内部檀绛核心与流转光晕 */
+.wv-weave-orb-core {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg,#841A2D 0%,#A3243B 62%,#C97A7E 100%);
+    box-shadow: inset 0 2px 4px rgba(255,255,255,.35),
+                inset 0 0 0 1px rgba(255,255,255,.25),
+                inset 0 -3px 6px rgba(68,8,19,.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.wv-weave-orb-inner-swirl {
+    position: absolute;
+    inset: -25%;
+    z-index: 0;
+    background:
+        radial-gradient(circle at 30% 25%,rgba(255,255,255,.35) 0%,transparent 42%),
+        conic-gradient(from 45deg,#841A2D 0deg,#A3243B 120deg,
+            rgba(243,227,211,.55) 210deg,#A3243B 290deg,#841A2D 360deg);
+    opacity: .92;
+}
+.wv-weave-orb-anchor.is-running .wv-weave-orb-inner-swirl {
+    animation: wv-weave-spin-slow 3.4s linear infinite;
+}
+.wv-weave-orb-gloss {
+    position: absolute;
+    top: 2px;
+    left: 16%;
+    right: 16%;
+    height: 35%;
+    z-index: 3;
+    border-radius: 50%;
+    background: linear-gradient(180deg,rgba(255,255,255,.52) 0%,rgba(255,255,255,0) 100%);
+    pointer-events: none;
+}
+.wv-weave-orb-svg {
+    position: relative;
+    z-index: 2;
+    width: 26px;
+    height: 26px;
+    color: #FFFFFF;
+    filter: drop-shadow(0 1px 4px rgba(70,10,20,.5));
+}
+.wv-weave-orb-anchor.is-running .wv-weave-astrolabe-track {
+    transform-origin: 12px 12px;
+    animation: wv-weave-spin-reverse 6s linear infinite;
+}
+.wv-weave-orb-anchor.is-running .wv-weave-main-four-star {
+    transform-origin: 12px 12px;
+    animation: wv-weave-star-breath 1.8s ease-in-out infinite;
+}
+.wv-weave-orb-anchor.is-running .wv-weave-sub-four-star {
+    transform-origin: 17.5px 6.8px;
+    animation: wv-weave-star-breath 1.8s ease-in-out .6s infinite;
+}
+.wv-weave-orb-icon {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+@keyframes wv-weave-spin-slow { to { transform: rotate(360deg); } }
+@keyframes wv-weave-spin-reverse { to { transform: rotate(-360deg); } }
+@keyframes wv-weave-star-breath {
+    0%,100% { transform: scale(.86); opacity: .84; }
+    50% { transform: scale(1.08); opacity: 1; }
+}
 @media (max-width: 480px) {
-    .wv-global-task-float { right: max(10px, env(safe-area-inset-right)); bottom: max(13px, env(safe-area-inset-bottom)); }
+    .wv-weave-orb-anchor {
+        right: max(22px, env(safe-area-inset-right));
+        bottom: max(24px, env(safe-area-inset-bottom));
+    }
 }

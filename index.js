@@ -2597,10 +2597,20 @@ const WV_P_XHS = String.raw`【小红书生成指令】
                 `<div class="wv-doomsday-box"><div class="wv-cyber-alert-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="17" r="0.8" fill="currentColor"/></svg></div><div class="wv-doomsday-title">全域出厂清零 · SYSTEM RESET</div><div class="wv-doomsday-desc">将小手机全部软件数据彻底清零重置（钱包本金回退 1.93 亿，小红书仅保留初始置顶，其余全部净空）。</div><button class="wv-btn-doomsday" id="wv_doomsday_btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg><span>确认执行全部软件清零 · 恢复出厂空白</span></button></div>`;
         }
         $("#wv_main").html(html);
+        if (wvTaskRunning) $("#wv_batch_btn, #wv_single_btn").prop("disabled", true);
     }
 
-    $(document).on("click", '.jp-icon-btn[data-app="jp_p_weave"]', () => { switchPage("jp_p_weave"); renderWeaveApp(); });
-    $(document).on("click", "#wv_home_back", () => switchPage("jp_p_home"));
+    $(document).on("click", '.jp-icon-btn[data-app="jp_p_weave"]', () => {
+        switchPage("jp_p_weave");
+        renderWeaveApp();
+        $("#wv_weave_task_orb").removeClass("is-visible");
+        wvTaskOrbRevealed = false;
+        if (!wvTaskRunning && wvTaskState !== "idle") wvTaskNeedsAttention = false;
+    });
+    $(document).on("click", "#wv_home_back", () => {
+        switchPage("jp_p_home");
+        if (wvTaskStartedAt) wvRevealTaskOrb();
+    });
     $(document).on("click", "#wv_nav button", function () { extension_settings[extName].weaveData.currentTab = $(this).data("wvtab"); saveSettingsDebounced(); renderWeaveApp(); });
     $(document).on("change", "#wv_main [data-wvtchk]", function () { const idx = Number($(this).data("wvtchk")); const wd = extension_settings[extName].weaveData; if (wd.templates[idx]) wd.templates[idx].enabled = $(this).prop("checked"); saveSettingsDebounced(); renderWeaveApp(); });
     $(document).on("click", "#wv_main [data-wvsw]", function () { $(this).toggleClass("on"); });
@@ -2723,63 +2733,179 @@ const WV_P_XHS = String.raw`【小红书生成指令】
     // =========================================================================
     const WV_HEAD = "【织章 · 多软件联动生成】请一次性完成下方全部任务。只输出各任务要求的方括号标签，每条标签独占一行；任何字段内禁止出现竖线 | 与方括号 [ ]，正文需要换行时用 \\n 表示；不要输出任何解释、前言、标题或代码块。";
 
-    // 全酒馆级织章任务胶囊：不依附手机页面，切换酒馆界面时仍留在 body
+    // 全酒馆级织章任务球：独立于原有小手机悬浮球，不依附手机页面
     let wvTaskStartedAt = 0;
+    let wvTaskEndedAt = 0;
     let wvTaskTicker = null;
+    let wvTaskState = "idle";
+    let wvTaskRunning = false;
+    let wvTaskOrbRevealed = false;
+    let wvTaskNeedsAttention = false;
+
+    const WV_TASK_ORB_SVGS = {
+        running: `
+            <svg class="wv-weave-orb-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle class="wv-weave-astrolabe-track" cx="12" cy="12" r="9.6" stroke="rgba(255,255,255,0.52)" stroke-width="1" stroke-dasharray="3.2 2.8"/>
+                <path class="wv-weave-main-four-star" d="M11.2 4.2L13.1 9.9L18.8 11.8L13.1 13.7L11.2 19.4L9.3 13.7L3.6 11.8L9.3 9.9L11.2 4.2Z" fill="#FFFFFF"/>
+                <path class="wv-weave-sub-four-star" d="M17.8 3.6L18.5 5.8L20.7 6.5L18.5 7.2L17.8 9.4L17.1 7.2L14.9 6.5L17.1 5.8L17.8 3.6Z" fill="#F3E3D3"/>
+            </svg>`,
+        done: `
+            <svg class="wv-weave-orb-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="9.2" stroke="rgba(255,255,255,0.6)" stroke-width="1.1"/>
+                <path d="M8.2 12.3L10.8 14.9L16.2 9.3" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M18.2 4.2L18.8 5.9L20.5 6.5L18.8 7.1L18.2 8.8L17.6 7.1L15.9 6.5L17.6 5.9L18.2 4.2Z" fill="#F3E3D3"/>
+            </svg>`,
+        error: `
+            <svg class="wv-weave-orb-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="9.2" stroke="rgba(255,255,255,0.6)" stroke-width="1.1"/>
+                <path d="M12 7.5V13" stroke="#FFFFFF" stroke-width="2.1" stroke-linecap="round"/>
+                <circle cx="12" cy="16.5" r="1.2" fill="#FFFFFF"/>
+            </svg>`
+    };
+
     function wvEnsureTaskFloat() {
-        if ($("#wv_global_task_float").length) return;
+        if ($("#wv_weave_task_orb").length) return;
         $("body").append(`
-            <div id="wv_global_task_float" class="wv-global-task-float" aria-live="polite">
-                <button type="button" class="wv-global-task-main" id="wv_global_task_open" aria-label="返回织章生成页面">
-                    <span class="wv-global-task-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.64 5.64l2.12 2.12m8.48 8.48 2.12 2.12m0-12.72-2.12 2.12m-8.48 8.48-2.12 2.12"/><circle cx="12" cy="12" r="4"/></svg></span>
-                    <span class="wv-global-task-copy"><strong id="wv_global_task_title">织章生成中</strong><small id="wv_global_task_elapsed">正在等待回执 · 00:00</small></span>
-                </button>
-                <button type="button" class="wv-global-task-min" id="wv_global_task_min" aria-label="收起 Jphone" title="收起 Jphone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+            <div id="wv_weave_task_orb" class="wv-weave-orb-anchor" role="button" tabindex="0" aria-label="织章生成状态，点击返回织章页面">
+                <div class="wv-weave-floating-timer" aria-live="polite">
+                    <svg class="wv-weave-timer-star" viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M8 0L9.8 6.2L16 8L9.8 9.8L8 16L6.2 9.8L0 8L6.2 6.2L8 0Z"/>
+                    </svg>
+                    <span class="wv-weave-timer-text" id="wv_weave_task_elapsed">00:00</span>
+                </div>
+                <div class="wv-weave-orb-sphere">
+                    <div class="wv-weave-orb-rotor"></div>
+                    <div class="wv-weave-orb-core">
+                        <div class="wv-weave-orb-inner-swirl"></div>
+                        <div class="wv-weave-orb-gloss"></div>
+                        <div id="wv_weave_orb_icon" class="wv-weave-orb-icon"></div>
+                    </div>
+                </div>
             </div>`);
-        $("#wv_global_task_open").on("click", () => {
-            togglePhoneModal(true);
-            switchPage("jp_p_weave");
-            renderWeaveApp();
+
+        const orb = document.getElementById("wv_weave_task_orb");
+        let dragging = false, moved = false, startX = 0, startY = 0, initialLeft = 0, initialTop = 0;
+
+        orb.addEventListener("pointerdown", (e) => {
+            dragging = true;
+            moved = false;
+            startX = e.clientX;
+            startY = e.clientY;
+            const rect = orb.getBoundingClientRect();
+            initialLeft = rect.left;
+            initialTop = rect.top;
+            try { orb.setPointerCapture(e.pointerId); } catch (_) {}
         });
-        $("#wv_global_task_min").on("click", (e) => {
-            e.stopPropagation();
-            togglePhoneModal(false);
+        orb.addEventListener("pointermove", (e) => {
+            if (!dragging) return;
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
+                moved = true;
+                const maxLeft = window.innerWidth - orb.offsetWidth - 10;
+                const maxTop = window.innerHeight - orb.offsetHeight - 10;
+                orb.style.left = Math.max(10, Math.min(maxLeft, initialLeft + dx)) + "px";
+                orb.style.top = Math.max(28, Math.min(maxTop, initialTop + dy)) + "px";
+                orb.style.right = "auto";
+                orb.style.bottom = "auto";
+            }
+        });
+        const finishPointer = () => {
+            if (!dragging) return;
+            dragging = false;
+            if (!moved) wvOpenTaskWeavePage();
+        };
+        orb.addEventListener("pointerup", finishPointer);
+        orb.addEventListener("pointercancel", () => { dragging = false; });
+        orb.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                wvOpenTaskWeavePage();
+            }
         });
     }
+
     function wvFormatElapsed() {
-        const seconds = Math.max(0, Math.floor((Date.now() - wvTaskStartedAt) / 1000));
-        return String(Math.floor(seconds / 60)).padStart(2, "0") + ":" + String(seconds % 60).padStart(2, "0");
+        const endAt = wvTaskEndedAt || Date.now();
+        const seconds = Math.max(0, Math.floor((endAt - wvTaskStartedAt) / 1000));
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const remainder = seconds % 60;
+        return hours > 0
+            ? `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(remainder).padStart(2, "0")}`
+            : `${String(minutes).padStart(2, "0")}:${String(remainder).padStart(2, "0")}`;
     }
+
+    function wvOpenTaskWeavePage() {
+        togglePhoneModal(true);
+        switchPage("jp_p_weave");
+        renderWeaveApp();
+        $("#wv_weave_task_orb").removeClass("is-visible");
+        wvTaskOrbRevealed = false;
+        // 正在生成时保留待提醒标记；已结束的任务在用户打开页面后视为已查看
+        if (!wvTaskRunning && wvTaskState !== "idle") wvTaskNeedsAttention = false;
+    }
+
+    function wvRevealTaskOrb() {
+        if (!wvTaskStartedAt || wvTaskState === "idle" || !wvTaskNeedsAttention) return;
+        wvEnsureTaskFloat();
+        wvTaskOrbRevealed = true;
+        $("#wv_weave_task_orb").addClass("is-visible");
+        wvShowTaskFloat(wvTaskState);
+    }
+
     function wvShowTaskFloat(state) {
         wvEnsureTaskFloat();
-        const $float = $("#wv_global_task_float");
-        $float.removeClass("is-done is-error").addClass(state === "done" ? "is-done" : state === "error" ? "is-error" : "is-running");
-        $("#wv_global_task_title").text(state === "done" ? "织章已完成" : state === "error" ? "生成未完成" : "织章生成中");
+        wvTaskState = state;
+        const $orb = $("#wv_weave_task_orb");
+        $orb.removeClass("is-running is-done is-error")
+            .addClass(state === "done" ? "is-done" : state === "error" ? "is-error" : "is-running");
+
         if (state === "running") {
-            $("#wv_global_task_elapsed").text("正在等待回执 · " + wvFormatElapsed());
+            $("#wv_weave_task_elapsed").text(wvFormatElapsed());
             if (wvTaskTicker) clearInterval(wvTaskTicker);
-            wvTaskTicker = setInterval(() => $("#wv_global_task_elapsed").text("正在等待回执 · " + wvFormatElapsed()), 1000);
+            wvTaskTicker = setInterval(() => {
+                $("#wv_weave_task_elapsed").text(wvFormatElapsed());
+            }, 1000);
         } else {
+            if (!wvTaskEndedAt) wvTaskEndedAt = Date.now();
             if (wvTaskTicker) clearInterval(wvTaskTicker);
             wvTaskTicker = null;
-            $("#wv_global_task_elapsed").text((state === "done" ? "回执已返回 · " : "请返回查看 · ") + wvFormatElapsed());
+            // 完成/失败后停止计时，但保留本次真实耗时；结果由球体图标与状态样式区分
+            $("#wv_weave_task_elapsed").text(wvFormatElapsed());
         }
-        $float.addClass("is-visible");
+
+        $("#wv_weave_orb_icon").html(WV_TASK_ORB_SVGS[state] || WV_TASK_ORB_SVGS.running);
+        $orb.attr("aria-label", state === "done" ? "织章已完成，点击返回查看" : state === "error" ? "织章生成未完成，点击返回查看" : "织章生成中，点击返回织章页面");
+
+        // 状态更新不主动弹出任务球；只有点击织章页面返回键后才显示
+        $orb.toggleClass("is-visible", wvTaskOrbRevealed);
     }
 
     async function wvRunGenerate(prompt, $btn, label) {
-        if ($btn.prop("disabled")) return;
-        $btn.prop("disabled", true).text("织章中 · 正在等待回执……");
+        // 防止离开页面后重新进入、或快速连点导致同一时刻启动多个织章任务
+        if (wvTaskRunning || $btn.prop("disabled")) return;
+        wvTaskRunning = true;
+        $("#wv_batch_btn, #wv_single_btn").prop("disabled", true);
         wvTaskStartedAt = Date.now();
+        wvTaskEndedAt = 0;
+        wvTaskOrbRevealed = false;
+        wvTaskNeedsAttention = true;
+        $("#wv_weave_task_orb").removeClass("is-visible");
         wvShowTaskFloat("running");
+
         try {
             const raw = String(await generatePhoneContent(`${WV_HEAD}\n\n${prompt}`) || "").trim();
             if (!raw) throw new Error("AI 返回为空");
+
             const wd = extension_settings[extName].weaveData;
             wd.lastRawCache = raw;
             saveSettingsDebounced();
-            const sw = $("#wv_main [data-wvsw]").eq(1), auto = !sw.length || sw.hasClass("on");
+
+            const sw = $("#wv_main [data-wvsw]").eq(1);
+            const auto = !sw.length || sw.hasClass("on");
             const res = auto ? window.jpWeaveDispatch(raw) : [];
+
             renderWeaveApp();
             wvShowTaskFloat("done");
             if (!auto) toastr.info("回执已存入缓存，可稍后手动解析分发");
@@ -2788,10 +2914,12 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         } catch (e) {
             wvShowTaskFloat("error");
             toastr.error(`织章失败：${e.message || e}`);
-            $btn.prop("disabled", false).text(label);
+        } finally {
+            wvTaskRunning = false;
+            $("#wv_batch_btn").prop("disabled", false).text("WEAVE STORIES · 一键织章生成 →");
+            $("#wv_single_btn").prop("disabled", false).text("GENERATE CHAPTER · 单章生成 →");
         }
     }
-
     $(document).off("click.wvgen")
         .on("click.wvgen", "#wv_batch_btn", function () {
             const list = extension_settings[extName].weaveData.templates.filter(t => t.enabled && t.content);
