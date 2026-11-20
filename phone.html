@@ -6,6 +6,8 @@
 
       <!-- ==================== 🍎 状态栏（已去掉✕，整体右移对齐） ==================== -->
       <div class="jp-statusbar">
+        <!-- 日记页专用：覆盖系统时间区域的透明返回热区 -->
+        <div id="dy_time_back_zone" title="点击左上角时间返回"></div>
         <div class="jp-status-time-box"><span id="jp_top_clock">08:40</span></div>
         <div class="jp-island"><div class="jp-island-lens"></div></div>
         <div class="jp-status-icons-box">
@@ -1636,9 +1638,6 @@
       <!-- ==================== 📓 日记 App ==================== -->
       <!-- ==================== 🖋️ 池衿宴的黑巴克线圈日记房间 ==================== -->
       <div id="jp_p_diary" class="jp-page">
-        <!-- 覆盖在状态栏左上角时间上的透明智能返回热区（点时间即返回上一层/返回桌面） -->
-        <div id="dy_time_back_zone" title="点击左上角时间返回"></div>
-
         <div class="dy-notebook">
           <!-- 左侧：13 组黑色金属双线圈 + 打孔凹槽 -->
           <div class="dy-spiral-spine" id="dy_spiral_spine"></div>
