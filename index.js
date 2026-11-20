@@ -3015,7 +3015,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
                 const rows = typeof wvScan === "function" ? wvScan(rawText, "日记") : [];
                 rows.forEach(r => {
                     const f = r.f || [];
-                    if (f.length >= 5) {
+                    if (f.length >= 6) {
                         window.addDiaryFromAI({ weather: f[0], mood: f[1], location: f[2], title: f[3], content: f[4], clipText: f[5] || "" });
                     }
                 });
