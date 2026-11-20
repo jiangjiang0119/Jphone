@@ -2610,13 +2610,14 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         wvTaskOrbRevealed = false;
         if (!wvTaskRunning && wvTaskState !== "idle") wvTaskNeedsAttention = false;
     });
-    // 直接绑定静态返回键，避免其他页面级点击处理器阻止事件冒泡到 document
-    document.getElementById("wv_home_back")?.addEventListener("click", () => {
+    // 在捕获阶段监听返回键，避免页面内其他处理器阻止任务球显示
+    document.addEventListener("click", (event) => {
+        if (!event.target?.closest?.("#wv_home_back")) return;
         switchPage("jp_p_home");
         requestAnimationFrame(() => {
             if (wvTaskStartedAt && wvTaskNeedsAttention) wvRevealTaskOrb();
         });
-    });
+    }, true);
     $(document).on("click", "#wv_nav button", function () { extension_settings[extName].weaveData.currentTab = $(this).data("wvtab"); saveSettingsDebounced(); renderWeaveApp(); });
     $(document).on("change", "#wv_main [data-wvtchk]", function () { const idx = Number($(this).data("wvtchk")); const wd = extension_settings[extName].weaveData; if (wd.templates[idx]) wd.templates[idx].enabled = $(this).prop("checked"); saveSettingsDebounced(); renderWeaveApp(); });
     $(document).on("click", "#wv_main [data-wvsw]", function () { $(this).toggleClass("on"); });
