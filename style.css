@@ -2389,3 +2389,53 @@
 .dy-ink-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .dy-ink-btn { padding: 9px 10px; border: 1px solid var(--dy-line); border-radius: 7px; background: #FFF; display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 11.5px; }
 .dy-ink-dot { width: 16px; height: 16px; border-radius: 4px; }
+
+
+/* === GLOBAL WEAVE TASK PILL · 全酒馆悬浮任务胶囊 === */
+.wv-global-task-float {
+    position: fixed !important;
+    right: max(14px, env(safe-area-inset-right));
+    bottom: max(18px, env(safe-area-inset-bottom));
+    z-index: 2147483000 !important;
+    display: none;
+    align-items: center;
+    gap: 2px;
+    width: 188px;
+    min-height: 54px;
+    padding: 5px 7px 5px 9px;
+    border: 1px solid rgba(132, 26, 45, 0.20);
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 5px 22px rgba(39, 35, 48, 0.13), 0 1px 3px rgba(132, 26, 45, 0.06);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+    color: #2C2E3B;
+    font-family: inherit;
+}
+.wv-global-task-float.is-visible { display: flex; }
+.wv-global-task-main {
+    display: flex; align-items: center; gap: 9px; flex: 1; min-width: 0;
+    padding: 2px 0; border: 0; background: transparent; color: inherit;
+    text-align: left; cursor: pointer;
+}
+.wv-global-task-mark {
+    width: 28px; height: 28px; flex: 0 0 28px; display: grid; place-items: center;
+    border-radius: 7px; color: #841A2D; background: rgba(132, 26, 45, 0.07);
+}
+.wv-global-task-mark svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.55; stroke-linecap: round; }
+.wv-global-task-float.is-running .wv-global-task-mark svg { animation: wv-task-pulse 1.8s ease-in-out infinite; }
+.wv-global-task-copy { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.wv-global-task-copy strong { color: #383440; font-size: 11px; line-height: 1.2; font-weight: 600; letter-spacing: .02em; }
+.wv-global-task-copy small { color: #8B8491; font-size: 9px; line-height: 1.2; white-space: nowrap; }
+.wv-global-task-min {
+    width: 25px; height: 28px; flex: 0 0 25px; display: grid; place-items: center;
+    border: 0; border-left: 1px solid rgba(132, 26, 45, 0.10); border-radius: 0;
+    background: transparent; color: #A49AA4; cursor: pointer;
+}
+.wv-global-task-min svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; }
+.wv-global-task-float.is-done .wv-global-task-mark { color: #617B70; background: rgba(97, 123, 112, 0.09); }
+.wv-global-task-float.is-error .wv-global-task-mark { color: #A64A55; background: rgba(166, 74, 85, 0.08); }
+@keyframes wv-task-pulse { 0%,100% { opacity: .62; transform: scale(.94); } 50% { opacity: 1; transform: scale(1.05); } }
+@media (max-width: 480px) {
+    .wv-global-task-float { right: max(10px, env(safe-area-inset-right)); bottom: max(14px, env(safe-area-inset-bottom)); }
+}
