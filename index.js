@@ -422,7 +422,12 @@ export async function generatePhoneContent(taskPrompt) {
     } else {
         const ctx = SillyTavern.getContext();
         if (typeof ctx.generateQuietPrompt === "function") {
-            return await ctx.generateQuietPrompt(fullPrompt, false, false);
+            // 新版酒馆使用对象参数；旧版使用位置参数。按函数签名长度兼容两代 API。
+            const quietFn = ctx.generateQuietPrompt;
+            if (quietFn.length <= 1) {
+                return await quietFn({ quietPrompt: fullPrompt, quietToLoud: false, skipWIAN: false });
+            }
+            return await quietFn(fullPrompt, false, false);
         } else if (typeof ctx.generateRaw === "function") {
             return await ctx.generateRaw({ prompt: fullPrompt, quietToLoud: false });
         }
@@ -2610,11 +2615,10 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         wvTaskOrbRevealed = false;
         if (!wvTaskRunning && wvTaskState !== "idle") wvTaskNeedsAttention = false;
     });
-    // 返回桌面时显示织章任务球。使用与织章按钮相同的委托事件机制，
-    // 不依赖捕获阶段或动画帧，避免移动端返回按钮事件时序导致漏显。
+    // 返回桌面后由统一同步器判断是否显示任务球。
     $(document).off("click.wvTaskOrb", "#wv_home_back").on("click.wvTaskOrb", "#wv_home_back", function () {
-        if (wvTaskStartedAt && wvTaskState !== "idle") wvRevealTaskOrb();
         switchPage("jp_p_home");
+        requestAnimationFrame(wvSyncTaskOrb);
     });
     $(document).on("click", "#wv_nav button", function () { extension_settings[extName].weaveData.currentTab = $(this).data("wvtab"); saveSettingsDebounced(); renderWeaveApp(); });
     $(document).on("change", "#wv_main [data-wvtchk]", function () { const idx = Number($(this).data("wvtchk")); const wd = extension_settings[extName].weaveData; if (wd.templates[idx]) wd.templates[idx].enabled = $(this).prop("checked"); saveSettingsDebounced(); renderWeaveApp(); });
@@ -2857,12 +2861,8 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         if (!wvTaskStartedAt || wvTaskState === "idle") return;
         wvEnsureTaskFloat();
         wvTaskOrbRevealed = true;
-        const orb = document.getElementById("wv_weave_task_orb");
-        if (orb) {
-            orb.classList.add("is-visible");
-            orb.style.setProperty("display", "flex", "important");
-        }
         wvShowTaskFloat(wvTaskState);
+        wvSyncTaskOrb();
     }
 
     function wvShowTaskFloat(state) {
@@ -2889,10 +2889,31 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         $("#wv_weave_orb_icon").html(WV_TASK_ORB_SVGS[state] || WV_TASK_ORB_SVGS.running);
         $orb.attr("aria-label", state === "done" ? "织章已完成，点击返回查看" : state === "error" ? "织章生成未完成，点击返回查看" : "织章生成中，点击返回织章页面");
 
-        // 状态更新不主动弹出任务球；只有点击织章页面返回键后才显示
-        $orb.toggleClass("is-visible", wvTaskOrbRevealed);
-        if (wvTaskOrbRevealed) $orb[0]?.style.setProperty("display", "flex", "important");
-        else $orb[0]?.style.removeProperty("display");
+        wvSyncTaskOrb();
+    }
+
+    // 任务球始终挂在 body；只根据手机是否关闭/当前是否停留在织章生成页决定显隐。
+    function wvIsOnWeaveScreen() {
+        const overlay = document.getElementById("j_phone_overlay");
+        const weavePage = document.getElementById("jp_p_weave");
+        const overlayOpen = !!overlay && !overlay.classList.contains("j-phone-hidden");
+        return overlayOpen && !!weavePage && weavePage.classList.contains("active")
+            && !!document.querySelector("#wv_batch_btn, #wv_single_btn");
+    }
+
+    function wvSyncTaskOrb() {
+        const orb = document.getElementById("wv_weave_task_orb");
+        if (!orb) return;
+        const onWeave = wvIsOnWeaveScreen();
+        if (onWeave && !wvTaskRunning) wvTaskNeedsAttention = false;
+        const show = !!wvTaskStartedAt && wvTaskState !== "idle"
+            && (wvTaskRunning || wvTaskNeedsAttention) && !onWeave;
+        orb.classList.toggle("is-visible", show);
+        if (show) orb.style.setProperty("display", "flex", "important");
+        else orb.style.removeProperty("display");
+    }
+    if (!window.jpWeaveOrbSyncInterval) {
+        window.jpWeaveOrbSyncInterval = setInterval(wvSyncTaskOrb, 400);
     }
 
     async function wvRunGenerate(prompt, $btn, label) {
