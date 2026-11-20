@@ -2610,14 +2610,12 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         wvTaskOrbRevealed = false;
         if (!wvTaskRunning && wvTaskState !== "idle") wvTaskNeedsAttention = false;
     });
-    // 在捕获阶段监听返回键，避免页面内其他处理器阻止任务球显示
-    document.addEventListener("click", (event) => {
-        if (!event.target?.closest?.("#wv_home_back")) return;
+    // 返回桌面时显示织章任务球。使用与织章按钮相同的委托事件机制，
+    // 不依赖捕获阶段或动画帧，避免移动端返回按钮事件时序导致漏显。
+    $(document).off("click.wvTaskOrb", "#wv_home_back").on("click.wvTaskOrb", "#wv_home_back", function () {
+        if (wvTaskStartedAt && wvTaskState !== "idle") wvRevealTaskOrb();
         switchPage("jp_p_home");
-        requestAnimationFrame(() => {
-            if (wvTaskStartedAt && wvTaskNeedsAttention) wvRevealTaskOrb();
-        });
-    }, true);
+    });
     $(document).on("click", "#wv_nav button", function () { extension_settings[extName].weaveData.currentTab = $(this).data("wvtab"); saveSettingsDebounced(); renderWeaveApp(); });
     $(document).on("change", "#wv_main [data-wvtchk]", function () { const idx = Number($(this).data("wvtchk")); const wd = extension_settings[extName].weaveData; if (wd.templates[idx]) wd.templates[idx].enabled = $(this).prop("checked"); saveSettingsDebounced(); renderWeaveApp(); });
     $(document).on("click", "#wv_main [data-wvsw]", function () { $(this).toggleClass("on"); });
@@ -2855,10 +2853,15 @@ const WV_P_XHS = String.raw`【小红书生成指令】
     }
 
     function wvRevealTaskOrb() {
-        if (!wvTaskStartedAt || wvTaskState === "idle" || !wvTaskNeedsAttention) return;
+        // 该函数只由用户点击织章返回键触发；任务只要启动过，就允许查看状态。
+        if (!wvTaskStartedAt || wvTaskState === "idle") return;
         wvEnsureTaskFloat();
         wvTaskOrbRevealed = true;
-        $("#wv_weave_task_orb").addClass("is-visible");
+        const orb = document.getElementById("wv_weave_task_orb");
+        if (orb) {
+            orb.classList.add("is-visible");
+            orb.style.setProperty("display", "flex", "important");
+        }
         wvShowTaskFloat(wvTaskState);
     }
 
@@ -2888,6 +2891,8 @@ const WV_P_XHS = String.raw`【小红书生成指令】
 
         // 状态更新不主动弹出任务球；只有点击织章页面返回键后才显示
         $orb.toggleClass("is-visible", wvTaskOrbRevealed);
+        if (wvTaskOrbRevealed) $orb[0]?.style.setProperty("display", "flex", "important");
+        else $orb[0]?.style.removeProperty("display");
     }
 
     async function wvRunGenerate(prompt, $btn, label) {
