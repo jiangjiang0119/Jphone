@@ -218,6 +218,16 @@
                 </div>
                 <span class="jp-icon-name">织章•WEAVE</span>
               </div>
+              <div class="jp-icon-btn" data-app="jp_p_diary" style="grid-column:1;">
+                <div class="jp-icon-box" id="jp_ico_diary">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 3.5h12a2 2 0 0 1 2 2V21H7a2 2 0 0 1-2-2V3.5Z"/>
+                    <path d="M5 3.5v15.8A2.7 2.7 0 0 0 7.7 22H19"/>
+                    <path d="M9 8h6M9 12h6M9 16h4"/>
+                  </svg>
+                </div>
+                <span class="jp-icon-name">日记</span>
+              </div>
             </div>
           </div>
         </div>
@@ -1622,9 +1632,136 @@
 
         <div class="wv-toast" id="wv_toast"></div>
       </div>
-          
-                  
-     
+
+      <!-- ==================== 📓 日记 App ==================== -->
+      <!-- ==================== 🖋️ 池衿宴的黑巴克线圈日记房间 ==================== -->
+      <div id="jp_p_diary" class="jp-page">
+        <!-- 覆盖在状态栏左上角时间上的透明智能返回热区（点时间即返回上一层/返回桌面） -->
+        <div id="dy_time_back_zone" title="点击左上角时间返回"></div>
+
+        <div class="dy-notebook">
+          <!-- 左侧：13 组黑色金属双线圈 + 打孔凹槽 -->
+          <div class="dy-spiral-spine" id="dy_spiral_spine"></div>
+
+          <div class="dy-page">
+            <!-- 黑巴克玫瑰底纹层（支持默认手绘矢量 & 上传原图正片叠底溶图） -->
+            <div class="dy-baccara-layer">
+              <div class="dy-custom-rose" id="dy_custom_rose"></div>
+              <svg class="dy-rose-svg" id="dy_default_rose" viewBox="0 0 240 270" fill="none">
+                <defs>
+                  <radialGradient id="dyVelvetOut" cx="50%" cy="45%" r="55%"><stop offset="0%" stop-color="#7A111E"/><stop offset="55%" stop-color="#3D050B"/><stop offset="100%" stop-color="#1A0104"/></radialGradient>
+                  <radialGradient id="dyVelvetIn" cx="45%" cy="40%" r="50%"><stop offset="0%" stop-color="#961928"/><stop offset="60%" stop-color="#4A070F"/><stop offset="100%" stop-color="#1E0205"/></radialGradient>
+                  <linearGradient id="dyStem" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#587042"/><stop offset="100%" stop-color="#2F4020"/></linearGradient>
+                  <linearGradient id="dyLeaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#68824F"/><stop offset="50%" stop-color="#485E33"/><stop offset="100%" stop-color="#2D3D1E"/></linearGradient>
+                </defs>
+                <ellipse cx="95" cy="118" rx="54" ry="48" transform="rotate(-22 95 118)" fill="#8A7968" opacity="0.14"/>
+                <path d="M128 118 Q 178 140 232 225" stroke="url(#dyStem)" stroke-width="4.5" stroke-linecap="round"/>
+                <path d="M145 125 Q 185 102 215 128 Q 182 152 145 125 Z" fill="url(#dyLeaf)"/>
+                <path d="M175 152 Q 145 190 158 232 Q 198 205 175 152 Z" fill="url(#dyLeaf)"/>
+                <path d="M182 162 Q 220 175 235 215 Q 195 210 182 162 Z" fill="url(#dyLeaf)"/>
+                <g transform="rotate(-18 96 105)">
+                  <path d="M96 42 L 132 54 Q 148 88 128 128 L 92 158 Q 52 135 46 95 Q 55 56 96 42 Z" fill="url(#dyVelvetOut)"/>
+                  <path d="M68 50 Q 98 34 128 58 Q 112 85 68 50 Z" fill="#590912"/>
+                  <path d="M46 92 Q 38 124 88 156 Q 96 124 46 92 Z" fill="#2B0307"/>
+                  <path d="M62 72 Q 96 52 122 78 Q 128 116 94 134 Q 58 118 62 72 Z" fill="url(#dyVelvetIn)" stroke="#8C1725" stroke-width="0.6"/>
+                  <path d="M70 84 Q 95 65 114 88 Q 112 118 88 124 Q 64 110 70 84 Z" fill="#330409"/>
+                  <path d="M78 90 Q 96 76 108 94 Q 104 112 88 114 Q 74 104 78 90 Z" fill="url(#dyVelvetIn)" stroke="#A31E2E" stroke-width="0.6"/>
+                  <path d="M85 95 Q 96 86 102 97 Q 98 107 90 106 Q 83 101 85 95 Z" fill="#1C0103"/>
+                  <ellipse cx="105" cy="84" rx="2.2" ry="3.2" fill="#FFFFFF" opacity="0.65"/>
+                  <ellipse cx="115" cy="108" rx="1.8" ry="2.8" fill="#FFFFFF" opacity="0.55"/>
+                </g>
+              </svg>
+            </div>
+
+            <!-- 信纸抬头：左日期，右天气 + 黑色小兔子 SVG 按钮 -->
+            <div class="dy-header">
+              <div class="dy-date-box">
+                <span class="dy-date-en" id="dy_date_en">WAITING FOR ENTRY</span>
+                <span class="dy-date-cn" id="dy_date_cn">尚未落笔</span>
+              </div>
+              <div class="dy-head-right">
+                <div class="dy-weather-box">
+                  <span id="dy_weather_txt">黑巴克手记</span>
+                  <span id="dy_mood_txt">心境：待记录</span>
+                </div>
+                <button class="dy-bunny-btn" id="dy_open_bunny" title="打开目录与设置">
+                  <svg viewBox="0 0 32 32" fill="none">
+                    <path d="M12.5 14 C10.5 7, 10 3.5, 12.2 3 C14.2 2.5, 15.2 8, 15.5 13.5" fill="#1E2026"/>
+                    <path d="M17 13.5 C17.5 6.5, 19.5 2.5, 21.5 3.2 C23.2 3.8, 21.8 9.5, 19.8 14.2" fill="#1E2026"/>
+                    <path d="M18.2 12 C18.6 7.5, 19.8 4.8, 20.8 5.2 C21.5 5.6, 20.6 9.2, 19.3 12.5" fill="#7A1C2A"/>
+                    <ellipse cx="16" cy="19.5" rx="7.8" ry="6.8" fill="#1E2026"/>
+                    <circle cx="13" cy="18.5" r="1.15" fill="#FFFFFF"/><circle cx="13.2" cy="18.5" r="0.55" fill="#7A1C2A"/>
+                    <circle cx="19" cy="18.5" r="1.15" fill="#FFFFFF"/><circle cx="18.8" cy="18.5" r="0.55" fill="#7A1C2A"/>
+                    <polygon points="16,20.2 15.1,19.3 16.9,19.3" fill="#B5485A"/>
+                    <path d="M16 20.2 V21.4 M16 21.4 Q14.8 22.3 14 21.6 M16 21.4 Q17.2 22.3 18 21.6" stroke="#FFFFFF" stroke-width="0.85" stroke-linecap="round"/>
+                    <path d="M16 26.2 L13.2 24.6 V27.8 Z M16 26.2 L18.8 24.6 V27.8 Z" fill="#7A1C2A"/><circle cx="16" cy="26.2" r="1" fill="#D4AF37"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="dy-subhead">
+              <span id="dy_location">书写地点：等待池衿宴执笔</span>
+              <span style="font-family:'Caveat',Georgia,serif; font-size:13.5px;">Montblanc 149</span>
+            </div>
+
+            <!-- 30px 等高横线区（文字整体下移 5px + 温润毛笔体） -->
+            <div class="dy-scroll" id="dy_scroll">
+              <div class="dy-lines-canvas">
+                <div class="dy-shift-box">
+                  <div class="dy-title" id="dy_title"></div>
+                  <div class="dy-content" id="dy_content"></div>
+                  <div class="dy-sign" id="dy_sign"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 左下角回形针半透夹页便签（空状态时自动隐藏） -->
+            <div class="dy-vellum-note" id="dy_vellum_note" style="display:none;">
+              <svg class="dy-paperclip" viewBox="0 0 24 48"><path d="M7 12v22a7 7 0 0 0 14 0V10a5 5 0 0 0-10 0v22a3 3 0 0 0 6 0V14" stroke-linecap="round"/></svg>
+              <div class="dy-vellum-tag"><span>TUCKED NOTE // 夹页批注</span><span>▾</span></div>
+              <div class="dy-vellum-text" id="dy_clip_text"></div>
+            </div>
+
+            <!-- 底部翻页栏 -->
+            <div class="dy-footer">
+              <button class="dy-turn-btn" id="dy_prev_btn">◀ 上一页</button>
+              <span id="dy_page_num">PAGE 00 / 00</span>
+              <button class="dy-turn-btn" id="dy_next_btn">下一页 ▶</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 🐇 黑色小兔子呼出的三合一抽屉（含单独生成按钮、目录索引、墨色与黑巴克上传） -->
+        <div class="dy-modal-mask" id="dy_bunny_modal">
+          <div class="dy-sheet">
+            <button class="dy-gen-now-btn" id="dy_gen_single_btn">🖋️ 让阿宴执笔写今日日记 (单独生成)</button>
+            <div class="dy-tabs-bar">
+              <button class="dy-tab active" data-dypane="index">手记目录 (<span id="dy_idx_count">0</span>/30)</button>
+              <button class="dy-tab" data-dypane="ink">墨色 &amp; 黑巴克底图</button>
+              <button class="dy-tab" id="dy_close_bunny">返回正文</button>
+            </div>
+            <div class="dy-pane active" id="dy_pane_index"><div id="dy_index_list"></div></div>
+            <div class="dy-pane" id="dy_pane_ink">
+              <label class="dy-upload-label">
+                <span>🌹 上传你的「黑巴克玫瑰」原图 (自动溶入信纸)</span>
+                <input type="file" accept="image/*" id="dy_rose_file" style="display:none;">
+              </label>
+              <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px; color:#8E95A4; margin:4px 0 12px;">
+                <span>黑巴克底图浓度：<b id="dy_alpha_val">24%</b></span>
+                <input type="range" min="10" max="75" value="24" id="dy_alpha_range" style="width:140px; accent-color:#5E121D;">
+              </div>
+              <div class="dy-ink-grid">
+                <button class="dy-ink-btn" data-pen="#222630" data-acc="#5E121D"><span class="dy-ink-dot" style="background:#222630;"></span><span>午夜炭黑墨</span></button>
+                <button class="dy-ink-btn" data-pen="#4A0E17" data-acc="#7A111E"><span class="dy-ink-dot" style="background:#4A0E17;"></span><span>黑巴克丝绒红</span></button>
+                <button class="dy-ink-btn" data-pen="#1E324A" data-acc="#5E121D"><span class="dy-ink-dot" style="background:#1E324A;"></span><span>日内瓦钢蓝</span></button>
+                <button class="dy-ink-btn" data-pen="#2B3832" data-acc="#5E121D"><span class="dy-ink-dot" style="background:#2B3832;"></span><span>冷杉深松绿</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
             <div class="jp-homebar" title="点击返回桌面"></div>
     </div>
   </div>
