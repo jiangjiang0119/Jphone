@@ -6,9 +6,11 @@
 
       <!-- ==================== 🍎 状态栏（已去掉✕，整体右移对齐） ==================== -->
       <div class="jp-statusbar">
-        <!-- 日记页专用：覆盖系统时间区域的透明返回热区 -->
-        <div id="dy_time_back_zone" title="点击左上角时间返回"></div>
-        <div class="jp-status-time-box"><span id="jp_top_clock">08:40</span></div>
+        <div class="jp-status-time-box">
+          <span id="jp_top_clock">08:40</span>
+          <!-- 日记页专用：只覆盖 Jphone 状态栏系统时间的透明返回热区 -->
+          <div id="dy_time_back_zone" title="点击左上角系统时间返回"></div>
+        </div>
         <div class="jp-island"><div class="jp-island-lens"></div></div>
         <div class="jp-status-icons-box">
           <svg class="jp-icon-svg" width="16" height="11" viewBox="0 0 17 12" fill="currentColor">
