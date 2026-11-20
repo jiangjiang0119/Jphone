@@ -2734,6 +2734,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
 
     // 全酒馆级织章任务球：独立于原有小手机悬浮球，不依附手机页面
     let wvTaskStartedAt = 0;
+    let wvTaskEndedAt = 0;
     let wvTaskTicker = null;
     let wvTaskState = "idle";
     let wvTaskRunning = false;
@@ -2823,7 +2824,8 @@ const WV_P_XHS = String.raw`【小红书生成指令】
     }
 
     function wvFormatElapsed() {
-        const seconds = Math.max(0, Math.floor((Date.now() - wvTaskStartedAt) / 1000));
+        const endAt = wvTaskEndedAt || Date.now();
+        const seconds = Math.max(0, Math.floor((endAt - wvTaskStartedAt) / 1000));
         return String(Math.floor(seconds / 60)).padStart(2, "0") + ":" + String(seconds % 60).padStart(2, "0");
     }
 
@@ -2857,6 +2859,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
                 $("#wv_weave_task_elapsed").text(wvFormatElapsed());
             }, 1000);
         } else {
+            if (!wvTaskEndedAt) wvTaskEndedAt = Date.now();
             if (wvTaskTicker) clearInterval(wvTaskTicker);
             wvTaskTicker = null;
             // 完成/失败后停止计时，但保留本次真实耗时；结果由球体图标与状态样式区分
@@ -2876,6 +2879,7 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         wvTaskRunning = true;
         $("#wv_batch_btn, #wv_single_btn").prop("disabled", true);
         wvTaskStartedAt = Date.now();
+        wvTaskEndedAt = 0;
         wvTaskOrbRevealed = false;
         $("#wv_weave_task_orb").removeClass("is-visible");
         wvShowTaskFloat("running");
