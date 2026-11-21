@@ -2566,7 +2566,8 @@ const WV_P_XHS = String.raw`【小红书生成指令】
             { key: "browser", name: "浏览器", icon: "browser", color: "g-purple", records: bSec.concat(bNor) },
             { key: "grudge", name: "记仇本", icon: "grudge", color: "g-lilac", records: (s.grudgeData?.records || []).map((x, i) => ({ id: i, title: x.title, sub: `${x.settled ? "已结清" : "待肉偿"} · ${x.date || "刚刚"}` })) },
             { key: "wallet", name: "钱包", icon: "wallet", color: "g-gold", records: (s.walletData?.bills || []).map((x, i) => ({ id: i, title: x.title, sub: `${Number(x.amount) >= 0 ? "+" : "-"} ¥ ${Math.abs(Number(x.amount) || 0).toLocaleString()}` })) },
-            { key: "nap", name: "NET-A-PORTER", icon: "nap", color: "g-silver", records: (s.napData?.bag || []).map((x, i) => ({ id: i, title: x.name, sub: `${x.brand || "高定"} · ¥ ${Number(x.price || 0).toLocaleString()}` })) }
+            { key: "nap", name: "NET-A-PORTER", icon: "nap", color: "g-silver", records: (s.napData?.bag || []).map((x, i) => ({ id: i, title: x.name, sub: `${x.brand || "高定"} · ¥ ${Number(x.price || 0).toLocaleString()}` })) },
+            { key: "diary", name: "黑巴克日记", icon: "grudge", color: "g-rose", records: (s.diaryData?.entries || []).map((x, i) => ({ id: i, title: x.title, sub: `${x.dateCn || x.dateEn || "手记"} · ${x.weather || "黑巴克手记"}` })) }
         ];
     }
 
@@ -2641,6 +2642,17 @@ const WV_P_XHS = String.raw`【小红书生成指令】
         else if (k === "grudge") { s.grudgeData?.records?.splice(id, 1); renderGrudgeApp(); }
         else if (k === "wallet") { s.walletData?.bills?.splice(id, 1); renderWalletApp(); }
         else if (k === "nap") { s.napData?.bag?.splice(id, 1); renderNapApp(); }
+        else if (k === "diary") {
+            const entries = s.diaryData?.entries;
+            if (Array.isArray(entries) && id >= 0 && id < entries.length) {
+                entries.splice(id, 1);
+                const dd = s.diaryData;
+                if (entries.length === 0) dd.currentIdx = 0;
+                else if (Number(dd.currentIdx) > id) dd.currentIdx--;
+                else dd.currentIdx = Math.min(Number(dd.currentIdx) || 0, entries.length - 1);
+                renderDiaryApp();
+            }
+        }
         saveSettingsDebounced(); renderWeaveApp(); toastr.info("已移除该条记录");
     });
      // =========================================================================
